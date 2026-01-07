@@ -1,0 +1,12 @@
+[
+  {
+    "updatedScriptTitle": "Updated Script Name",
+    "scriptDescription": "Updated via automation",
+    "expectedStatus": 200
+  },
+  {
+    "updatedScriptTitle": "",
+    "scriptDescription": "Invalid case",
+    "expectedStatus": 400
+  }
+]

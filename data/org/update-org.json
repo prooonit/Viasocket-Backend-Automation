@@ -1,0 +1,14 @@
+[
+  {
+    "updateOrg": "Updated Org Name",
+    "expectedStatus": 200
+  },
+  {
+    "updateOrg": "Updated Org Name Again",
+    "expectedStatus": 200
+  },
+  {
+    "updateOrg": "",
+    "expectedStatus": 400
+  }
+]

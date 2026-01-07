@@ -1,0 +1,14 @@
+[
+  {
+    "Updatedname": "Automation User",
+    "expectedStatus": 200
+  },
+  {
+    "Updatedname": "Automation User Updated",
+    "expectedStatus": 200
+  },
+  {
+    "Updatedname": "",
+    "expectedStatus": 400
+  }
+]

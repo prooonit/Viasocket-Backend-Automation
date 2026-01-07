@@ -1,0 +1,14 @@
+[
+  {
+    "switchorgid": 1001,
+    "expectedStatus": 200
+  },
+  {
+    "switchorgid": 999999,
+    "expectedStatus": 400
+  },
+  {
+    "switchorgid": null,
+    "expectedStatus": 400
+  }
+]

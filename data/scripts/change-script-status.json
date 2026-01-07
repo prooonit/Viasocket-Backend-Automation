@@ -1,0 +1,14 @@
+[
+  {
+    "status": 1,
+    "expectedStatus": 200
+  },
+  {
+    "status": 0,
+    "expectedStatus": 200
+  },
+  {
+    "status": 999,
+    "expectedStatus": 400
+  }
+]

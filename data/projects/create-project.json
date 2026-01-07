@@ -1,0 +1,17 @@
+[
+  {
+    "projectTitle": "Automation Project 1",
+    "projectType": "flow",
+    "expectedStatus": 200
+  },
+  {
+    "projectTitle": "Automation Project 2",
+    "projectType": "flow",
+    "expectedStatus": 200
+  },
+  {
+    "projectTitle": "",
+    "projectType": "flow",
+    "expectedStatus": 400
+  }
+]

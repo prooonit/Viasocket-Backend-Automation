@@ -1,0 +1,18 @@
+[
+  {
+    "nameOrg": "Automation Org 1",
+    "expectedStatus": 200
+  },
+  {
+    "nameOrg": "Automation Org 2",
+    "expectedStatus": 200
+  },
+  {
+    "nameOrg": "",
+    "expectedStatus": 400
+  },
+  {
+    "nameOrg": "A",
+    "expectedStatus": 400
+  }
+]

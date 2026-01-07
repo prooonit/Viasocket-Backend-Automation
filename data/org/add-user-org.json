@@ -1,0 +1,18 @@
+[
+  {
+    "newusermail": "automation.user1@test.com",
+    "expectedStatus": 200
+  },
+  {
+    "newusermail": "automation.user2@test.com",
+    "expectedStatus": 200
+  },
+  {
+    "newusermail": "invalid-email",
+    "expectedStatus": 400
+  },
+  {
+    "newusermail": "",
+    "expectedStatus": 400
+  }
+]

@@ -1,0 +1,965 @@
+{
+	"info": {
+		"_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+		"name": "viasocket apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26640235",
+		"_collection_link": "https://blue-flare-105089.postman.co/workspace/My-Workspace~d24a8e70-8c58-41e7-8ea6-4e259c76cd4a/collection/26640235-5ac244a7-b6e7-4bf3-a069-966b7867adb2?action=share&source=collection_link&creator=26640235"
+	},
+	"item": [
+		{
+			"name": "org",
+			"item": [
+				{
+					"name": "createorg",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9",
+								"disabled": true
+							},
+							{
+								"key": "baggage",
+								"value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=e0aaed927a2e4c12adad8d17f852ec12,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.498977900749637,sentry-sample_rate=1",
+								"disabled": true
+							},
+							{
+								"key": "cache-control",
+								"value": "no-cache",
+								"disabled": true
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "origin",
+								"value": "https://beta-flow.viasocket.com",
+								"disabled": true
+							},
+							{
+								"key": "pragma",
+								"value": "no-cache",
+								"disabled": true
+							},
+							{
+								"key": "priority",
+								"value": "u=1, i",
+								"disabled": true
+							},
+							{
+								"key": "proxy_auth_token",
+								"value": "cFJwaU5rTGNqQmUxUWpUeVJ1Tjc4RjhRbHJJUzduelNRc1MxOWxHUCszUlFlaXhWTW9QMCtCdlhYWlArWlRxL1V1b3AxUzRMb2s2b2c1RHZBcERvZmd2UGZrajRpWE15eVhiK1ZnaFkzM0Q4d3BkeTFwN3ZaVnlQYzRuRU4yNm5taGdBS0tuTWFLOUtBcC9XdmJXU2FNcHpvWjJpK21oYnlSK1hsUVpFcFZha0xXUVhWcGNJaFVsS0hHWDhwNVlz"
+							},
+							{
+								"key": "referer",
+								"value": "https://beta-flow.viasocket.com/",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site",
+								"disabled": true
+							},
+							{
+								"key": "sentry-trace",
+								"value": "e0aaed927a2e4c12adad8d17f852ec12-9dec8321308bac1d-1",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"{{nameOrg}}\",\"timezone\":\"+05:30\",\"meta\":{\"domainUrl\":\"\",\"timezoneIdentifier\":\"Asia/Kolkata\",\"preferred_industry\":{\"preferred\":{\"name\":\"Chemicals\",\"slug\":\"chemicals\"}}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/createOrg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"createOrg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/getCompanies/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"getCompanies",
+								"all"
+							],
+							"query": [
+								{
+									"key": "proxy_auth_token",
+									"value": "{{proxy_auth_token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users of an organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/orgusers/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"orgusers",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update an organization",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"{{updateOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"org_status\": 3,\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get org token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "global search on org",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/search?key=a",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"search"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "switch org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/switchOrg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"switchOrg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user to org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/adduser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"adduser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leave org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/leave-org",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"leave-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/d/{{removeuserid}}/{{org_id}}/removeUser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"d",
+								"{{removeuserid}}",
+								"{{org_id}}",
+								"removeUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Beta Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"betaEnabled\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/betaStatus",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"betaStatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"abc111\",\n  \"org_id\": \"8681\",\n  \"type\": \"flow\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects"
+							]
+						},
+						"description": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*",
+								"disabled": true
+							},
+							{
+								"key": "accept-language",
+								"value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
+								"disabled": true
+							},
+							{
+								"key": "baggage",
+								"value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1",
+								"disabled": true
+							},
+							{
+								"key": "if-none-match",
+								"value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\"",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://flow.viasocket.com",
+								"disabled": true
+							},
+							{
+								"key": "priority",
+								"value": "u=1, i",
+								"disabled": true
+							},
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}"
+							},
+							{
+								"key": "referer",
+								"value": "https://flow.viasocket.com/",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site",
+								"disabled": true
+							},
+							{
+								"key": "sentry-trace",
+								"value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "flow",
+									"disabled": true
+								},
+								{
+									"key": "bringflows",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"newone111\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Project Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}/status?status=-1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects",
+								"{{project_id}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "-1"
+								}
+							]
+						},
+						"description": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 ."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SSO Register",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"name\":\"{{Updatedname}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://routes.msg91.com/api/c/updateUser",
+							"protocol": "https",
+							"host": [
+								"routes",
+								"msg91",
+								"com"
+							],
+							"path": [
+								"api",
+								"c",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scripts",
+			"item": [
+				{
+					"name": "Create Script",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"tarun\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts"
+							]
+						},
+						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Scripts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Script",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}"
+							]
+						},
+						"description": "Mai dusre collection ki script bhi update kar paa raha hu"
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Script",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Script Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/status?status=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						},
+						"description": "time jada lee rahi hai as expected nhi hai"
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate Script",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/duplicate",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"duplicate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete script",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "publish script",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

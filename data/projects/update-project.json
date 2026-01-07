@@ -1,0 +1,10 @@
+[
+  {
+    "updatedProjectTitle": "Updated Project Name",
+    "expectedStatus": 200
+  },
+  {
+    "updatedProjectTitle": "",
+    "expectedStatus": 400
+  }
+]
