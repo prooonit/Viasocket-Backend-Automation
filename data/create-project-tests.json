@@ -1,0 +1,30 @@
+[
+  {
+    "testCase": "Valid project creation",
+    "title": "Automation Flow Project",
+    "org_id": "56470",
+    "type": "flow",
+    "expectedStatus": 201
+  },
+  {
+    "testCase": "Missing title",
+    "title": "",
+    "org_id": "56470",
+    "type": "flow",
+    "expectedStatus": 400
+  },
+  {
+    "testCase": "Invalid org_id",
+    "title": "Invalid Org Project",
+    "org_id": "99999",
+    "type": "flow",
+    "expectedStatus": 403
+  },
+  {
+    "testCase": "Invalid type",
+    "title": "Wrong Type Project",
+    "org_id": "56470",
+    "type": "invalid_type",
+    "expectedStatus": 400
+  }
+]
