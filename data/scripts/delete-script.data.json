@@ -1,0 +1,10 @@
+[
+  {
+    "case": "delete_valid_script",
+    "expectedStatus": 200
+  },
+  {
+    "case": "delete_again",
+    "expectedStatus": 404
+  }
+]

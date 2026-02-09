@@ -1,0 +1,5039 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+      "exporter_id": "26640235",
+      "collection_link": "https://blue-flare-105089.postman.co/workspace/My-Workspace~d24a8e70-8c58-41e7-8ea6-4e259c76cd4a/collection/26640235-5ac244a7-b6e7-4bf3-a069-966b7867adb2?action=share&source=collection_link&creator=26640235"
+    },
+    "item": [
+      {
+        "id": "1d4656e1-cce6-4c6b-8ad4-3cccaa74119b",
+        "name": "org",
+        "item": [
+          {
+            "id": "bd67298b-81a9-45f7-8c12-04b9c188e4e3",
+            "name": "createorg",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "createOrg"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "b8ec4dbf-f421-4b6c-b5ea-66fc8c83f484",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Org_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "562ef963-67d2-4327-a5ba-66772cb2bbac",
+            "name": "get all organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "getCompanies",
+                  "all"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "232d982f-286a-4c0d-a44c-3cf45f9a7bfa",
+            "name": "get users of an organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "orgusers",
+                  "all"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "092c748a-338c-45d6-b1e9-df871b37b0ac",
+            "name": "update an organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "a12efb1b-eebc-4d6a-bd5a-4f6a50424907",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Org_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "04a2b378-77f9-45d5-966f-e2a8b251cbef",
+            "name": "get org token",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "token"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "ff8ad189-ffb7-475e-bdf3-4dc04f8eb7ea",
+            "name": "global search on org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "search"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "key",
+                    "value": "a"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "e54e3a4b-6abd-4f70-8b73-038e0c0bd60d",
+            "name": "switch org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "switchOrg"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "d17cfb14-10d0-4054-ae29-6739254d1bb4",
+            "name": "add user to org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "adduser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "5e063c30-1ad6-4139-9d12-461860ee0241",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randommail =\r",
+                    "  \"randomMail_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
+                    "\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "d3fbb546-27d2-49b2-b33d-1a3fe1b7b0fd",
+            "name": "remove user",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "d",
+                  "{{removeuserid}}",
+                  "{{org_id}}",
+                  "removeUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "2556d2cf-0e0e-4692-b012-0a8ebe9afe9b",
+            "name": "leave org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "leave-org"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "9704254b-9448-45d5-908b-1a41217e2dad",
+            "name": "Beta Status",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "betaStatus"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "70f0dd33-a47b-437b-babd-671dbb4e2991",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "67ae909c-e801-4d21-ab18-015c75c35a81",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 3s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "a022a388-d5b3-4347-a012-53bc465dd398",
+        "name": "Projects",
+        "item": [
+          {
+            "id": "06367e3e-a3d3-40fd-9e1c-7d0ece6f7818",
+            "name": "Create Project",
+            "request": {
+              "description": {
+                "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": true,
+                  "key": "",
+                  "value": ""
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "2711d504-af57-46af-8ec7-03fb47cf5c5a",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Collection_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                    "\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "b103fdc2-8a58-4943-b536-f4499cea16dc",
+            "name": "Get All projects",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "type",
+                    "value": "flow"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "bringflows",
+                    "value": "true"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "disabled": true,
+                  "key": "accept",
+                  "value": "application/json, text/plain, */*"
+                },
+                {
+                  "disabled": true,
+                  "key": "accept-language",
+                  "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                },
+                {
+                  "disabled": true,
+                  "key": "baggage",
+                  "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                },
+                {
+                  "disabled": true,
+                  "key": "if-none-match",
+                  "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                },
+                {
+                  "disabled": true,
+                  "key": "origin",
+                  "value": "https://flow.viasocket.com"
+                },
+                {
+                  "disabled": true,
+                  "key": "priority",
+                  "value": "u=1, i"
+                },
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "disabled": true,
+                  "key": "referer",
+                  "value": "https://flow.viasocket.com/"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua",
+                  "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua-mobile",
+                  "value": "?0"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua-platform",
+                  "value": "\"macOS\""
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-dest",
+                  "value": "empty"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-mode",
+                  "value": "cors"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-site",
+                  "value": "same-site"
+                },
+                {
+                  "disabled": true,
+                  "key": "sentry-trace",
+                  "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                },
+                {
+                  "disabled": true,
+                  "key": "user-agent",
+                  "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "e4cbe318-a10a-481e-aea9-77fb4a97e60f",
+            "name": "Update Project",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects",
+                  "{{project_id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"title\":\"newone111\"}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+            "name": "Change Project Status",
+            "request": {
+              "description": {
+                "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects",
+                  "{{project_id}}",
+                  "status"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "status",
+                    "value": "{{projectstatus}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "multipart/form-data"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "fc54bb04-2102-40ed-9e97-4fc0a8e13e03",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ],
+              "_lastExecutionId": "c98b4d45-c7b8-4e98-a0a6-abdc839f2563"
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ],
+              "_lastExecutionId": "8f7b9299-db14-4f23-afcd-074171e019b2"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bdc88e8a-89e9-4d98-b53c-3bea8f4ac677",
+        "name": "Users",
+        "item": [
+          {
+            "id": "050c1bae-734f-4805-8b1f-b3053cd7f8c0",
+            "name": "Get User Profile",
+            "request": {
+              "url": {
+                "path": [
+                  "users",
+                  "me"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "26601f39-9fa0-4b74-b938-cb644a5d5fd6",
+            "name": "SSO Register",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "5394faf7-7659-4aeb-8452-7466e4385b53",
+            "name": "Update User",
+            "request": {
+              "url": {
+                "protocol": "https",
+                "path": [
+                  "api",
+                  "c",
+                  "updateUser"
+                ],
+                "host": [
+                  "routes",
+                  "msg91",
+                  "com"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"name\":\"{{Updatedname}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "aa219167-b7a1-49fc-b496-90b4862f3207",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "a568425e-a617-4465-9982-f8733c3b554b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "706736fe-54bf-44de-8146-ec6295f7e1f5",
+        "name": "Scripts",
+        "item": [
+          {
+            "id": "440b648b-141a-4d5c-b128-16db6e3e6d56",
+            "name": "Create Script",
+            "request": {
+              "description": {
+                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"title\": \"{{scriptTitle}}\"\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "e6b6c9a9-df32-4197-81a1-28f4d43e26eb",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"workflow_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"scriptTitle\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "6aaed6ab-7284-41ac-ae40-a000dd3963fd",
+            "name": "Get All Scripts",
+            "request": {
+              "description": {
+                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "caab935d-b9ec-430d-86ac-baf301135598",
+            "name": "Update Script",
+            "request": {
+              "description": {
+                "content": "Mai dusre collection ki script bhi update kar paa raha hu",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "4cb21750-a6fd-4944-946a-6256dd96f1b0",
+            "name": "Get One Script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "fd10a89a-a777-47e4-bd74-99d569613fe6",
+            "name": "Change Script Status",
+            "request": {
+              "description": {
+                "content": "time jada lee rahi hai as expected nhi hai",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "status"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "status",
+                    "value": "{{scriptStatus}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "2213a251-46b0-423a-b6e8-5fac71a10bf3",
+            "name": "Duplicate Script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "duplicate"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "37efbbaa-b399-40fe-a235-cb89175c7999",
+            "name": "publish script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "publish"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "3d85c4e3-3c6b-488e-b480-a04354bff704",
+            "name": "revert script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "revert"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "ce750ec1-4ce7-4d5b-829b-8daf1a9782bd",
+            "name": "delete script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "delete"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "afbf5263-6041-4a25-a48b-4f354e5db182",
+            "name": "Instantiate flow from template",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "template",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-www-form-urlencoded"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "6dc84aec-b4c3-460b-91ec-dc4b04c6aefc",
+            "name": "Move script from one collection to another",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "move"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": null
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"newProjectId\":\"{{newProjectId}}\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "7a0e9961-65a1-4573-b831-3e3861437389",
+            "name": "Get Flow and Templates",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "templates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "e60884ed-3afd-473a-b5fd-4bb0967113ae",
+            "name": "Delete Bulk Scripts Using Cron (Internal Api)",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "deleteScriptCron"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "9059d171-04f5-40ae-9c14-26e1b4970dec",
+            "name": "MoveScriptToProject",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "a4d92fd3-d160-46ef-bae6-6ec73ec6ae30",
+            "name": "AI Name and Description",
+            "request": {
+              "description": {
+                "content": "Resonse time bhut lee rahe hai yeh api.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": null
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"metadata\": {\r\n        \"description\": \"Creates a fron23232it\"\r\n    },\r\n     \"type\": \"flow\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "79725051-3898-45df-b8f3-102e52a2fe90",
+            "name": "Create Template from the flow",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "makeTemplate"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                },
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "75bdea9c-d18f-432b-85b5-e45748c8e4ce",
+            "name": "Get All template by Org_Id",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "templates",
+                  "{{org_id}}",
+                  "getAllTemplates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "2acf1edc-b254-423c-89f9-c695423cf54c",
+            "name": "New Request",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "224d66c4-c34e-45d8-85a3-f78c6d678eef",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "4726fef4-e503-420d-99e5-cda6372439e6",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "189a4a34-d73f-439d-9fdf-aa9e324207d8",
+        "name": "Functions",
+        "item": [
+          {
+            "id": "f9fd67ce-9801-4c81-a12d-ef29a41a840c",
+            "name": "Get All Functions",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "552b49f4-9123-4803-a8fb-7e4d328787dd",
+            "name": "Get One Function",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions",
+                  "{{function_Id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "7836ff75-3e7d-47b1-afa3-81ad60e845ed",
+            "name": "Get Function by Title",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions",
+                  "title",
+                  "{{functitle}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "43175ecd-3475-4ff6-9af2-5ad33e0d2743",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "97785f0e-7003-4695-9c9e-bbc92553a86b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "69f1ff13-ec10-4cb5-be22-802762be18b2",
+        "name": "Run Script",
+        "item": [
+          {
+            "id": "67008eac-fcec-4292-bce5-0fe526e15ee1",
+            "name": "Run script endpoint url",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "9dcd3c94-e377-4d29-a5b2-49c6709e98f2",
+            "name": "Dry run",
+            "request": {
+              "url": {
+                "path": [
+                  "{{scriptId}}",
+                  "execute"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"type\": \"function\",\r\n    \"code\": \"return true;\",\r\n    \"name\": \"test\",\r\n    \"variables\": {\r\n        \"authId\": null\r\n    },\r\n    \"dynamicVariables\": {},\r\n    \"isUserOnDh\": false\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "41e91063-0362-4113-bd5c-ca564565c575",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "be1b3f42-43fd-43d2-ad00-4acff50c9d45",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ecee406c-91b3-433d-9123-f95665fc9f6a",
+        "name": "User orgaiztion Mapping",
+        "item": [
+          {
+            "id": "ab2345b1-03c3-42db-807d-470679e4aa95",
+            "name": "add user to org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "addUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"email\":\"{{usermail}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "5264ee7e-7b72-45e4-b054-7f3a4a005b78",
+            "name": "remove user from the org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "d",
+                  "87501",
+                  "{{org_id}}",
+                  "removeUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "f6eda8c9-14f7-4957-aa9d-c054c01532a5",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "ca72a6a7-2e0c-408b-ada9-d35d5aef2093",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "57593523-3259-401c-9538-4534097706a3",
+        "name": "flow",
+        "item": [
+          {
+            "id": "fa7a02d0-3f34-49c4-8251-1f3e49e48231",
+            "name": "Delete a step",
+            "request": {
+              "description": {
+                "content": "message should be 'successfully deleted step ' instead of 'successfully update step ' .",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "stepv2",
+                  "{{slugName}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"title\": \"JS_Code_1_DELETED\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "6fe00940-44a8-4d4c-b132-c1f4186b830e",
+            "name": "create step",
+            "request": {
+              "description": {
+                "content": "1.project id is missing in the url in the actual doc  \n2.in the body, it is asking to pass step id which is not created yet",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{project_id}}",
+                  "{{scriptId}}",
+                  "stepv2"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "589a6f78-fa27-40eb-a473-55df6bb16da5",
+            "name": "update a step",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "stepv2",
+                  "{{slugName}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "6ad95730-9b49-4633-b796-745648120353",
+            "name": "reorder",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{script",
+                  "reorder"
+                ],
+                "host": [
+                  "{{BASEURL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "8e7d8531-b6ba-474a-b246-54e5efbc39c0",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "172961e8-7389-4e9d-8ed0-dfb97a0d15e4",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "2dbb5eed-53eb-4254-a086-ab512254039e",
+        "name": "Template",
+        "item": [
+          {
+            "id": "51fbd186-dbc2-4c9a-ae3e-148dedb0b70c",
+            "name": "Get Template By Id",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "get",
+                  "{{templateId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "c6a6029f-d2a1-4be2-87e0-4da878097f2a",
+            "name": "Get all Templates",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "get-all-templates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "dd83829a-555b-4a4c-9a6e-c7a82fffc7c2",
+            "name": "Update template category",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "update-template-category",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PATCH",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "e188e436-0c20-40a4-83d0-1edd1debff47",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "6a40c6da-11f3-4f34-85f4-2fa3c781ba24",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [
+      {
+        "type": "any",
+        "value": "",
+        "key": "scriptTitle"
+      }
+    ],
+    "info": {
+      "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+      "name": "viasocket apis",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2026-01-07T07:55:42.271Z",
+      "postman_exported_using": "Postman/11.79.2"
+    },
+    "id": "22b77b51-7832-4def-b822-bfa3e248a782",
+    "name": "prod api testing",
+    "values": [
+      {
+        "type": "any",
+        "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E=",
+        "key": "proxy_auth_token"
+      },
+      {
+        "type": "any",
+        "value": "https://dev-api.viasocket.com",
+        "key": "BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "56736",
+        "key": "org_id"
+      },
+      {
+        "type": "any",
+        "value": "22199",
+        "key": "user_id"
+      },
+      {
+        "type": "any",
+        "value": "pronitin",
+        "key": "nameOrg"
+      },
+      {
+        "type": "any",
+        "value": "updatiosndjs",
+        "key": "updateOrg"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "switchorgid"
+      },
+      {
+        "type": "any",
+        "value": "tarunmewara786@gmail.com",
+        "key": "newusermail"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "orgidtoleave"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "orgidtoswitchinto"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "removeuserid"
+      },
+      {
+        "type": "any",
+        "value": "projjDqKsRk0",
+        "key": "project_id"
+      },
+      {
+        "type": "any",
+        "value": "perbpopi",
+        "key": "Updatedname"
+      },
+      {
+        "type": "any",
+        "value": "asnffdjksjksd",
+        "key": "scriptId"
+      }
+    ]
+  },
+  "globals": {
+    "id": "fbcd1f15-3478-428f-8dbf-b519b18d2ccf",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 6,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 9,
+        "pending": 0,
+        "failed": 4
+      },
+      "testScripts": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 1365.3333333333333,
+      "responseMin": 1057,
+      "responseMax": 1755,
+      "responseSd": 290.70297938311916,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1770279151413,
+      "completed": 1770279155881
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 3,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "2d0d68a0-e05a-41af-bc65-45d2a19eb935",
+          "httpRequestId": "877c8f91-037b-47b1-baa6-aa6c54267b34"
+        },
+        "item": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "description": {
+            "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "56736",
+              "projects",
+              "projjDqKsRk0",
+              "status"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [
+              {
+                "key": "status",
+                "value": "1"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Type",
+              "value": "multipart/form-data"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "5144ed22-c0f7-4413-b0a7-85b081c19886",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "0",
+              "system": true
+            }
+          ],
+          "method": "PUT"
+        },
+        "response": {
+          "id": "2f94ea5e-d996-4e8d-b60f-9d3e9892ec25",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 05 Feb 2026 08:12:33 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "107"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"6b-CBRh3P6EBZRAcQdHADGwBElkDMY\""
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8um05Dm2eQ0T2z21wzfiLvIV%2FRcJ6xxNcp8KJnVYKilv75wv4P7Ku6VV2vzUeGzOmhmKuxhdlrGqgv6QraHYPvJPqYz6x6tBAKzqlTF3mafwg9SJ\"}]}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9c90f17addadf5bd-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              110,
+              110,
+              111,
+              116,
+              32,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              32,
+              116,
+              104,
+              101,
+              32,
+              112,
+              114,
+              111,
+              106,
+              101,
+              99,
+              116,
+              32,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              46,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              101,
+              114,
+              114,
+              34,
+              58,
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              67,
+              111,
+              100,
+              101,
+              34,
+              58,
+              52,
+              48,
+              48,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              125,
+              125,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1755,
+          "responseSize": 107
+        },
+        "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is correct",
+              "message": "expected response to have status code 200 but got 400",
+              "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)"
+            }
+          },
+          {
+            "assertion": "Response time < 1s",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 1,
+              "test": "Response time < 1s",
+              "message": "expected 1755 to be below 1000",
+              "stack": "AssertionError: expected 1755 to be below 1000\n   at Object.eval sandbox-script.js:2:1)"
+            }
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "7ef2238a-5c24-4985-8186-d05d3467fc07",
+          "length": 1,
+          "cycles": 3,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "ddf13ef7-7b34-466f-b9f4-d720517206da"
+        },
+        "item": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "description": {
+            "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "56736",
+              "projects",
+              "projjDqKsRk0",
+              "status"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [
+              {
+                "key": "status",
+                "value": "-1"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Type",
+              "value": "multipart/form-data"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c10ca562-3b30-4513-9d59-638dccf7f51e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "0",
+              "system": true
+            }
+          ],
+          "method": "PUT"
+        },
+        "response": {
+          "id": "8349cda3-6673-4c9c-a34e-a62f6e2ff3a4",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 05 Feb 2026 08:12:34 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"5b-zi466nH9iVFeGPhCRn8JASoe+24\""
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BQNMye1gmvJBPe4rWn6emB5gisFoqdnTzrd%2FiYXdQG1WxNHZhQ9Cu%2BH7ShlCBULAtmt5IoNaSWNIIRqUsVDM9Heq3izIU1T%2F5O8xhmMfiFJxXszp\"}]}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9c90f1847ca3f5bd-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              86,
+              97,
+              108,
+              105,
+              100,
+              97,
+              116,
+              105,
+              111,
+              110,
+              32,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              34,
+              92,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              92,
+              34,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              111,
+              110,
+              101,
+              32,
+              111,
+              102,
+              32,
+              91,
+              48,
+              44,
+              32,
+              49,
+              44,
+              32,
+              50,
+              93,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1284,
+          "responseSize": 91
+        },
+        "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 1s",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 1,
+              "test": "Response time < 1s",
+              "message": "expected 1284 to be below 1000",
+              "stack": "AssertionError: expected 1284 to be below 1000\n   at Object.eval sandbox-script.js:2:1)"
+            }
+          },
+          {
+            "assertion": "Error message exists",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "290ee980-2cf8-4d71-aa71-157e72c510f2",
+          "length": 1,
+          "cycles": 3,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "b3c7d554-d1b3-4752-b360-bfaa18b28af4"
+        },
+        "item": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "description": {
+            "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "56736",
+              "projects",
+              "projjDqKsRk0",
+              "status"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [
+              {
+                "key": "status",
+                "value": "999"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Type",
+              "value": "multipart/form-data"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "889a8c0f-7e96-41fb-a599-0a8b113fc451",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "0",
+              "system": true
+            }
+          ],
+          "method": "PUT"
+        },
+        "response": {
+          "id": "bd45ab07-29d0-4660-8c3b-6f9b04d25ffa",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 05 Feb 2026 08:12:35 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"5b-zi466nH9iVFeGPhCRn8JASoe+24\""
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zUDubui%2FJXxlBSodAfEItHmLkDKgdyL5%2BkaYeegqj9dfMFWlEuzhgl4woRTLv2EnGIwjsD1e2ui33%2FviBut5RMIceJNc21U4L4NpXSFtbnvMj7Hw\"}]}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9c90f18d2aa4f5bd-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              86,
+              97,
+              108,
+              105,
+              100,
+              97,
+              116,
+              105,
+              111,
+              110,
+              32,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              34,
+              92,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              92,
+              34,
+              32,
+              109,
+              117,
+              115,
+              116,
+              32,
+              98,
+              101,
+              32,
+              111,
+              110,
+              101,
+              32,
+              111,
+              102,
+              32,
+              91,
+              48,
+              44,
+              32,
+              49,
+              44,
+              32,
+              50,
+              93,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1057,
+          "responseSize": 91
+        },
+        "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 1s",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 1,
+              "test": "Response time < 1s",
+              "message": "expected 1057 to be below 1000",
+              "stack": "AssertionError: expected 1057 to be below 1000\n   at Object.eval sandbox-script.js:2:1)"
+            }
+          },
+          {
+            "assertion": "Error message exists",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 289
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is correct",
+          "message": "expected response to have status code 200 but got 400",
+          "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "27ae08c4d88c029b46bb09ae0a1eff8c",
+          "id": "a55ba281-ef93-4233-a8ef-85d040f19a18",
+          "timestamp": 1770279153291,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "parent": {
+          "id": "a022a388-d5b3-4347-a012-53bc465dd398",
+          "name": "Projects",
+          "item": [
+            {
+              "id": "06367e3e-a3d3-40fd-9e1c-7d0ece6f7818",
+              "name": "Create Project",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "2711d504-af57-46af-8ec7-03fb47cf5c5a",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Generate random organization name\r",
+                      "const randomOrgName =\r",
+                      "  \"Collection_\" +\r",
+                      "  Math.random().toString(36).substring(2, 8) +\r",
+                      "  \"_\" +\r",
+                      "  Date.now();\r",
+                      "\r",
+                      "// Set variable used in request body\r",
+                      "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                      "\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b103fdc2-8a58-4943-b536-f4499cea16dc",
+              "name": "Get All projects",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "type",
+                      "value": "flow"
+                    },
+                    {
+                      "disabled": true,
+                      "key": "bringflows",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": true,
+                    "key": "accept",
+                    "value": "application/json, text/plain, */*"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "accept-language",
+                    "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "baggage",
+                    "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "if-none-match",
+                    "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "origin",
+                    "value": "https://flow.viasocket.com"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "referer",
+                    "value": "https://flow.viasocket.com/"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua",
+                    "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sentry-trace",
+                    "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e4cbe318-a10a-481e-aea9-77fb4a97e60f",
+              "name": "Update Project",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"title\":\"newone111\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+              "name": "Change Project Status",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}",
+                    "status"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "{{projectstatus}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "method": "PUT"
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "fc54bb04-2102-40ed-9e97-4fc0a8e13e03",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "c98b4d45-c7b8-4e98-a0a6-abdc839f2563"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 1s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "8f7b9299-db14-4f23-afcd-074171e019b2"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 3,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "2d0d68a0-e05a-41af-bc65-45d2a19eb935",
+          "httpRequestId": "877c8f91-037b-47b1-baa6-aa6c54267b34",
+          "scriptId": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+          "execution": "09ca4d9e-bfc0-4398-abeb-3f5168f6b3cc"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 1,
+          "test": "Response time < 1s",
+          "message": "expected 1755 to be below 1000",
+          "stack": "AssertionError: expected 1755 to be below 1000\n   at Object.eval sandbox-script.js:2:1)",
+          "checksum": "c8a5393e5c79aef00ab02976dd99cbc0",
+          "id": "b255ca65-49fc-47b2-9a6d-435552406978",
+          "timestamp": 1770279153297,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "parent": {
+          "id": "a022a388-d5b3-4347-a012-53bc465dd398",
+          "name": "Projects",
+          "item": [
+            {
+              "id": "06367e3e-a3d3-40fd-9e1c-7d0ece6f7818",
+              "name": "Create Project",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "2711d504-af57-46af-8ec7-03fb47cf5c5a",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Generate random organization name\r",
+                      "const randomOrgName =\r",
+                      "  \"Collection_\" +\r",
+                      "  Math.random().toString(36).substring(2, 8) +\r",
+                      "  \"_\" +\r",
+                      "  Date.now();\r",
+                      "\r",
+                      "// Set variable used in request body\r",
+                      "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                      "\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b103fdc2-8a58-4943-b536-f4499cea16dc",
+              "name": "Get All projects",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "type",
+                      "value": "flow"
+                    },
+                    {
+                      "disabled": true,
+                      "key": "bringflows",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": true,
+                    "key": "accept",
+                    "value": "application/json, text/plain, */*"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "accept-language",
+                    "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "baggage",
+                    "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "if-none-match",
+                    "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "origin",
+                    "value": "https://flow.viasocket.com"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "referer",
+                    "value": "https://flow.viasocket.com/"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua",
+                    "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sentry-trace",
+                    "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e4cbe318-a10a-481e-aea9-77fb4a97e60f",
+              "name": "Update Project",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"title\":\"newone111\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+              "name": "Change Project Status",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}",
+                    "status"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "{{projectstatus}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "method": "PUT"
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "fc54bb04-2102-40ed-9e97-4fc0a8e13e03",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "c98b4d45-c7b8-4e98-a0a6-abdc839f2563"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 1s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "8f7b9299-db14-4f23-afcd-074171e019b2"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 3,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "2d0d68a0-e05a-41af-bc65-45d2a19eb935",
+          "httpRequestId": "877c8f91-037b-47b1-baa6-aa6c54267b34",
+          "scriptId": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+          "execution": "09ca4d9e-bfc0-4398-abeb-3f5168f6b3cc"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 1,
+          "test": "Response time < 1s",
+          "message": "expected 1284 to be below 1000",
+          "stack": "AssertionError: expected 1284 to be below 1000\n   at Object.eval sandbox-script.js:2:1)",
+          "checksum": "a5d2cccf215141e246bd1288d5dbae45",
+          "id": "8ddef316-a837-48ce-afb8-2772915c9107",
+          "timestamp": 1770279154683,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "parent": {
+          "id": "a022a388-d5b3-4347-a012-53bc465dd398",
+          "name": "Projects",
+          "item": [
+            {
+              "id": "06367e3e-a3d3-40fd-9e1c-7d0ece6f7818",
+              "name": "Create Project",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "2711d504-af57-46af-8ec7-03fb47cf5c5a",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Generate random organization name\r",
+                      "const randomOrgName =\r",
+                      "  \"Collection_\" +\r",
+                      "  Math.random().toString(36).substring(2, 8) +\r",
+                      "  \"_\" +\r",
+                      "  Date.now();\r",
+                      "\r",
+                      "// Set variable used in request body\r",
+                      "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                      "\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b103fdc2-8a58-4943-b536-f4499cea16dc",
+              "name": "Get All projects",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "type",
+                      "value": "flow"
+                    },
+                    {
+                      "disabled": true,
+                      "key": "bringflows",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": true,
+                    "key": "accept",
+                    "value": "application/json, text/plain, */*"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "accept-language",
+                    "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "baggage",
+                    "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "if-none-match",
+                    "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "origin",
+                    "value": "https://flow.viasocket.com"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "referer",
+                    "value": "https://flow.viasocket.com/"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua",
+                    "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sentry-trace",
+                    "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e4cbe318-a10a-481e-aea9-77fb4a97e60f",
+              "name": "Update Project",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"title\":\"newone111\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+              "name": "Change Project Status",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}",
+                    "status"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "{{projectstatus}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "method": "PUT"
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "fc54bb04-2102-40ed-9e97-4fc0a8e13e03",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "c98b4d45-c7b8-4e98-a0a6-abdc839f2563"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 1s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "8f7b9299-db14-4f23-afcd-074171e019b2"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "ref": "7ef2238a-5c24-4985-8186-d05d3467fc07",
+          "length": 1,
+          "cycles": 3,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "ddf13ef7-7b34-466f-b9f4-d720517206da",
+          "scriptId": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+          "execution": "b43ba369-a9e9-454c-b2c8-980ea0355160"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 1,
+          "test": "Response time < 1s",
+          "message": "expected 1057 to be below 1000",
+          "stack": "AssertionError: expected 1057 to be below 1000\n   at Object.eval sandbox-script.js:2:1)",
+          "checksum": "4e2d7cf8d4e82460574baeb588a82d4b",
+          "id": "eaf88f97-81f2-4393-ab2c-248bef3f71ed",
+          "timestamp": 1770279155851,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+          "name": "Change Project Status",
+          "request": {
+            "description": {
+              "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [],
+          "event": []
+        },
+        "parent": {
+          "id": "a022a388-d5b3-4347-a012-53bc465dd398",
+          "name": "Projects",
+          "item": [
+            {
+              "id": "06367e3e-a3d3-40fd-9e1c-7d0ece6f7818",
+              "name": "Create Project",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "2711d504-af57-46af-8ec7-03fb47cf5c5a",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Generate random organization name\r",
+                      "const randomOrgName =\r",
+                      "  \"Collection_\" +\r",
+                      "  Math.random().toString(36).substring(2, 8) +\r",
+                      "  \"_\" +\r",
+                      "  Date.now();\r",
+                      "\r",
+                      "// Set variable used in request body\r",
+                      "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                      "\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b103fdc2-8a58-4943-b536-f4499cea16dc",
+              "name": "Get All projects",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "type",
+                      "value": "flow"
+                    },
+                    {
+                      "disabled": true,
+                      "key": "bringflows",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": true,
+                    "key": "accept",
+                    "value": "application/json, text/plain, */*"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "accept-language",
+                    "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "baggage",
+                    "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "if-none-match",
+                    "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "origin",
+                    "value": "https://flow.viasocket.com"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "referer",
+                    "value": "https://flow.viasocket.com/"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua",
+                    "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "sentry-trace",
+                    "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e4cbe318-a10a-481e-aea9-77fb4a97e60f",
+              "name": "Update Project",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"title\":\"newone111\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "a2628770-ff33-4663-8212-e8f5ff5e61eb",
+              "name": "Change Project Status",
+              "request": {
+                "description": {
+                  "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "projects",
+                    "{{project_id}}",
+                    "status"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "{{projectstatus}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "method": "PUT"
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "fc54bb04-2102-40ed-9e97-4fc0a8e13e03",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "c98b4d45-c7b8-4e98-a0a6-abdc839f2563"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 1s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "8f7b9299-db14-4f23-afcd-074171e019b2"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "ref": "290ee980-2cf8-4d71-aa71-157e72c510f2",
+          "length": 1,
+          "cycles": 3,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "b3c7d554-d1b3-4752-b360-bfaa18b28af4",
+          "scriptId": "066eee3d-3317-470a-86e5-ae0dd7ff38d7",
+          "execution": "8f7b9299-db14-4f23-afcd-074171e019b2"
+        }
+      }
+    ],
+    "error": null
+  }
+}

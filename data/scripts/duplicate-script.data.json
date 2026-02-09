@@ -1,0 +1,6 @@
+[
+  {
+    "case": "duplicate_valid_script",
+    "expectedStatus": 201
+  }
+]

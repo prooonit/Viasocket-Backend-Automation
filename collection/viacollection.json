@@ -1,0 +1,2124 @@
+{
+	"info": {
+		"_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+		"name": "viasocket apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26640235",
+		"_collection_link": "https://blue-flare-105089.postman.co/workspace/My-Workspace~d24a8e70-8c58-41e7-8ea6-4e259c76cd4a/collection/26640235-5ac244a7-b6e7-4bf3-a069-966b7867adb2?action=share&source=collection_link&creator=26640235"
+	},
+	"item": [
+		{
+			"name": "org",
+			"item": [
+				{
+					"name": "createorg",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate random organization name\r",
+									"const randomOrgName =\r",
+									"  \"Org_\" +\r",
+									"  Math.random().toString(36).substring(2, 8) +\r",
+									"  \"_\" +\r",
+									"  Date.now();\r",
+									"\r",
+									"// Set variable used in request body\r",
+									"pm.variables.set(\"nameOrg\", randomOrgName);\r",
+									"\r",
+									"// Optional: log for debugging\r",
+									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/createOrg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"createOrg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/getCompanies/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"getCompanies",
+								"all"
+							],
+							"query": [
+								{
+									"key": "proxy_auth_token",
+									"value": "{{proxy_auth_token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users of an organization",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/orgusers/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"orgusers",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update an organization",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate random organization name\r",
+									"const randomOrgName =\r",
+									"  \"Org_\" +\r",
+									"  Math.random().toString(36).substring(2, 8) +\r",
+									"  \"_\" +\r",
+									"  Date.now();\r",
+									"\r",
+									"// Set variable used in request body\r",
+									"pm.variables.set(\"updateOrg\", randomOrgName);\r",
+									"\r",
+									"// Optional: log for debugging\r",
+									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get org token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "global search on org",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/search?key=a",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"search"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "switch org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/switchOrg",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"switchOrg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user to org",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate random organization name\r",
+									"const randommail =\r",
+									"  \"randomMail_\" +\r",
+									"  Math.random().toString(36).substring(2, 8) +\r",
+									"  \"_\" +\r",
+									"  Date.now();\r",
+									"\r",
+									"// Set variable used in request body\r",
+									"pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/adduser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"adduser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/d/{{removeuserid}}/{{org_id}}/removeUser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"d",
+								"{{removeuserid}}",
+								"{{org_id}}",
+								"removeUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leave org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/leave-org",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"leave-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Beta Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/betaStatus",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"betaStatus"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 3s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Create Project",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate random organization name\r",
+									"const randomOrgName =\r",
+									"  \"Collection_\" +\r",
+									"  Math.random().toString(36).substring(2, 8) +\r",
+									"  \"_\" +\r",
+									"  Date.now();\r",
+									"\r",
+									"// Set variable used in request body\r",
+									"pm.variables.set(\"projectTitle\", randomOrgName);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects"
+							]
+						},
+						"description": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*",
+								"disabled": true
+							},
+							{
+								"key": "accept-language",
+								"value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
+								"disabled": true
+							},
+							{
+								"key": "baggage",
+								"value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1",
+								"disabled": true
+							},
+							{
+								"key": "if-none-match",
+								"value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\"",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://flow.viasocket.com",
+								"disabled": true
+							},
+							{
+								"key": "priority",
+								"value": "u=1, i",
+								"disabled": true
+							},
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}"
+							},
+							{
+								"key": "referer",
+								"value": "https://flow.viasocket.com/",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0",
+								"disabled": true
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\"",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors",
+								"disabled": true
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site",
+								"disabled": true
+							},
+							{
+								"key": "sentry-trace",
+								"value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1",
+								"disabled": true
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "flow",
+									"disabled": true
+								},
+								{
+									"key": "bringflows",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"newone111\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects",
+								"{{project_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Project Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}/status?status={{projectstatus}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"{{org_id}}",
+								"projects",
+								"{{project_id}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "{{projectstatus}}"
+								}
+							]
+						},
+						"description": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 ."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200|| expectedStatus === 201) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SSO Register",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"name\":\"{{Updatedname}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://routes.msg91.com/api/c/updateUser",
+							"protocol": "https",
+							"host": [
+								"routes",
+								"msg91",
+								"com"
+							],
+							"path": [
+								"api",
+								"c",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Scripts",
+			"item": [
+				{
+					"name": "Create Script",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate random organization name\r",
+									"const randomOrgName =\r",
+									"  \"workflow_\" +\r",
+									"  Math.random().toString(36).substring(2, 8) +\r",
+									"  \"_\" +\r",
+									"  Date.now();\r",
+									"\r",
+									"// Set variable used in request body\r",
+									"pm.variables.set(\"scriptTitle\", randomOrgName);\r",
+									"\r",
+									"// Optional: log for debugging\r",
+									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"{{scriptTitle}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts"
+							]
+						},
+						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Scripts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts"
+							]
+						},
+						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Script",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}"
+							]
+						},
+						"description": "Mai dusre collection ki script bhi update kar paa raha hu"
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Script",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Script Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/status?status={{scriptStatus}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "{{scriptStatus}}"
+								}
+							]
+						},
+						"description": "time jada lee rahi hai as expected nhi hai"
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate Script",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/duplicate",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"duplicate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "publish script",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/publish",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revert script",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/revert",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"revert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete script",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Instantiate flow from template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/template/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"template",
+								"{{scriptId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move script from one collection to another",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newProjectId\":\"{{newProjectId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/move",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"move"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Flow and Templates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/templates",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bulk Scripts Using Cron (Internal Api)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/deleteScriptCron",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"deleteScriptCron"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MoveScriptToProject",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "AI Name and Description",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"metadata\": {\r\n        \"description\": \"Creates a fron23232it\"\r\n    },\r\n     \"type\": \"flow\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Resonse time bhut lee rahe hai yeh api."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Template from the flow",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/makeTemplate",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"{{project_id}}",
+								"scripts",
+								"{{scriptId}}",
+								"makeTemplate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All template by Org_Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/projects/templates/{{org_id}}/getAllTemplates",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"projects",
+								"templates",
+								"{{org_id}}",
+								"getAllTemplates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Functions",
+			"item": [
+				{
+					"name": "Get All Functions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{scriptId}}",
+								"functions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Function",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions/{{function_Id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{scriptId}}",
+								"functions",
+								"{{function_Id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Function by Title",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions/title/{{functitle}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{scriptId}}",
+								"functions",
+								"title",
+								"{{functitle}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Run Script",
+			"item": [
+				{
+					"name": "Run script endpoint url",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Dry run",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"function\",\r\n    \"code\": \"return true;\",\r\n    \"name\": \"test\",\r\n    \"variables\": {\r\n        \"authId\": null\r\n    },\r\n    \"dynamicVariables\": {},\r\n    \"isUserOnDh\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{scriptId}}/execute",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{scriptId}}",
+								"execute"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User orgaiztion Mapping",
+			"item": [
+				{
+					"name": "add user to org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"email\":\"{{usermail}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/addUser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user from the org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/orgs/d/87501/{{org_id}}/removeUser",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orgs",
+								"d",
+								"87501",
+								"{{org_id}}",
+								"removeUser"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "flow",
+			"item": [
+				{
+					"name": "Delete a step",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"JS_Code_1_DELETED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{slugName}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{scriptId}}",
+								"stepv2",
+								"{{slugName}}"
+							]
+						},
+						"description": "message should be 'successfully deleted step ' instead of 'successfully update step ' ."
+					},
+					"response": []
+				},
+				{
+					"name": "create step",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/stepv2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{project_id}}",
+								"{{scriptId}}",
+								"stepv2"
+							]
+						},
+						"description": "1.project id is missing in the url in the actual doc  \n2.in the body, it is asking to pass step id which is not created yet"
+					},
+					"response": []
+				},
+				{
+					"name": "update a step",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{slugName}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scripts",
+								"{{scriptId}}",
+								"stepv2",
+								"{{slugName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reorder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/scripts/{{script/reorder",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"scripts",
+								"{{script",
+								"reorder"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Template",
+			"item": [
+				{
+					"name": "Get Template By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/templates/get/{{templateId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"templates",
+								"get",
+								"{{templateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Templates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/templates/get-all-templates",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"templates",
+								"get-all-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update template category",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "proxy_auth_token",
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/templates/update-template-category/{{scriptId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"templates",
+								"update-template-category",
+								"{{scriptId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+							"\r",
+							"pm.test(\"Status code is correct\", () => {\r",
+							"    pm.response.to.have.status(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 1s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"if (expectedStatus === 200) {\r",
+							"    pm.test(\"Response is JSON\", () => {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Error message exists\", () => {\r",
+							"        pm.expect(pm.response.json().message).to.exist;\r",
+							"    });\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "scriptTitle",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

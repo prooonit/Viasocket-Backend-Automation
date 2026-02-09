@@ -1,0 +1,13 @@
+{
+  "name": "qa-report-uploader",
+  "version": "1.0.0",
+  "description": "Uploads Newman HTML reports to n8n / Slack",
+  "main": "sendReports.js",
+  "scripts": {
+    "send": "node sendReports.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "form-data": "^4.0.0"
+  }
+}

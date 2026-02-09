@@ -1,0 +1,6 @@
+[
+  {
+    "case": "publish_script",
+    "expectedStatus": 200
+  }
+]

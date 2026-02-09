@@ -1,14 +1,14 @@
 [
   {
-    "status": 1,
+    "projectstatus": 1,
     "expectedStatus": 200
   },
   {
-    "status": -1,
+    "projectstatus": -1,
     "expectedStatus": 400
   },
   {
-    "status": 999,
+    "projectstatus": 999,
     "expectedStatus": 400
   }
 ]

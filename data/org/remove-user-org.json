@@ -1,0 +1,10 @@
+[
+  {
+    "removeuserid": 23187,
+    "expectedStatus": 200
+  },
+ {
+    "removeuserid": 9999,
+    "expectedStatus": 400
+  }
+]

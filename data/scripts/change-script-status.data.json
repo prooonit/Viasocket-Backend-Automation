@@ -1,0 +1,17 @@
+[
+  {
+    "case": "activate_script",
+    "scriptStatus": "active",
+    "expectedStatus": 200
+  },
+  {
+    "case": "draft_script",
+    "scriptStatus": "draft",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_status",
+    "scriptStatus": "invalid",
+    "expectedStatus": 400
+  }
+]

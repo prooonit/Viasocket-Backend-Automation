@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_update",
+    "updateTitle": "updated_workflow_name",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_title",
+    "updateTitle": "",
+    "expectedStatus": 400
+  }
+]

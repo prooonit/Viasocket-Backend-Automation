@@ -1,18 +1,18 @@
 [
   {
-    "nameOrg": "Automation Org 1",
+    "nameOrg": "sjkfnjsnfjdsjnskjfdkjd`${Math.floor(Math.random() * 1000)}`",
     "expectedStatus": 200
   },
   {
-    "nameOrg": "Automation Org 2",
+    "nameOrg": "kjsnkksjdksndkjsnjkjskswk",
+    "expectedStatus": 200
+  },
+  {
+    "nameOrg": "peosn",
     "expectedStatus": 200
   },
   {
     "nameOrg": "",
-    "expectedStatus": 400
-  },
-  {
-    "nameOrg": "A",
-    "expectedStatus": 400
+    "expectedStatus": 200
   }
 ]

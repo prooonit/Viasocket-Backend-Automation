@@ -1,0 +1,5317 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+      "exporter_id": "26640235",
+      "collection_link": "https://blue-flare-105089.postman.co/workspace/My-Workspace~d24a8e70-8c58-41e7-8ea6-4e259c76cd4a/collection/26640235-5ac244a7-b6e7-4bf3-a069-966b7867adb2?action=share&source=collection_link&creator=26640235"
+    },
+    "item": [
+      {
+        "id": "ae278687-f105-47eb-a5a6-4c93392f4e23",
+        "name": "org",
+        "item": [
+          {
+            "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+            "name": "createorg",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "createOrg"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "d171f8f2-3ed3-4186-b256-fbaf7d703a82",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Org_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ],
+                  "_lastExecutionId": "4ad0c89d-7080-4011-8bd3-7508c915263c"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5eb9a730-89c4-4ae1-9a67-fff7b6d9cf28",
+            "name": "get all organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "getCompanies",
+                  "all"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "3a24ada8-d67a-482f-be2d-76d9b1a4176f",
+            "name": "get users of an organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "orgusers",
+                  "all"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "034ec0c1-2323-4ba8-b2d4-b52c0baa78a4",
+            "name": "update an organization",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "5fdf265a-9993-4115-89a9-3cc7dc309027",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Org_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "570718ae-ee9b-485a-8b72-80beb129ddc3",
+            "name": "get org token",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "token"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "06ecd000-f125-480d-b668-3bfe085a33b3",
+            "name": "global search on org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "search"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "key",
+                    "value": "a"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "5bfaa3c1-dfa9-4224-9eb6-1e8f535fdb95",
+            "name": "switch org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "switchOrg"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "aee5b2dc-6a3d-4d02-9bd5-18586b51da66",
+            "name": "add user to org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "adduser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "3f4af814-04e4-48bc-9ea2-54d4e0657a20",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randommail =\r",
+                    "  \"randomMail_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
+                    "\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "64d3bdc2-9447-4e54-98bd-d784466d3624",
+            "name": "remove user",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "d",
+                  "{{removeuserid}}",
+                  "{{org_id}}",
+                  "removeUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "d1fa72a6-fb9b-4d94-988a-a49a3c73d381",
+            "name": "leave org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "leave-org"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "2bbfa024-c954-4fdc-afb5-cc36ef8f08a2",
+            "name": "Beta Status",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "betaStatus"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "f5c30ebf-a025-40a2-98da-f6423a940135",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ],
+              "_lastExecutionId": "556b1eb6-bae2-4a67-acb0-57478d3c562c"
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "92ff7d52-663c-4607-9482-f3fc1a150998",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 3s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ],
+              "_lastExecutionId": "ee27d47d-0db4-4546-aa6a-dbd5aed3ff60"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f12cbc81-a046-4cda-bd0e-11d0c8e27ef7",
+        "name": "Projects",
+        "item": [
+          {
+            "id": "b8664229-045b-4794-a2cd-d1520f1efb18",
+            "name": "Create Project",
+            "request": {
+              "description": {
+                "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": true,
+                  "key": "",
+                  "value": ""
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "f5558f29-ffde-4466-bec5-c32d8509f84c",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"Collection_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"projectTitle\", randomOrgName);\r",
+                    "\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "503c64ab-096c-4153-9937-dd310acbabcd",
+            "name": "Get All projects",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "type",
+                    "value": "flow"
+                  },
+                  {
+                    "disabled": true,
+                    "key": "bringflows",
+                    "value": "true"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "disabled": true,
+                  "key": "accept",
+                  "value": "application/json, text/plain, */*"
+                },
+                {
+                  "disabled": true,
+                  "key": "accept-language",
+                  "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
+                },
+                {
+                  "disabled": true,
+                  "key": "baggage",
+                  "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
+                },
+                {
+                  "disabled": true,
+                  "key": "if-none-match",
+                  "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
+                },
+                {
+                  "disabled": true,
+                  "key": "origin",
+                  "value": "https://flow.viasocket.com"
+                },
+                {
+                  "disabled": true,
+                  "key": "priority",
+                  "value": "u=1, i"
+                },
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "disabled": true,
+                  "key": "referer",
+                  "value": "https://flow.viasocket.com/"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua",
+                  "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua-mobile",
+                  "value": "?0"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-ch-ua-platform",
+                  "value": "\"macOS\""
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-dest",
+                  "value": "empty"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-mode",
+                  "value": "cors"
+                },
+                {
+                  "disabled": true,
+                  "key": "sec-fetch-site",
+                  "value": "same-site"
+                },
+                {
+                  "disabled": true,
+                  "key": "sentry-trace",
+                  "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
+                },
+                {
+                  "disabled": true,
+                  "key": "user-agent",
+                  "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "aed59b76-b944-4298-9c9d-8a24e45b1ad6",
+            "name": "Update Project",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects",
+                  "{{project_id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"title\":\"newone111\"}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "0032b1aa-cc06-4555-8658-98f07fd6b780",
+            "name": "Change Project Status",
+            "request": {
+              "description": {
+                "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "orgs",
+                  "{{org_id}}",
+                  "projects",
+                  "{{project_id}}",
+                  "status"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "status",
+                    "value": "{{projectstatus}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "multipart/form-data"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "461db431-c1b5-4d04-84a8-f24d857a70cc",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "2065fe38-c1e1-4496-8e28-73e00a507ded",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "4a81d98a-19c1-4598-a71c-4f238fe0d9df",
+        "name": "Users",
+        "item": [
+          {
+            "id": "604a165b-8a3b-4782-b5df-46ab76bedcce",
+            "name": "Get User Profile",
+            "request": {
+              "url": {
+                "path": [
+                  "users",
+                  "me"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "4a0c3818-04cf-47df-a125-d3e3a31ef2e6",
+            "name": "SSO Register",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "859534a5-e8bb-4136-bd93-a771442b3ab5",
+            "name": "Update User",
+            "request": {
+              "url": {
+                "protocol": "https",
+                "path": [
+                  "api",
+                  "c",
+                  "updateUser"
+                ],
+                "host": [
+                  "routes",
+                  "msg91",
+                  "com"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"name\":\"{{Updatedname}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "a41b3094-dff7-4e2b-83b7-2220ee636c45",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "142e7b2b-d245-4777-bad7-ea8d5b57252c",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "5f2c7217-8a01-4362-b900-2457338cd9cb",
+        "name": "Scripts",
+        "item": [
+          {
+            "id": "c2ed4acf-0972-45ee-95b7-201015b19542",
+            "name": "Create Script",
+            "request": {
+              "description": {
+                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"title\": \"{{scriptTitle}}\"\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "03431baf-13f0-4d3b-9655-22b9dbff3f54",
+                  "type": "text/javascript",
+                  "packages": {},
+                  "exec": [
+                    "// Generate random organization name\r",
+                    "const randomOrgName =\r",
+                    "  \"workflow_\" +\r",
+                    "  Math.random().toString(36).substring(2, 8) +\r",
+                    "  \"_\" +\r",
+                    "  Date.now();\r",
+                    "\r",
+                    "// Set variable used in request body\r",
+                    "pm.variables.set(\"scriptTitle\", randomOrgName);\r",
+                    "\r",
+                    "// Optional: log for debugging\r",
+                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "4f7b2f5c-0ccb-4027-91dd-cf20c75940f0",
+            "name": "Get All Scripts",
+            "request": {
+              "description": {
+                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "6c19975f-2570-4c9a-84a0-9a4ca31ec995",
+            "name": "Update Script",
+            "request": {
+              "description": {
+                "content": "Mai dusre collection ki script bhi update kar paa raha hu",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "e0697f78-51e2-48da-84ac-db7b04776de9",
+            "name": "Get One Script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "b7e5a966-13f8-4600-965d-008b771eea29",
+            "name": "Change Script Status",
+            "request": {
+              "description": {
+                "content": "time jada lee rahi hai as expected nhi hai",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "status"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "key": "status",
+                    "value": "{{scriptStatus}}"
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "d79a4f80-e575-43e6-b35a-45be8e2f9fbd",
+            "name": "Duplicate Script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "duplicate"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "578b9e79-df79-4096-a299-852573a34e13",
+            "name": "publish script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "publish"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "79544b42-3891-4481-9389-5bea51eafa5c",
+            "name": "revert script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "revert"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "f74f4377-dc82-4569-b4c1-98686bf83f49",
+            "name": "delete script",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "delete"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "81757164-6090-4d2e-ab8b-9cba16b3cc1f",
+            "name": "Instantiate flow from template",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "template",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-www-form-urlencoded"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "0ec70cfa-f42c-470b-9fb2-22094692eb1d",
+            "name": "Move script from one collection to another",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "move"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": null
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"newProjectId\":\"{{newProjectId}}\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "cc370a69-97ef-449c-be61-62cc6281bbe1",
+            "name": "Get Flow and Templates",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "templates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "6b9d8913-f55e-47fb-bec5-c0a490f52fca",
+            "name": "Delete Bulk Scripts Using Cron (Internal Api)",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "deleteScriptCron"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "53c02fe7-2594-4dfc-b046-b11a3565bff0",
+            "name": "MoveScriptToProject",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "96dd312c-3ea1-4145-af7a-efd6c1542636",
+            "name": "AI Name and Description",
+            "request": {
+              "description": {
+                "content": "Resonse time bhut lee rahe hai yeh api.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [
+                  {
+                    "disabled": true,
+                    "key": "",
+                    "value": null
+                  }
+                ],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"metadata\": {\r\n        \"description\": \"Creates a fron23232it\"\r\n    },\r\n     \"type\": \"flow\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "25a85534-f7de-4454-bf40-8c8a56dba303",
+            "name": "Create Template from the flow",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "{{project_id}}",
+                  "scripts",
+                  "{{scriptId}}",
+                  "makeTemplate"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                },
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "cd94cd6d-a82d-4028-a043-1d8e8b29507f",
+            "name": "Get All template by Org_Id",
+            "request": {
+              "url": {
+                "path": [
+                  "projects",
+                  "templates",
+                  "{{org_id}}",
+                  "getAllTemplates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "9091c9f1-8aa1-4128-ba06-637bc7f5e9ee",
+            "name": "New Request",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "7127ca06-bc2e-41b2-b80f-d8c62134bc21",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "1b573a46-0eef-4f49-a8b3-ee6bf7455cd7",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "f0629443-c90a-4a4f-b2c5-eac0f24ea278",
+        "name": "Functions",
+        "item": [
+          {
+            "id": "283e95e2-bc73-47c5-982f-dfb17cf2a775",
+            "name": "Get All Functions",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "a0b4d66c-8a72-4a5e-8cdb-101c75811537",
+            "name": "Get One Function",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions",
+                  "{{function_Id}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "7d05c8db-83a3-4330-a315-85d918750537",
+            "name": "Get Function by Title",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "functions",
+                  "title",
+                  "{{functitle}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "f00cba09-e7e1-47c0-beff-a9da42f1bf75",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "01a28674-18a1-4fa4-a4ef-dff888c82884",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "49bafdaf-8055-4023-8e07-b229aa129d34",
+        "name": "Run Script",
+        "item": [
+          {
+            "id": "ac4fab1c-867c-42f2-8049-d7e4c3c29b10",
+            "name": "Run script endpoint url",
+            "request": {
+              "url": {
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "55eab0fe-9823-4cfa-9ffe-e6ca24be142d",
+            "name": "Dry run",
+            "request": {
+              "url": {
+                "path": [
+                  "{{scriptId}}",
+                  "execute"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"type\": \"function\",\r\n    \"code\": \"return true;\",\r\n    \"name\": \"test\",\r\n    \"variables\": {\r\n        \"authId\": null\r\n    },\r\n    \"dynamicVariables\": {},\r\n    \"isUserOnDh\": false\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "7a0ac754-950b-48bd-92b2-6afd7f8c6dce",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "56c51a8f-e047-4b64-8913-0b959e601211",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "e1ff6645-9324-47a1-b5a1-c4b36896fcb4",
+        "name": "User orgaiztion Mapping",
+        "item": [
+          {
+            "id": "6d631116-7e13-4b7a-a962-cab007755e24",
+            "name": "add user to org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "addUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"user\":{\r\n        \"email\":\"{{usermail}}\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "f10da300-581e-4296-ac6b-f4bc1562360c",
+            "name": "remove user from the org",
+            "request": {
+              "url": {
+                "path": [
+                  "orgs",
+                  "d",
+                  "87501",
+                  "{{org_id}}",
+                  "removeUser"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "0c2dbd37-2d43-4d8a-895f-b701e424196a",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "68fb3a4a-776c-4dbe-b800-c1903ee056c3",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "e9fd9df3-61e7-4e3a-bdef-55de439f6ab6",
+        "name": "flow",
+        "item": [
+          {
+            "id": "67c056cd-4f70-4342-87f1-2493f80179bc",
+            "name": "Delete a step",
+            "request": {
+              "description": {
+                "content": "message should be 'successfully deleted step ' instead of 'successfully update step ' .",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "stepv2",
+                  "{{slugName}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "DELETE",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"title\": \"JS_Code_1_DELETED\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "95cda4cb-524e-401f-9935-1c65becd9bcc",
+            "name": "create step",
+            "request": {
+              "description": {
+                "content": "1.project id is missing in the url in the actual doc  \n2.in the body, it is asking to pass step id which is not created yet",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{project_id}}",
+                  "{{scriptId}}",
+                  "stepv2"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "d4b462f4-c242-4c88-907e-7bf977fadb8d",
+            "name": "update a step",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{scriptId}}",
+                  "stepv2",
+                  "{{slugName}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "9d85f12d-85d0-48eb-8aaa-49d1b172aa95",
+            "name": "reorder",
+            "request": {
+              "url": {
+                "path": [
+                  "scripts",
+                  "{{script",
+                  "reorder"
+                ],
+                "host": [
+                  "{{BASEURL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "POST"
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "d71de86b-9fae-4430-9a31-aa89f5c2418e",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "d999719a-8cf5-46ee-ac7b-a4c4ba69d0ab",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "1a4a6e18-479d-4c4d-8166-09a3a831ec15",
+        "name": "Template",
+        "item": [
+          {
+            "id": "36e46db9-babe-4f0a-bdf8-caf7d3da0113",
+            "name": "Get Template By Id",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "get",
+                  "{{templateId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "791c2d55-9a89-45a9-9006-6fd9445c35b9",
+            "name": "Get all Templates",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "get-all-templates"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "GET"
+            },
+            "response": [],
+            "event": []
+          },
+          {
+            "id": "99cdc098-3a02-40d1-b091-be8d9e48de0c",
+            "name": "Update template category",
+            "request": {
+              "url": {
+                "path": [
+                  "templates",
+                  "update-template-category",
+                  "{{scriptId}}"
+                ],
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}"
+                }
+              ],
+              "method": "PATCH",
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "response": [],
+            "event": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "64b2a9d0-367c-4c6a-b473-6285a4b94415",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                ""
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "1345c063-f459-426d-ab2c-3621aed8e82a",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                "\r",
+                "pm.test(\"Status code is correct\", () => {\r",
+                "    pm.response.to.have.status(expectedStatus);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Response time < 1s\", () => {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                "});\r",
+                "\r",
+                "if (expectedStatus === 200) {\r",
+                "    pm.test(\"Response is JSON\", () => {\r",
+                "        pm.response.to.be.json;\r",
+                "    });\r",
+                "} else {\r",
+                "    pm.test(\"Error message exists\", () => {\r",
+                "        pm.expect(pm.response.json().message).to.exist;\r",
+                "    });\r",
+                "}\r",
+                ""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [
+      {
+        "type": "any",
+        "value": "",
+        "key": "scriptTitle"
+      }
+    ],
+    "info": {
+      "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+      "name": "viasocket apis",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2026-01-07T07:55:42.271Z",
+      "postman_exported_using": "Postman/11.79.2"
+    },
+    "id": "22b77b51-7832-4def-b822-bfa3e248a782",
+    "name": "prod api testing",
+    "values": [
+      {
+        "type": "any",
+        "value": "ZUZjZ0hXcU1HK0RDQ1p0T0VGaDZ6VmdRdDcwUUNQeEFKK1hDNXhkbkNLbm5SdTRrODZ2T1cxVm9UazNFTEE5QUpoRVR4WGJ5akhMdlVBQVFRY212ekcya2JYUlR0eTVyUityRWRxQWkwcG1Rb1RLanhjZ0xCWmw3alYybHZMOG0ra2JGS1lPTFY4QjU2djBQWkNhZ3BqakdnWXNjTUFLZHNBVGRNdFBHeWJIM3N3b3JmbE8vMGIrYzlSTFE2ZUcrQmJwNHIyTGlDU1hWbGdiY0hKbk9kbUttam8rczNBYzByaGJpS2ZzKzRyTnpjUm9UekhWcFlpN0ovSEJxOWt4WW0ycEZRSHY0K0xwZnpOYVdlSHVDR3NHT1J6ZDR0amZ5ZS92WWNndkNnd2J2TXI2VzZrUlJWbEdoNE1ZajRrWUE=",
+        "key": "proxy_auth_token"
+      },
+      {
+        "type": "any",
+        "value": "https://dev-api.viasocket.com",
+        "key": "BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "54589",
+        "key": "org_id"
+      },
+      {
+        "type": "any",
+        "value": "22199",
+        "key": "user_id"
+      },
+      {
+        "type": "any",
+        "value": "pronitin",
+        "key": "nameOrg"
+      },
+      {
+        "type": "any",
+        "value": "updatiosndjs",
+        "key": "updateOrg"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "switchorgid"
+      },
+      {
+        "type": "any",
+        "value": "tarunmewara786@gmail.com",
+        "key": "newusermail"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "orgidtoleave"
+      },
+      {
+        "type": "any",
+        "value": "56738",
+        "key": "orgidtoswitchinto"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "removeuserid"
+      },
+      {
+        "type": "any",
+        "value": "projjDqKsRk0",
+        "key": "project_id"
+      },
+      {
+        "type": "any",
+        "value": "perbpopi",
+        "key": "Updatedname"
+      },
+      {
+        "type": "any",
+        "value": "asnffdjksjksd",
+        "key": "scriptId"
+      }
+    ]
+  },
+  "globals": {
+    "id": "23786630-7204-49c6-85bc-32a03e24b4d5",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 396,
+      "responseMin": 299,
+      "responseMax": 594,
+      "responseSd": 118.2772167410106,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1768379394062,
+      "completed": 1768379396117
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 4,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a667c16a-8306-47fe-8929-a19917033820",
+          "httpRequestId": "ec4ec9fb-ccb7-48c5-8f7c-226c6c55240a"
+        },
+        "item": {
+          "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+          "name": "createorg",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "createOrg"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "d171f8f2-3ed3-4186-b256-fbaf7d703a82",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Generate random organization name\r",
+                  "const randomOrgName =\r",
+                  "  \"Org_\" +\r",
+                  "  Math.random().toString(36).substring(2, 8) +\r",
+                  "  \"_\" +\r",
+                  "  Date.now();\r",
+                  "\r",
+                  "// Set variable used in request body\r",
+                  "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                  "\r",
+                  "// Optional: log for debugging\r",
+                  "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                  ""
+                ],
+                "_lastExecutionId": "4ad0c89d-7080-4011-8bd3-7508c915263c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "createOrg"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "ZUZjZ0hXcU1HK0RDQ1p0T0VGaDZ6VmdRdDcwUUNQeEFKK1hDNXhkbkNLbm5SdTRrODZ2T1cxVm9UazNFTEE5QUpoRVR4WGJ5akhMdlVBQVFRY212ekcya2JYUlR0eTVyUityRWRxQWkwcG1Rb1RLanhjZ0xCWmw3alYybHZMOG0ra2JGS1lPTFY4QjU2djBQWkNhZ3BqakdnWXNjTUFLZHNBVGRNdFBHeWJIM3N3b3JmbE8vMGIrYzlSTFE2ZUcrQmJwNHIyTGlDU1hWbGdiY0hKbk9kbUttam8rczNBYzByaGJpS2ZzKzRyTnpjUm9UekhWcFlpN0ovSEJxOWt4WW0ycEZRSHY0K0xwZnpOYVdlSHVDR3NHT1J6ZDR0amZ5ZS92WWNndkNnd2J2TXI2VzZrUlJWbEdoNE1ZajRrWUE="
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "43f86004-29c8-47d0-857e-37df02a5bd86",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "183",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"name\": \"Org_teure3_1768379394102\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "416dd4f5-a1b7-416e-af51-2cc870a0e54d",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 14 Jan 2026 08:29:54 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1d6-8yA+lt8YgSkvN3GJRZ7VQ5J5U1w\""
+            },
+            {
+              "key": "via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "proxy-version",
+              "value": "Proxy-Onsite-V1-fo"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=p9UjUQ97ZndNm%2BCBhS%2Bq6gZXPqIW0pC7btUksgXwn0QQwvPQaRpWaf6MoZvcDfaElYqCMx6YM%2Fd8Iw0yAce0XwRDZtg06%2BxcMCF4tIzW81JtKnZp\"}]}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bdbc4ad1e85442d-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              116,
+              114,
+              117,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              83,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              32,
+              67,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              119,
+              111,
+              114,
+              107,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              114,
+              103,
+              95,
+              116,
+              101,
+              117,
+              114,
+              101,
+              51,
+              95,
+              49,
+              55,
+              54,
+              56,
+              51,
+              55,
+              57,
+              51,
+              57,
+              52,
+              49,
+              48,
+              50,
+              34,
+              44,
+              34,
+              109,
+              101,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              73,
+              100,
+              101,
+              110,
+              116,
+              105,
+              102,
+              105,
+              101,
+              114,
+              34,
+              58,
+              34,
+              65,
+              115,
+              105,
+              97,
+              47,
+              75,
+              111,
+              108,
+              107,
+              97,
+              116,
+              97,
+              34,
+              44,
+              34,
+              105,
+              99,
+              111,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              114,
+              101,
+              102,
+              101,
+              114,
+              114,
+              101,
+              100,
+              95,
+              105,
+              110,
+              100,
+              117,
+              115,
+              116,
+              114,
+              121,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              44,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              43,
+              48,
+              53,
+              58,
+              51,
+              48,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              114,
+              97,
+              104,
+              97,
+              110,
+              103,
+              100,
+              97,
+              108,
+              101,
+              106,
+              97,
+              121,
+              107,
+              117,
+              109,
+              97,
+              114,
+              64,
+              103,
+              109,
+              97,
+              105,
+              108,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              98,
+              121,
+              34,
+              58,
+              50,
+              50,
+              49,
+              57,
+              57,
+              44,
+              34,
+              105,
+              115,
+              95,
+              98,
+              108,
+              111,
+              99,
+              107,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              102,
+              101,
+              97,
+              116,
+              117,
+              114,
+              101,
+              95,
+              99,
+              111,
+              110,
+              102,
+              105,
+              103,
+              117,
+              114,
+              97,
+              116,
+              105,
+              111,
+              110,
+              95,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              99,
+              111,
+              109,
+              112,
+              97,
+              110,
+              121,
+              95,
+              117,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              56,
+              56,
+              48,
+              55,
+              50,
+              49,
+              53,
+              101,
+              34,
+              44,
+              34,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              52,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              52,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              55,
+              57,
+              54,
+              53,
+              125,
+              44,
+              34,
+              105,
+              115,
+              67,
+              97,
+              99,
+              104,
+              101,
+              100,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 594,
+          "responseSize": 470
+        },
+        "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "4a6fcfbe-d06d-439c-a4ab-75de3b2b8bd6",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "ef639434-d544-4d68-89da-24a4226ff8da"
+        },
+        "item": {
+          "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+          "name": "createorg",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "createOrg"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "d171f8f2-3ed3-4186-b256-fbaf7d703a82",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Generate random organization name\r",
+                  "const randomOrgName =\r",
+                  "  \"Org_\" +\r",
+                  "  Math.random().toString(36).substring(2, 8) +\r",
+                  "  \"_\" +\r",
+                  "  Date.now();\r",
+                  "\r",
+                  "// Set variable used in request body\r",
+                  "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                  "\r",
+                  "// Optional: log for debugging\r",
+                  "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                  ""
+                ],
+                "_lastExecutionId": "4ad0c89d-7080-4011-8bd3-7508c915263c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "createOrg"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "ZUZjZ0hXcU1HK0RDQ1p0T0VGaDZ6VmdRdDcwUUNQeEFKK1hDNXhkbkNLbm5SdTRrODZ2T1cxVm9UazNFTEE5QUpoRVR4WGJ5akhMdlVBQVFRY212ekcya2JYUlR0eTVyUityRWRxQWkwcG1Rb1RLanhjZ0xCWmw3alYybHZMOG0ra2JGS1lPTFY4QjU2djBQWkNhZ3BqakdnWXNjTUFLZHNBVGRNdFBHeWJIM3N3b3JmbE8vMGIrYzlSTFE2ZUcrQmJwNHIyTGlDU1hWbGdiY0hKbk9kbUttam8rczNBYzByaGJpS2ZzKzRyTnpjUm9UekhWcFlpN0ovSEJxOWt4WW0ycEZRSHY0K0xwZnpOYVdlSHVDR3NHT1J6ZDR0amZ5ZS92WWNndkNnd2J2TXI2VzZrUlJWbEdoNE1ZajRrWUE="
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "99486a8d-34e2-4961-97fa-4cde3ac5c73a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "183",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"name\": \"Org_8g6gjw_1768379394836\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "bdc21221-3192-4a52-b986-118bfb2ed278",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 14 Jan 2026 08:29:54 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1d6-yFddr1AI6T/7p8xjLWDyEhgCyHY\""
+            },
+            {
+              "key": "via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "proxy-version",
+              "value": "Proxy-Onsite-V1-fo"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=t%2Flj%2FQzg0DX2jRpxY3lkqimQv%2BuLgFHIrELCnrZLR6LNK6X0tLdU0ldvlft9ezkqTJUvPU5rwZAtzEWQLpuvA5RhShMcHhx%2B3XywQmPqIuctg%2Bg9\"}]}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bdbc4b0493a442d-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              116,
+              114,
+              117,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              83,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              32,
+              67,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              119,
+              111,
+              114,
+              107,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              114,
+              103,
+              95,
+              56,
+              103,
+              54,
+              103,
+              106,
+              119,
+              95,
+              49,
+              55,
+              54,
+              56,
+              51,
+              55,
+              57,
+              51,
+              57,
+              52,
+              56,
+              51,
+              54,
+              34,
+              44,
+              34,
+              109,
+              101,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              73,
+              100,
+              101,
+              110,
+              116,
+              105,
+              102,
+              105,
+              101,
+              114,
+              34,
+              58,
+              34,
+              65,
+              115,
+              105,
+              97,
+              47,
+              75,
+              111,
+              108,
+              107,
+              97,
+              116,
+              97,
+              34,
+              44,
+              34,
+              105,
+              99,
+              111,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              114,
+              101,
+              102,
+              101,
+              114,
+              114,
+              101,
+              100,
+              95,
+              105,
+              110,
+              100,
+              117,
+              115,
+              116,
+              114,
+              121,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              44,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              43,
+              48,
+              53,
+              58,
+              51,
+              48,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              114,
+              97,
+              104,
+              97,
+              110,
+              103,
+              100,
+              97,
+              108,
+              101,
+              106,
+              97,
+              121,
+              107,
+              117,
+              109,
+              97,
+              114,
+              64,
+              103,
+              109,
+              97,
+              105,
+              108,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              98,
+              121,
+              34,
+              58,
+              50,
+              50,
+              49,
+              57,
+              57,
+              44,
+              34,
+              105,
+              115,
+              95,
+              98,
+              108,
+              111,
+              99,
+              107,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              102,
+              101,
+              97,
+              116,
+              117,
+              114,
+              101,
+              95,
+              99,
+              111,
+              110,
+              102,
+              105,
+              103,
+              117,
+              114,
+              97,
+              116,
+              105,
+              111,
+              110,
+              95,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              99,
+              111,
+              109,
+              112,
+              97,
+              110,
+              121,
+              95,
+              117,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              51,
+              55,
+              57,
+              56,
+              50,
+              53,
+              49,
+              98,
+              34,
+              44,
+              34,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              52,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              52,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              55,
+              57,
+              54,
+              54,
+              125,
+              44,
+              34,
+              105,
+              115,
+              67,
+              97,
+              99,
+              104,
+              101,
+              100,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 299,
+          "responseSize": 470
+        },
+        "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a7be5060-c8aa-4a0a-9e91-68a1a0f53a4f",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "bfd6cee3-6084-4b47-8e44-bd917f17ce05"
+        },
+        "item": {
+          "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+          "name": "createorg",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "createOrg"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "d171f8f2-3ed3-4186-b256-fbaf7d703a82",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Generate random organization name\r",
+                  "const randomOrgName =\r",
+                  "  \"Org_\" +\r",
+                  "  Math.random().toString(36).substring(2, 8) +\r",
+                  "  \"_\" +\r",
+                  "  Date.now();\r",
+                  "\r",
+                  "// Set variable used in request body\r",
+                  "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                  "\r",
+                  "// Optional: log for debugging\r",
+                  "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                  ""
+                ],
+                "_lastExecutionId": "4ad0c89d-7080-4011-8bd3-7508c915263c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "createOrg"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "ZUZjZ0hXcU1HK0RDQ1p0T0VGaDZ6VmdRdDcwUUNQeEFKK1hDNXhkbkNLbm5SdTRrODZ2T1cxVm9UazNFTEE5QUpoRVR4WGJ5akhMdlVBQVFRY212ekcya2JYUlR0eTVyUityRWRxQWkwcG1Rb1RLanhjZ0xCWmw3alYybHZMOG0ra2JGS1lPTFY4QjU2djBQWkNhZ3BqakdnWXNjTUFLZHNBVGRNdFBHeWJIM3N3b3JmbE8vMGIrYzlSTFE2ZUcrQmJwNHIyTGlDU1hWbGdiY0hKbk9kbUttam8rczNBYzByaGJpS2ZzKzRyTnpjUm9UekhWcFlpN0ovSEJxOWt4WW0ycEZRSHY0K0xwZnpOYVdlSHVDR3NHT1J6ZDR0amZ5ZS92WWNndkNnd2J2TXI2VzZrUlJWbEdoNE1ZajRrWUE="
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "1c4ea7ff-bba3-47e6-ab0a-f303aa82955c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "183",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"name\": \"Org_5tsm2f_1768379395237\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "d0078741-d741-47ee-8834-d5390c3dda9f",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 14 Jan 2026 08:29:55 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1d6-eqgPM3FgX2M1mXtL52zorHipip8\""
+            },
+            {
+              "key": "via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "proxy-version",
+              "value": "Proxy-Onsite-V1-fo"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qQepofn%2BO1kG5SGn%2BOA4wvTn9IOr8IHkZa6X7fb2Bt39Ns8%2BiQoKr9B7Z6KnNcXqYzqZRBRWSedT1Hdd3JzGL0AQfJR2ulV1zYwWNEYiTf7fhbFX\"}]}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bdbc4b2db8a442d-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              116,
+              114,
+              117,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              83,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              32,
+              67,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              119,
+              111,
+              114,
+              107,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              114,
+              103,
+              95,
+              53,
+              116,
+              115,
+              109,
+              50,
+              102,
+              95,
+              49,
+              55,
+              54,
+              56,
+              51,
+              55,
+              57,
+              51,
+              57,
+              53,
+              50,
+              51,
+              55,
+              34,
+              44,
+              34,
+              109,
+              101,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              73,
+              100,
+              101,
+              110,
+              116,
+              105,
+              102,
+              105,
+              101,
+              114,
+              34,
+              58,
+              34,
+              65,
+              115,
+              105,
+              97,
+              47,
+              75,
+              111,
+              108,
+              107,
+              97,
+              116,
+              97,
+              34,
+              44,
+              34,
+              105,
+              99,
+              111,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              114,
+              101,
+              102,
+              101,
+              114,
+              114,
+              101,
+              100,
+              95,
+              105,
+              110,
+              100,
+              117,
+              115,
+              116,
+              114,
+              121,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              44,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              43,
+              48,
+              53,
+              58,
+              51,
+              48,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              114,
+              97,
+              104,
+              97,
+              110,
+              103,
+              100,
+              97,
+              108,
+              101,
+              106,
+              97,
+              121,
+              107,
+              117,
+              109,
+              97,
+              114,
+              64,
+              103,
+              109,
+              97,
+              105,
+              108,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              98,
+              121,
+              34,
+              58,
+              50,
+              50,
+              49,
+              57,
+              57,
+              44,
+              34,
+              105,
+              115,
+              95,
+              98,
+              108,
+              111,
+              99,
+              107,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              102,
+              101,
+              97,
+              116,
+              117,
+              114,
+              101,
+              95,
+              99,
+              111,
+              110,
+              102,
+              105,
+              103,
+              117,
+              114,
+              97,
+              116,
+              105,
+              111,
+              110,
+              95,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              99,
+              111,
+              109,
+              112,
+              97,
+              110,
+              121,
+              95,
+              117,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              48,
+              48,
+              101,
+              50,
+              51,
+              102,
+              100,
+              53,
+              34,
+              44,
+              34,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              53,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              53,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              55,
+              57,
+              54,
+              55,
+              125,
+              44,
+              34,
+              105,
+              115,
+              67,
+              97,
+              99,
+              104,
+              101,
+              100,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 379,
+          "responseSize": 470
+        },
+        "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "9ca77102-512b-4ffe-ae13-150efbed85c5",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "e137ccd1-e518-4c29-8e27-3e4cd1e2c447"
+        },
+        "item": {
+          "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+          "name": "createorg",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "createOrg"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "d171f8f2-3ed3-4186-b256-fbaf7d703a82",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Generate random organization name\r",
+                  "const randomOrgName =\r",
+                  "  \"Org_\" +\r",
+                  "  Math.random().toString(36).substring(2, 8) +\r",
+                  "  \"_\" +\r",
+                  "  Date.now();\r",
+                  "\r",
+                  "// Set variable used in request body\r",
+                  "pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                  "\r",
+                  "// Optional: log for debugging\r",
+                  "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                  ""
+                ],
+                "_lastExecutionId": "4ad0c89d-7080-4011-8bd3-7508c915263c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "createOrg"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "ZUZjZ0hXcU1HK0RDQ1p0T0VGaDZ6VmdRdDcwUUNQeEFKK1hDNXhkbkNLbm5SdTRrODZ2T1cxVm9UazNFTEE5QUpoRVR4WGJ5akhMdlVBQVFRY212ekcya2JYUlR0eTVyUityRWRxQWkwcG1Rb1RLanhjZ0xCWmw3alYybHZMOG0ra2JGS1lPTFY4QjU2djBQWkNhZ3BqakdnWXNjTUFLZHNBVGRNdFBHeWJIM3N3b3JmbE8vMGIrYzlSTFE2ZUcrQmJwNHIyTGlDU1hWbGdiY0hKbk9kbUttam8rczNBYzByaGJpS2ZzKzRyTnpjUm9UekhWcFlpN0ovSEJxOWt4WW0ycEZRSHY0K0xwZnpOYVdlSHVDR3NHT1J6ZDR0amZ5ZS92WWNndkNnd2J2TXI2VzZrUlJWbEdoNE1ZajRrWUE="
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b947225f-84b8-4a72-a8ed-ad317ab329bc",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "183",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"name\": \"Org_l5b8m7_1768379395723\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "7a5ddd3c-e569-4a29-b73e-86e99ce1ca33",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 14 Jan 2026 08:29:55 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1d6-Il4kw3/rqEBYnHrUrey+pBAULIE\""
+            },
+            {
+              "key": "via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "proxy-version",
+              "value": "Proxy-Onsite-V1-fo"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=l7EpWo3uxCxCEyXj85x2Z9rqb9RO%2FsaUi0VXqJmimIAs%2F9P0k58zYsqpk7pRb8hGd16elnBsoKBJ5s%2FlfZDZ5N4pcSf%2B%2BEwXLf%2BqgUa3O%2BOcs%2B92\"}]}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bdbc4b5de11442d-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              116,
+              114,
+              117,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              83,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              32,
+              67,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              119,
+              111,
+              114,
+              107,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              114,
+              103,
+              95,
+              108,
+              53,
+              98,
+              56,
+              109,
+              55,
+              95,
+              49,
+              55,
+              54,
+              56,
+              51,
+              55,
+              57,
+              51,
+              57,
+              53,
+              55,
+              50,
+              51,
+              34,
+              44,
+              34,
+              109,
+              101,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              73,
+              100,
+              101,
+              110,
+              116,
+              105,
+              102,
+              105,
+              101,
+              114,
+              34,
+              58,
+              34,
+              65,
+              115,
+              105,
+              97,
+              47,
+              75,
+              111,
+              108,
+              107,
+              97,
+              116,
+              97,
+              34,
+              44,
+              34,
+              105,
+              99,
+              111,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              100,
+              111,
+              109,
+              97,
+              105,
+              110,
+              85,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              114,
+              101,
+              102,
+              101,
+              114,
+              114,
+              101,
+              100,
+              95,
+              105,
+              110,
+              100,
+              117,
+              115,
+              116,
+              114,
+              121,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              44,
+              34,
+              116,
+              105,
+              109,
+              101,
+              122,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              43,
+              48,
+              53,
+              58,
+              51,
+              48,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              114,
+              97,
+              104,
+              97,
+              110,
+              103,
+              100,
+              97,
+              108,
+              101,
+              106,
+              97,
+              121,
+              107,
+              117,
+              109,
+              97,
+              114,
+              64,
+              103,
+              109,
+              97,
+              105,
+              108,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              98,
+              121,
+              34,
+              58,
+              50,
+              50,
+              49,
+              57,
+              57,
+              44,
+              34,
+              105,
+              115,
+              95,
+              98,
+              108,
+              111,
+              99,
+              107,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              102,
+              101,
+              97,
+              116,
+              117,
+              114,
+              101,
+              95,
+              99,
+              111,
+              110,
+              102,
+              105,
+              103,
+              117,
+              114,
+              97,
+              116,
+              105,
+              111,
+              110,
+              95,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              99,
+              111,
+              109,
+              112,
+              97,
+              110,
+              121,
+              95,
+              117,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              100,
+              51,
+              56,
+              51,
+              102,
+              57,
+              55,
+              49,
+              34,
+              44,
+              34,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              53,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              95,
+              97,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              49,
+              45,
+              49,
+              52,
+              84,
+              48,
+              56,
+              58,
+              50,
+              57,
+              58,
+              53,
+              53,
+              46,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              90,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              55,
+              57,
+              54,
+              56,
+              125,
+              44,
+              34,
+              105,
+              115,
+              67,
+              97,
+              99,
+              104,
+              101,
+              100,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 312,
+          "responseSize": 470
+        },
+        "id": "7466608a-0840-4ac0-9c4a-a76c2cefc0d8",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1880
+    },
+    "failures": [],
+    "error": null
+  }
+}

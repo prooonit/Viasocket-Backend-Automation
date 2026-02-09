@@ -1,0 +1,11 @@
+[
+  {
+    "case": "valid_script_id",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_script_id",
+    "scriptId": "invalid123",
+    "expectedStatus": 404
+  }
+]

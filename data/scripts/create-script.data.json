@@ -1,0 +1,17 @@
+[
+  {
+    "case": "valid_create_script",
+    "scriptTitle": "workflow_jan_2026",
+    "expectedStatus": 201
+  },
+  {
+    "case": "valid_create_script_2",
+    "scriptTitle": "workflow_feb_2026",
+    "expectedStatus": 201
+  },
+  {
+    "case": "empty_title",
+    "scriptTitle": "",
+    "expectedStatus": 400
+  }
+]

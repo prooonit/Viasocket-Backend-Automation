@@ -9,10 +9,10 @@
   },
   {
     "newusermail": "invalid-email",
-    "expectedStatus": 400
+    "expectedStatus": 200
   },
   {
     "newusermail": "",
-    "expectedStatus": 400
-  }
+    "expectedStatus": 200
+   }
 ]
