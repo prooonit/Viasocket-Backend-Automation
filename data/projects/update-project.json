@@ -1,10 +1,22 @@
 [
   {
-    "updatedProjectTitle": "somerandomstuff",
+    "case": "valid_standard_update",
+    "updatedProjectTitle": "Updated Project Name",
     "expectedStatus": 200
   },
   {
-    "updatedProjectTitle": "",
+    "case": "valid_title_with_numbers",
+    "updatedProjectTitle": "Project_V2_2026",
     "expectedStatus": 200
+  },
+  {
+    "case": "valid_short_title",
+    "updatedProjectTitle": "QA2",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_title_should_fail",
+    "updatedProjectTitle": "",
+    "expectedStatus": 400
   }
 ]

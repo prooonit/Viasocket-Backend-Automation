@@ -7,11 +7,11 @@
     },
     "item": [
       {
-        "id": "838ad98d-07c4-4c51-bfc3-ca76c4ecfada",
+        "id": "6d45d74b-cf4d-40db-9ebc-d5091147b56f",
         "name": "org",
         "item": [
           {
-            "id": "b92cf5f7-7379-4ad8-9c79-2478786cbe86",
+            "id": "f87d9dd9-bd50-4b0d-9442-fa2e8b0636bd",
             "name": "createorg",
             "request": {
               "url": {
@@ -34,7 +34,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \"name\": \"tarun\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -47,22 +47,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "cb2cfea4-781d-44cb-b4c6-3114b48546c8",
+                  "id": "c52fb590-b1e8-4602-a5d8-ef7a093b4a9b",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"nameOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                    "if (nameOrg === undefined || nameOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                    "} else if (nameOrg === \"\") {\r",
+                    "  pm.variables.set(\"nameOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -70,7 +67,7 @@
             ]
           },
           {
-            "id": "43a9eb05-0c59-43f9-ad8c-131da93dadb6",
+            "id": "db317508-4e37-445b-b694-9e7085139f64",
             "name": "get all organization",
             "request": {
               "url": {
@@ -103,7 +100,7 @@
             "event": []
           },
           {
-            "id": "23d4c85d-be41-4ef2-8dbe-8198f4f2118b",
+            "id": "61fb3385-ba00-4ec5-9fbb-5ad9e1d8ca46",
             "name": "get users of an organization",
             "request": {
               "url": {
@@ -131,13 +128,13 @@
             "event": []
           },
           {
-            "id": "0258c1df-31e3-46d9-b91c-04ff4092fed1",
+            "id": "637a280d-55d3-4d2f-bc8b-8b07ceaa2ef2",
             "name": "update an organization",
             "request": {
               "url": {
                 "path": [
                   "orgs",
-                  "{{org_id}}"
+                  "{{update_org_id}}"
                 ],
                 "host": [
                   "{{BASE_URL}}"
@@ -167,22 +164,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "f505aba3-220b-4be6-a18b-cc4e4b52de4f",
+                  "id": "888fc0be-c4f4-4dc7-b560-9028c01c1d27",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"updateOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                    "if (updateOrg === undefined || updateOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                    "} else if (updateOrg === \"\") {\r",
+                    "  pm.variables.set(\"updateOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -190,7 +184,7 @@
             ]
           },
           {
-            "id": "7893eadc-fb58-42a0-a333-76b462a2656c",
+            "id": "ced07040-6e78-4d1c-900d-27122798e466",
             "name": "get org token",
             "request": {
               "url": {
@@ -217,7 +211,7 @@
             "event": []
           },
           {
-            "id": "d30c59ad-be5b-46dd-b6a6-63086eedd842",
+            "id": "06242265-4066-4e19-9154-e4f41e86aa76",
             "name": "global search on org",
             "request": {
               "url": {
@@ -249,7 +243,7 @@
             "event": []
           },
           {
-            "id": "5d955b31-bd35-46a6-807f-8adf01f2154b",
+            "id": "5e44e8ed-db33-4d24-81b9-081b4289d5f4",
             "name": "switch org",
             "request": {
               "url": {
@@ -284,7 +278,7 @@
             "event": []
           },
           {
-            "id": "28c37fa8-2359-44d6-9209-fe9d0f0fd6cf",
+            "id": "4aeb89df-28dd-414b-8200-ac6b7dc920ba",
             "name": "add user to org",
             "request": {
               "url": {
@@ -320,20 +314,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "d3193309-897b-4787-836b-c519194b0636",
+                  "id": "af55dc4a-1433-4f94-a1b4-532b0d568d77",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randommail =\r",
-                    "  \"randomMail_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                    "\r",
+                    "// Only generate a random email if the data file did not provide one\r",
+                    "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                    "if (newusermail === undefined || newusermail === null) {\r",
+                    "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"newusermail\", newusermail);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -341,7 +332,7 @@
             ]
           },
           {
-            "id": "bc8b0bbe-8d6b-4820-b37a-def3af5e6f64",
+            "id": "3d95ec2e-bf3b-4ed0-a7ef-54f3191bc601",
             "name": "remove user",
             "request": {
               "url": {
@@ -370,7 +361,7 @@
             "event": []
           },
           {
-            "id": "b459ee1b-5d61-4588-a48a-3cf62705b072",
+            "id": "7582ee69-c70b-47e8-9fa7-50e77561d4eb",
             "name": "leave org",
             "request": {
               "url": {
@@ -409,7 +400,7 @@
             "event": []
           },
           {
-            "id": "ec3441f2-9fe1-4a5a-a0c2-8dba07795e71",
+            "id": "9a34d915-1082-4aa3-a1f7-77f1acad7064",
             "name": "Beta Status",
             "request": {
               "url": {
@@ -449,21 +440,19 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "288974b5-84c7-49a1-899e-3c0e507fecd7",
+              "id": "97417dce-41e3-4b84-ab5b-ea282a59adfa",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ],
-              "_lastExecutionId": "e550e7ed-7834-4de0-8181-09b48fd2bbe2"
+              "_lastExecutionId": "d3fc8c95-372b-4d73-8d1e-4592dfb33051"
             }
           },
           {
             "listen": "test",
             "script": {
-              "id": "848c7680-491a-46e4-b963-b5b064ac74b8",
+              "id": "1957dadc-da6c-4242-b5e9-85e4468519e9",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -486,21 +475,21 @@
                 "}\r",
                 ""
               ],
-              "_lastExecutionId": "a6565190-27fe-4416-9af4-8ef89fbb2a35"
+              "_lastExecutionId": "176985fa-e268-485e-8460-ae635ed9503f"
             }
           }
         ]
       },
       {
-        "id": "a88f7013-bc91-45b3-87a8-f62c2165d756",
+        "id": "370e8b2b-5142-4034-9926-c9692af75b77",
         "name": "Projects",
         "item": [
           {
-            "id": "7918d3bb-6e15-444b-9563-a3a5a9895a51",
+            "id": "c671ed89-d764-408e-8079-b20cd9c11a54",
             "name": "Create Project",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                "content": "Note: We can create collection in any one's org with the help of just org id.",
                 "type": "text/plain"
               },
               "url": {
@@ -546,20 +535,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "ea2fa980-a660-4037-aeab-a0265162def5",
+                  "id": "beb13edd-b8b3-46f0-aa94-7dd181f96abd",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Collection_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"projectTitle\", randomOrgName);\r",
-                    "\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const projectTitle = pm.iterationData.get(\"projectTitle\");\r",
+                    "if (projectTitle === undefined || projectTitle === null) {\r",
+                    "  const randomTitle = \"Collection_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"projectTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"projectTitle\", projectTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -567,7 +553,7 @@
             ]
           },
           {
-            "id": "60988340-f8c6-490c-ab33-43bbb4a9f962",
+            "id": "74db5780-5618-4073-b57a-22f9d6fcd9f3",
             "name": "Get All projects",
             "request": {
               "url": {
@@ -595,83 +581,8 @@
               },
               "header": [
                 {
-                  "disabled": true,
-                  "key": "accept",
-                  "value": "application/json, text/plain, */*"
-                },
-                {
-                  "disabled": true,
-                  "key": "accept-language",
-                  "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
-                },
-                {
-                  "disabled": true,
-                  "key": "baggage",
-                  "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
-                },
-                {
-                  "disabled": true,
-                  "key": "if-none-match",
-                  "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
-                },
-                {
-                  "disabled": true,
-                  "key": "origin",
-                  "value": "https://flow.viasocket.com"
-                },
-                {
-                  "disabled": true,
-                  "key": "priority",
-                  "value": "u=1, i"
-                },
-                {
                   "key": "proxy_auth_token",
                   "value": "{{proxy_auth_token}}"
-                },
-                {
-                  "disabled": true,
-                  "key": "referer",
-                  "value": "https://flow.viasocket.com/"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua",
-                  "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-mobile",
-                  "value": "?0"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-platform",
-                  "value": "\"macOS\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-dest",
-                  "value": "empty"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-mode",
-                  "value": "cors"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-site",
-                  "value": "same-site"
-                },
-                {
-                  "disabled": true,
-                  "key": "sentry-trace",
-                  "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
-                },
-                {
-                  "disabled": true,
-                  "key": "user-agent",
-                  "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                 }
               ],
               "method": "GET"
@@ -680,7 +591,7 @@
             "event": []
           },
           {
-            "id": "e6075578-ae60-42e3-98df-3c6dd60b4978",
+            "id": "2a7d7ee9-7c5f-4736-a6c0-6f07fc2d3758",
             "name": "Update Project",
             "request": {
               "url": {
@@ -705,7 +616,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\"title\":\"newone111\"}",
+                "raw": "{\"title\":\"{{updatedProjectTitle}}\"}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -717,11 +628,11 @@
             "event": []
           },
           {
-            "id": "40f341db-08b0-4613-8078-d0b61c26d87c",
+            "id": "3ba9d00c-4447-46ec-8148-8a952d6c637e",
             "name": "Change Project Status",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                "content": "Note: For the status 3, it gives something went wrong.",
                 "type": "text/plain"
               },
               "url": {
@@ -767,9 +678,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "9515d1e5-3287-4bec-94b1-4e169f3e6f80",
+              "id": "f683eb00-c1f4-40d9-a5f1-447f395e09a0",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -778,9 +688,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "44a58a2f-cc6f-4d7f-9ecf-5e0f5987a9a8",
+              "id": "c106fac1-9c9c-4653-bbe6-c5aa9112ac3e",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -808,11 +717,11 @@
         ]
       },
       {
-        "id": "df4c24a3-f183-4ea7-be2b-a4035b5190bb",
+        "id": "54effaa0-6709-48d4-bcbf-2f3ad54d0392",
         "name": "Users",
         "item": [
           {
-            "id": "c0e5b131-d152-4ee8-872c-bad4f7d7d2df",
+            "id": "c787fb2b-9323-448e-a327-138df362ac91",
             "name": "Get User Profile",
             "request": {
               "url": {
@@ -838,7 +747,7 @@
             "event": []
           },
           {
-            "id": "3133f4c1-58b5-497b-9620-cbbe8869c7fa",
+            "id": "0dde509c-61e1-4ff1-96bf-b934fac9642c",
             "name": "SSO Register",
             "request": {
               "url": {
@@ -851,7 +760,7 @@
             "event": []
           },
           {
-            "id": "af46301f-1e8a-49e0-a863-67a10a47d897",
+            "id": "d93a1303-64d1-4fe2-a47b-24caf417ab23",
             "name": "Update User",
             "request": {
               "url": {
@@ -887,16 +796,28 @@
               }
             },
             "response": [],
-            "event": []
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "a019e38e-93e6-487b-82b3-d48dc0a28fb5",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const randomName = \"User_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "pm.variables.set(\"Updatedname\", randomName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
           }
         ],
         "event": [
           {
             "listen": "prerequest",
             "script": {
-              "id": "e818ef09-009f-4672-bc3f-8e5aca3f1a4e",
+              "id": "617df0ef-2e00-49c5-95ae-1c854b1b1529",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -905,9 +826,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "718d31e9-2a19-4272-a575-ddf20464fa08",
+              "id": "44477a31-535e-4a5d-8df5-9df5fae25c70",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -935,15 +855,15 @@
         ]
       },
       {
-        "id": "fbf91e89-7fdc-46e3-936f-11321c1205d6",
+        "id": "2374fc74-3642-457a-87ed-d8ca532c7f3f",
         "name": "Scripts",
         "item": [
           {
-            "id": "0f50293f-5a80-4a8d-bdb2-1be3dd70a9b0",
+            "id": "3405339f-212d-4e18-8466-a385e060d17f",
             "name": "Create Script",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -980,22 +900,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "5a67baf9-4cbb-4c47-8cb8-204dfecc3e69",
+                  "id": "c6832e8b-a178-411d-bda4-74460a10c6fa",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"workflow_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"scriptTitle\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const scriptTitle = pm.iterationData.get(\"scriptTitle\");\r",
+                    "if (scriptTitle === undefined || scriptTitle === null) {\r",
+                    "  const randomTitle = \"workflow_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"scriptTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"scriptTitle\", scriptTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -1003,11 +918,11 @@
             ]
           },
           {
-            "id": "9408eb7d-4274-4a62-a4bf-294c1a1da0f6",
+            "id": "7a8073f5-cfea-445a-81ad-1a1c64113dca",
             "name": "Get All Scripts",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -1034,11 +949,11 @@
             "event": []
           },
           {
-            "id": "ef1904a0-2194-40b9-9301-72f09921c67a",
+            "id": "4111ef25-51be-4755-bccb-6e7be225f981",
             "name": "Update Script",
             "request": {
               "description": {
-                "content": "Mai dusre collection ki script bhi update kar paa raha hu",
+                "content": "Updates the title of an existing script",
                 "type": "text/plain"
               },
               "url": {
@@ -1057,13 +972,13 @@
               "header": [
                 {
                   "key": "proxy_auth_token",
-                  "value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda"
+                  "value": "{{proxy_auth_token}}"
                 }
               ],
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+                "raw": "{\r\n    \"title\":\"{{updateTitle}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -1075,7 +990,7 @@
             "event": []
           },
           {
-            "id": "47e876ca-0729-4a4a-94df-85f58d09ce0a",
+            "id": "ac0158aa-6217-4bac-bbb7-169f267e86f6",
             "name": "Get One Script",
             "request": {
               "url": {
@@ -1103,11 +1018,11 @@
             "event": []
           },
           {
-            "id": "fc77537d-4249-41ab-a462-69716c6a748b",
+            "id": "9055ed9d-8960-4a33-b79b-5aec8f9ed4ad",
             "name": "Change Script Status",
             "request": {
               "description": {
-                "content": "time jada lee rahi hai as expected nhi hai",
+                "content": "Changes the active/draft status of a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1141,7 +1056,7 @@
             "event": []
           },
           {
-            "id": "210f5325-7f9a-4849-903d-7ad1ff21933f",
+            "id": "47aa4b9e-4173-4bdc-b879-4d005f10c219",
             "name": "Duplicate Script",
             "request": {
               "url": {
@@ -1170,7 +1085,7 @@
             "event": []
           },
           {
-            "id": "67252903-3977-4f1b-8bc4-0e99dd4dc857",
+            "id": "ca8001da-e662-490d-87e4-7a60675e1ec7",
             "name": "publish script",
             "request": {
               "url": {
@@ -1203,7 +1118,7 @@
             "event": []
           },
           {
-            "id": "b9dfc76c-7b27-4a4d-ba6e-99576d8c51c4",
+            "id": "ee6bfef5-1859-42c9-83f2-35d3b890f06a",
             "name": "revert script",
             "request": {
               "url": {
@@ -1236,7 +1151,7 @@
             "event": []
           },
           {
-            "id": "d5d37185-6950-407a-9708-a1b83511c731",
+            "id": "9b09fd47-dc35-40e0-b715-aa3ddcf889f4",
             "name": "delete script",
             "request": {
               "url": {
@@ -1265,7 +1180,7 @@
             "event": []
           },
           {
-            "id": "f648e767-3226-41f0-999c-048d5b0093df",
+            "id": "d2066794-a8e0-4cd1-a132-df8080dfd712",
             "name": "Instantiate flow from template",
             "request": {
               "url": {
@@ -1297,7 +1212,7 @@
             "event": []
           },
           {
-            "id": "951a510c-328c-485e-aaf1-b5193d59ecf5",
+            "id": "8e0a503b-3628-4ae3-b6cf-f0b259b6621d",
             "name": "Move script from one collection to another",
             "request": {
               "url": {
@@ -1341,7 +1256,7 @@
             "event": []
           },
           {
-            "id": "31572f58-c1c2-4da3-a371-9e5f51422e33",
+            "id": "54d1069a-a205-48ef-b720-bcb6f7c6193f",
             "name": "Get Flow and Templates",
             "request": {
               "url": {
@@ -1368,7 +1283,7 @@
             "event": []
           },
           {
-            "id": "e123c264-7348-421a-a90b-ccd48f7297d4",
+            "id": "c2e106ea-8aa2-4737-a665-b65289107602",
             "name": "Delete Bulk Scripts Using Cron (Internal Api)",
             "request": {
               "url": {
@@ -1394,7 +1309,7 @@
             "event": []
           },
           {
-            "id": "8bf2dfc1-7d3d-44da-b6e7-a83d77381480",
+            "id": "92027deb-5d15-4887-8a4b-3a1c22361b7c",
             "name": "MoveScriptToProject",
             "request": {
               "url": {
@@ -1407,11 +1322,11 @@
             "event": []
           },
           {
-            "id": "1304fa12-1cfa-4fa0-82d9-53c79471addc",
+            "id": "c4fabad0-c15a-4789-9d8b-16648707e276",
             "name": "AI Name and Description",
             "request": {
               "description": {
-                "content": "Resonse time bhut lee rahe hai yeh api.",
+                "content": "Generates AI name and description for a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1454,7 +1369,7 @@
             "event": []
           },
           {
-            "id": "1f463c10-4461-467d-bbd3-6809d0ca4568",
+            "id": "8e44b5db-4e5a-4b80-b847-99388ceef0ef",
             "name": "Create Template from the flow",
             "request": {
               "url": {
@@ -1487,7 +1402,7 @@
             "event": []
           },
           {
-            "id": "8cc180f3-3078-40bf-9ce8-722fe6fe79aa",
+            "id": "1cbda3e9-e65b-43e5-9d4a-e973786fee5e",
             "name": "Get All template by Org_Id",
             "request": {
               "url": {
@@ -1515,7 +1430,7 @@
             "event": []
           },
           {
-            "id": "70d191e8-d0a6-4e25-88c9-ab4a6699bdeb",
+            "id": "b3778540-bf93-4745-a048-3bd31983fa9a",
             "name": "New Request",
             "request": {
               "url": {
@@ -1532,9 +1447,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "9557ebd8-e4a3-4e7b-ad44-a548b77466fa",
+              "id": "461b2ed9-4a70-4ef6-965e-02bb93a03025",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1543,9 +1457,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "3fbb05ab-7b6b-4a31-869d-daf4ce031b09",
+              "id": "bc840d57-6e78-4479-84bd-76e02fca45fa",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1573,11 +1486,11 @@
         ]
       },
       {
-        "id": "dd0626c3-1c7d-441e-add8-2ad79dd6b2b4",
+        "id": "41a30bdb-08b5-4375-baf7-72f15ae59119",
         "name": "Functions",
         "item": [
           {
-            "id": "ffe45717-b78a-4831-85e0-e581d28f82eb",
+            "id": "52144998-46cd-40fb-8418-91d98f5c1d22",
             "name": "Get All Functions",
             "request": {
               "url": {
@@ -1604,7 +1517,7 @@
             "event": []
           },
           {
-            "id": "1e2af380-bb77-43cd-b0be-41206946fd3e",
+            "id": "20dd17b2-5711-47d9-8fcd-c88d9a90cf63",
             "name": "Get One Function",
             "request": {
               "url": {
@@ -1632,7 +1545,7 @@
             "event": []
           },
           {
-            "id": "62c13a82-1b75-4f64-8ecc-10cf8447fec1",
+            "id": "9ef1bd67-34cf-44e3-80fc-1ada65fcd7e1",
             "name": "Get Function by Title",
             "request": {
               "url": {
@@ -1665,9 +1578,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "af8862ab-a5de-4987-896e-dafb30295a38",
+              "id": "362879c4-63a6-4871-a42a-13dfb694421a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1676,9 +1588,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "f967a635-9884-4f76-bb1a-f7a2ed31d345",
+              "id": "0a1f212e-e8e1-4c47-bd2d-2c51ef3c052e",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1706,11 +1617,11 @@
         ]
       },
       {
-        "id": "71435f35-ab59-420d-a0e9-8c7d3b26fac7",
+        "id": "c980828e-028f-4748-b2e8-97d9e598012a",
         "name": "Run Script",
         "item": [
           {
-            "id": "6e2f1008-a285-4957-9c48-7a978a6ef4c1",
+            "id": "e91079d1-4314-415c-b392-e3ea20ae930a",
             "name": "Run script endpoint url",
             "request": {
               "url": {
@@ -1723,7 +1634,7 @@
             "event": []
           },
           {
-            "id": "e12cbc43-0a6f-41d9-8d96-996fd19ddab7",
+            "id": "4439f578-5f35-481f-a383-58e2f33bebf0",
             "name": "Dry run",
             "request": {
               "url": {
@@ -1762,9 +1673,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "48fd90f3-1a30-49ca-954c-0e0fd241964c",
+              "id": "98675dba-750a-42cf-9670-7937cc6561d6",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1773,9 +1683,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "0fb858c6-6c4d-4329-94d0-ec987d17d5b0",
+              "id": "bd5c789b-a238-4c6f-b097-67bd9b0376bf",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1803,11 +1712,11 @@
         ]
       },
       {
-        "id": "c35aae78-8ecf-46ce-adf8-83a0389ff2cd",
+        "id": "11989baf-b8c1-43d7-a073-ae12c5001054",
         "name": "User orgaiztion Mapping",
         "item": [
           {
-            "id": "76b857ee-6c99-47ed-8525-a54478ea1781",
+            "id": "fa0aa8ea-8c9d-4317-badb-ebb15274ff15",
             "name": "add user to org",
             "request": {
               "url": {
@@ -1842,7 +1751,7 @@
             "event": []
           },
           {
-            "id": "861d0753-a1e1-4ff8-b579-96d0083e0110",
+            "id": "276d9b65-600a-446e-8fdb-7ea9961d7a16",
             "name": "remove user from the org",
             "request": {
               "url": {
@@ -1875,9 +1784,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "b22cbdcc-8b71-4180-a686-763817660af3",
+              "id": "473915de-4044-459f-b1d4-3d09f4a6ad71",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1886,9 +1794,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "dccaf1ac-b2eb-42e7-a452-21591cc7c6ff",
+              "id": "3ef064bc-93eb-4dbc-8f28-db594cb7727b",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1916,11 +1823,11 @@
         ]
       },
       {
-        "id": "6050e975-8b2f-4922-aacf-c504e277004c",
+        "id": "ff839f66-100b-4708-b64f-5dbf013b0927",
         "name": "flow",
         "item": [
           {
-            "id": "cb1c3a61-02de-4fb5-ad4d-652c3af24467",
+            "id": "21958fbd-a17a-45cd-853f-1b18ae8643f8",
             "name": "Delete a step",
             "request": {
               "description": {
@@ -1961,7 +1868,7 @@
             "event": []
           },
           {
-            "id": "9ebed9d0-c105-44e8-b486-1cbea5fab19c",
+            "id": "f01eeaee-4060-4d19-bc42-a757121f0f7a",
             "name": "create step",
             "request": {
               "description": {
@@ -1990,7 +1897,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+                "raw": "{\r\n    \"type\": \"{{stepType}}\",\r\n    \"title\": \"{{stepTitle}}\",\r\n    \"orderGroup\": \"{{orderGroup}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2002,7 +1909,7 @@
             "event": []
           },
           {
-            "id": "a63b1b37-4615-411f-900e-61021b88beb6",
+            "id": "2735bbbe-edc6-4564-96ae-4542819fc2f3",
             "name": "update a step",
             "request": {
               "url": {
@@ -2027,7 +1934,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+                "raw": "{\r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"{{stepTitle}}\",\r\n  \"org_id\": \"{{org_id}}\",\r\n  \"project_id\": \"{{project_id}}\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"{{slugName}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2039,7 +1946,7 @@
             "event": []
           },
           {
-            "id": "fda81be7-8999-4a26-8cd2-9ecff0675e02",
+            "id": "1e84b3bd-28e7-4cec-be90-4526cc652d29",
             "name": "reorder",
             "request": {
               "url": {
@@ -2064,9 +1971,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "35486ea8-4c65-4ba4-9599-b0c4235fadd9",
+              "id": "68d484b0-7f72-4eba-b853-8e7468cb2401",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2075,9 +1981,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "df40c834-57ab-4ea7-8435-49a2ea12ab38",
+              "id": "b0dc222b-6691-4985-b908-ee303ccceea5",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2105,11 +2010,11 @@
         ]
       },
       {
-        "id": "431c7115-c841-4bd8-ba63-9169dea0d9f6",
+        "id": "0c2fd8d9-987d-455b-8daa-382c8ba7055d",
         "name": "Template",
         "item": [
           {
-            "id": "e75162c4-7818-49a9-9e63-7f13ac80edd2",
+            "id": "86a02b4c-4634-46b9-ab7d-60c5ef2c05cf",
             "name": "Get Template By Id",
             "request": {
               "url": {
@@ -2136,7 +2041,7 @@
             "event": []
           },
           {
-            "id": "7dd60813-59c3-42b1-a863-6fbe130e0ce9",
+            "id": "2b270795-ae02-4408-8bec-becc60b1e02e",
             "name": "Get all Templates",
             "request": {
               "url": {
@@ -2162,7 +2067,7 @@
             "event": []
           },
           {
-            "id": "f85047de-1099-4087-9acc-ec00ab8db2f6",
+            "id": "5eca355b-d5a6-4088-acca-e6c79278e3e4",
             "name": "Update template category",
             "request": {
               "url": {
@@ -2186,7 +2091,7 @@
               "method": "PATCH",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+                "raw": "{\r\n    \"category\": {{categoryJson}}\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2202,9 +2107,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "ce96a3ea-5491-4bc8-b77d-271e9c9656c4",
+              "id": "b3696a2e-072a-4f33-8613-06e179db80aa",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2213,9 +2117,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "a3524a04-2df1-4e0b-8370-597f8e1c442f",
+              "id": "0ef3c36b-d4e3-488f-9ec4-0395e7583c3c",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2268,7 +2171,7 @@
     "values": [
       {
         "type": "any",
-        "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E=",
+        "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE=",
         "key": "proxy_auth_token"
       },
       {
@@ -2278,27 +2181,27 @@
       },
       {
         "type": "any",
-        "value": "56736",
+        "value": "19014",
         "key": "org_id"
       },
       {
         "type": "any",
-        "value": "22199",
+        "value": "23187",
         "key": "user_id"
       },
       {
         "type": "any",
-        "value": "pronitin",
+        "value": "TarunMewara",
         "key": "nameOrg"
       },
       {
         "type": "any",
-        "value": "updatiosndjs",
+        "value": "updatiosndjswe",
         "key": "updateOrg"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "51464",
         "key": "switchorgid"
       },
       {
@@ -2308,38 +2211,43 @@
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "53173",
         "key": "orgidtoleave"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "19014",
         "key": "orgidtoswitchinto"
       },
       {
         "type": "any",
-        "value": "",
+        "value": "17330",
         "key": "removeuserid"
       },
       {
         "type": "any",
-        "value": "projjDqKsRk0",
+        "value": "54275",
+        "key": "update_org_id"
+      },
+      {
+        "type": "any",
+        "value": "projXR0liAk0",
         "key": "project_id"
       },
       {
         "type": "any",
-        "value": "perbpopi",
+        "value": "perbpopir",
         "key": "Updatedname"
       },
       {
         "type": "any",
-        "value": "asnffdjksjksd",
+        "value": "scriZCEW9hog",
         "key": "scriptId"
       }
     ]
   },
   "globals": {
-    "id": "12c47bf5-f8f1-4545-80c0-8a96fb58b64e",
+    "id": "3d4895a0-9535-4e3c-a39b-5cab5c65196c",
     "values": []
   },
   "run": {
@@ -2377,7 +2285,7 @@
       "assertions": {
         "total": 3,
         "pending": 0,
-        "failed": 0
+        "failed": 1
       },
       "testScripts": {
         "total": 1,
@@ -2391,9 +2299,9 @@
       }
     },
     "timings": {
-      "responseAverage": 1262,
-      "responseMin": 1262,
-      "responseMax": 1262,
+      "responseAverage": 121,
+      "responseMin": 121,
+      "responseMax": 121,
       "responseSd": 0,
       "dnsAverage": 0,
       "dnsMin": 0,
@@ -2403,8 +2311,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1770278794840,
-      "completed": 1770278796266
+      "started": 1776244243189,
+      "completed": 1776244243397
     },
     "executions": [
       {
@@ -2417,11 +2325,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "aa6f3427-3011-452e-bdcb-7d7413d2f9a2",
-          "httpRequestId": "a006bce1-0761-46f4-9c88-6c4969b45460"
+          "ref": "d2ab4d5a-b246-4952-a7b8-b5c162f5af76",
+          "httpRequestId": "8a42b1ef-50e7-44a1-b2c5-993b99e37d13"
         },
         "item": {
-          "id": "23d4c85d-be41-4ef2-8dbe-8198f4f2118b",
+          "id": "61fb3385-ba00-4ec5-9fbb-5ad9e1d8ca46",
           "name": "get users of an organization",
           "request": {
             "url": {
@@ -2453,7 +2361,7 @@
             "protocol": "https",
             "path": [
               "orgs",
-              "56736",
+              "19014",
               "orgusers",
               "all"
             ],
@@ -2468,11 +2376,11 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -2487,7 +2395,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "ed33c301-529e-4986-a147-5221bde85869",
+              "value": "3d477043-f3be-480a-951a-ba85293ead87",
               "system": true
             },
             {
@@ -2509,21 +2417,21 @@
           "method": "GET"
         },
         "response": {
-          "id": "84a49f4d-9d21-4f8a-a493-58cd316d155a",
-          "status": "OK",
-          "code": 200,
+          "id": "c47832a3-9b99-4ded-aeb3-d6302e77ad75",
+          "status": "Bad Request",
+          "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:35 GMT"
+              "value": "Wed, 15 Apr 2026 09:10:41 GMT"
             },
             {
               "key": "Content-Type",
               "value": "application/json; charset=utf-8"
             },
             {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
+              "key": "Content-Length",
+              "value": "101"
             },
             {
               "key": "Connection",
@@ -2543,7 +2451,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"618-ZwgdbfeLyEMt3DwAW2zMOEA97SY\""
+              "value": "W/\"65-ipd3tLOJK95fnrlUMJcRvsafMmY\""
             },
             {
               "key": "Via",
@@ -2571,11 +2479,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vscc3dELbG3CyJjYrcFjhapKAgGQ%2FoL1ZZ4FFuabZj7cqiOsGpsK77fM%2FDf9pHdpXUF%2Fq91WjQNhmmbEYghl2xAZv8cowHp5Z8moQ6nDlpnn4hrE\"}]}"
-            },
-            {
-              "key": "Content-Encoding",
-              "value": "br"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H6xEuBBKbaGs8AbEhXq0VEPfbz%2BAtwc07TWodDAqlA5j9sw%2BbqHm8hW6vTuZaw3bRFRUusHkq9uyuzKe%2FWA9otELtpHQSdWMaoEDWsqcS%2B6%2BDTjmYJjeybHKnG7opHyH94Ck3lUJdQ%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -2583,7 +2487,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e8c5acc885ab-BOM"
+              "value": "9ec9d18f7c1b40b1-BOM"
             },
             {
               "key": "alt-svc",
@@ -2604,9 +2508,10 @@
               115,
               34,
               58,
-              116,
-              114,
-              117,
+              102,
+              97,
+              108,
+              115,
               101,
               44,
               34,
@@ -2620,7 +2525,21 @@
               34,
               58,
               34,
-              79,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              103,
+              101,
+              116,
+              32,
+              111,
               114,
               103,
               97,
@@ -2632,22 +2551,6 @@
               105,
               111,
               110,
-              32,
-              103,
-              101,
-              116,
-              32,
-              115,
-              117,
-              99,
-              101,
-              115,
-              115,
-              102,
-              117,
-              108,
-              108,
-              121,
               34,
               44,
               34,
@@ -2657,1513 +2560,62 @@
               97,
               34,
               58,
-              123,
               34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              91,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              56,
-              56,
-              57,
-              52,
-              52,
-              44,
-              34,
-              110,
-              97,
-              109,
+              82,
               101,
-              34,
-              58,
-              34,
-              83,
+              113,
               117,
-              114,
-              121,
-              97,
-              107,
-              97,
-              110,
+              101,
+              115,
               116,
               32,
-              83,
-              117,
-              109,
+              102,
               97,
-              110,
-              34,
-              44,
-              34,
-              109,
-              111,
-              98,
               105,
               108,
               101,
-              34,
-              58,
-              110,
-              117,
-              108,
-              108,
-              44,
-              34,
-              101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              115,
-              117,
-              109,
-              97,
-              110,
-              115,
-              117,
-              114,
-              121,
-              97,
-              107,
-              97,
-              110,
-              116,
-              52,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
               100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              109,
-              101,
+              32,
+              119,
+              105,
               116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              115,
               104,
-              111,
-              119,
-              68,
-              101,
-              109,
-              111,
-              34,
-              58,
-              102,
-              97,
-              108,
+              32,
               115,
-              101,
-              125,
-              44,
-              34,
+              116,
+              97,
+              116,
+              117,
+              115,
+              32,
               99,
-              114,
-              101,
-              97,
-              116,
-              101,
+              111,
               100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              49,
+              101,
+              32,
               52,
-              84,
-              48,
-              53,
-              58,
-              49,
-              50,
-              58,
-              48,
-              57,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
               48,
               49,
-              45,
-              49,
-              52,
-              84,
-              48,
-              54,
-              58,
-              49,
-              50,
-              58,
-              53,
-              50,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
               34,
-              44,
-              34,
-              105,
-              115,
-              95,
-              98,
-              108,
-              111,
-              99,
-              107,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              105,
-              115,
-              95,
-              112,
-              97,
-              115,
-              115,
-              119,
-              111,
-              114,
-              100,
-              95,
-              118,
-              101,
-              114,
-              105,
-              102,
-              105,
-              101,
-              100,
-              34,
-              58,
-              48,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              95,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              34,
-              58,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              85,
-              115,
-              101,
-              114,
-              34,
-              125,
-              125,
-              44,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              56,
-              55,
-              53,
-              48,
-              49,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              97,
-              117,
-              116,
-              111,
-              109,
-              97,
-              116,
-              105,
-              111,
-              110,
-              46,
-              117,
-              115,
-              101,
-              114,
-              50,
-              64,
-              116,
-              101,
-              115,
-              116,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              109,
-              111,
-              98,
-              105,
-              108,
-              101,
-              34,
-              58,
-              110,
-              117,
-              108,
-              108,
-              44,
-              34,
-              101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              97,
-              117,
-              116,
-              111,
-              109,
-              97,
-              116,
-              105,
-              111,
-              110,
-              46,
-              117,
-              115,
-              101,
-              114,
-              50,
-              64,
-              116,
-              101,
-              115,
-              116,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
-              100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              109,
-              101,
-              116,
-              97,
-              34,
-              58,
-              110,
-              117,
-              108,
-              108,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              48,
-              55,
-              84,
-              48,
-              57,
-              58,
-              50,
-              49,
-              58,
-              51,
-              50,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              48,
-              55,
-              84,
-              48,
-              57,
-              58,
-              50,
-              49,
-              58,
-              51,
-              50,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              115,
-              95,
-              98,
-              108,
-              111,
-              99,
-              107,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              105,
-              115,
-              95,
-              112,
-              97,
-              115,
-              115,
-              119,
-              111,
-              114,
-              100,
-              95,
-              118,
-              101,
-              114,
-              105,
-              102,
-              105,
-              101,
-              100,
-              34,
-              58,
-              48,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              95,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              34,
-              58,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              85,
-              115,
-              101,
-              114,
-              34,
-              125,
-              125,
-              44,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              56,
-              55,
-              53,
-              48,
-              48,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              97,
-              117,
-              116,
-              111,
-              109,
-              97,
-              116,
-              105,
-              111,
-              110,
-              46,
-              117,
-              115,
-              101,
-              114,
-              49,
-              64,
-              116,
-              101,
-              115,
-              116,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              109,
-              111,
-              98,
-              105,
-              108,
-              101,
-              34,
-              58,
-              110,
-              117,
-              108,
-              108,
-              44,
-              34,
-              101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              97,
-              117,
-              116,
-              111,
-              109,
-              97,
-              116,
-              105,
-              111,
-              110,
-              46,
-              117,
-              115,
-              101,
-              114,
-              49,
-              64,
-              116,
-              101,
-              115,
-              116,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
-              100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              109,
-              101,
-              116,
-              97,
-              34,
-              58,
-              110,
-              117,
-              108,
-              108,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              48,
-              55,
-              84,
-              48,
-              57,
-              58,
-              50,
-              49,
-              58,
-              50,
-              55,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              48,
-              55,
-              84,
-              48,
-              57,
-              58,
-              50,
-              49,
-              58,
-              50,
-              55,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              115,
-              95,
-              98,
-              108,
-              111,
-              99,
-              107,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              105,
-              115,
-              95,
-              112,
-              97,
-              115,
-              115,
-              119,
-              111,
-              114,
-              100,
-              95,
-              118,
-              101,
-              114,
-              105,
-              102,
-              105,
-              101,
-              100,
-              34,
-              58,
-              48,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              95,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              34,
-              58,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              50,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              85,
-              115,
-              101,
-              114,
-              34,
-              125,
-              125,
-              44,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              50,
-              50,
-              49,
-              57,
-              57,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              112,
-              114,
-              111,
-              110,
-              105,
-              116,
-              34,
-              44,
-              34,
-              109,
-              111,
-              98,
-              105,
-              108,
-              101,
-              34,
-              58,
-              34,
-              57,
-              57,
-              57,
-              51,
-              53,
-              53,
-              57,
-              49,
-              50,
-              56,
-              34,
-              44,
-              34,
-              101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              114,
-              97,
-              104,
-              97,
-              110,
-              103,
-              100,
-              97,
-              108,
-              101,
-              106,
-              97,
-              121,
-              107,
-              117,
-              109,
-              97,
-              114,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
-              100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              109,
-              101,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              115,
-              104,
-              111,
-              119,
-              68,
-              101,
-              109,
-              111,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              125,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              53,
-              45,
-              48,
-              55,
-              45,
-              51,
-              48,
-              84,
-              49,
-              51,
-              58,
-              49,
-              49,
-              58,
-              49,
-              49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              49,
-              45,
-              50,
-              48,
-              84,
-              49,
-              48,
-              58,
-              51,
-              50,
-              58,
-              52,
-              49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              115,
-              95,
-              98,
-              108,
-              111,
-              99,
-              107,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              105,
-              115,
-              95,
-              112,
-              97,
-              115,
-              115,
-              119,
-              111,
-              114,
-              100,
-              95,
-              118,
-              101,
-              114,
-              105,
-              102,
-              105,
-              101,
-              100,
-              34,
-              58,
-              48,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              95,
-              105,
-              100,
-              34,
-              58,
-              49,
-              44,
-              34,
-              114,
-              111,
-              108,
-              101,
-              34,
-              58,
-              123,
-              34,
-              105,
-              100,
-              34,
-              58,
-              49,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              79,
-              119,
-              110,
-              101,
-              114,
-              34,
-              125,
-              125,
-              93,
-              44,
-              34,
-              105,
-              116,
-              101,
-              109,
-              115,
-              80,
-              101,
-              114,
-              80,
-              97,
-              103,
-              101,
-              34,
-              58,
-              34,
-              50,
-              48,
-              48,
-              34,
-              44,
-              34,
-              112,
-              97,
-              103,
-              101,
-              78,
-              111,
-              34,
-              58,
-              49,
-              44,
-              34,
-              112,
-              97,
-              103,
-              101,
-              78,
-              117,
-              109,
-              98,
-              101,
-              114,
-              34,
-              58,
-              49,
-              44,
-              34,
-              116,
-              111,
-              116,
-              97,
-              108,
-              69,
-              110,
-              116,
-              105,
-              116,
-              121,
-              67,
-              111,
-              117,
-              110,
-              116,
-              34,
-              58,
-              52,
-              44,
-              34,
-              116,
-              111,
-              116,
-              97,
-              108,
-              80,
-              97,
-              103,
-              101,
-              67,
-              111,
-              117,
-              110,
-              116,
-              34,
-              58,
-              49,
-              125,
-              44,
-              34,
-              115,
-              116,
-              97,
-              116,
-              117,
-              115,
-              34,
-              58,
-              34,
-              115,
-              117,
-              99,
-              99,
-              101,
-              115,
-              115,
-              34,
-              44,
-              34,
-              104,
-              97,
-              115,
-              69,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              115,
-              34,
-              58,
-              91,
-              93,
-              44,
-              34,
-              112,
-              114,
-              111,
-              120,
-              121,
-              95,
-              100,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              34,
-              58,
-              49,
-              52,
-              52,
-              125,
-              44,
-              34,
-              105,
-              115,
-              67,
-              97,
-              99,
-              104,
-              101,
-              100,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
               125
             ]
           },
           "cookie": [],
-          "responseTime": 1262,
-          "responseSize": 1560
+          "responseTime": 121,
+          "responseSize": 101
         },
-        "id": "23d4c85d-be41-4ef2-8dbe-8198f4f2118b",
+        "id": "61fb3385-ba00-4ec5-9fbb-5ad9e1d8ca46",
         "assertions": [
           {
             "assertion": "Status code is correct",
-            "skipped": false
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is correct",
+              "message": "expected response to have status code 200 but got 400",
+              "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)"
+            }
           },
           {
             "assertion": "Response time < 3s",
@@ -4177,9 +2629,550 @@
       }
     ],
     "transfers": {
-      "responseTotal": 1560
+      "responseTotal": 101
     },
-    "failures": [],
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is correct",
+          "message": "expected response to have status code 200 but got 400",
+          "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "27ae08c4d88c029b46bb09ae0a1eff8c",
+          "id": "bef79a7e-159d-4a3e-80a9-246b6ce703ab",
+          "timestamp": 1776244243371,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "61fb3385-ba00-4ec5-9fbb-5ad9e1d8ca46",
+          "name": "get users of an organization",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "orgusers",
+                "all"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "parent": {
+          "id": "6d45d74b-cf4d-40db-9ebc-d5091147b56f",
+          "name": "org",
+          "item": [
+            {
+              "id": "f87d9dd9-bd50-4b0d-9442-fa2e8b0636bd",
+              "name": "createorg",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "createOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "c52fb590-b1e8-4602-a5d8-ef7a093b4a9b",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                      "if (nameOrg === undefined || nameOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                      "} else if (nameOrg === \"\") {\r",
+                      "  pm.variables.set(\"nameOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "db317508-4e37-445b-b694-9e7085139f64",
+              "name": "get all organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "getCompanies",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "proxy_auth_token",
+                      "value": "{{proxy_auth_token}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "61fb3385-ba00-4ec5-9fbb-5ad9e1d8ca46",
+              "name": "get users of an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "orgusers",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "637a280d-55d3-4d2f-bc8b-8b07ceaa2ef2",
+              "name": "update an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{update_org_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "888fc0be-c4f4-4dc7-b560-9028c01c1d27",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                      "if (updateOrg === undefined || updateOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                      "} else if (updateOrg === \"\") {\r",
+                      "  pm.variables.set(\"updateOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ced07040-6e78-4d1c-900d-27122798e466",
+              "name": "get org token",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "token"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "06242265-4066-4e19-9154-e4f41e86aa76",
+              "name": "global search on org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "search"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "a"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "5e44e8ed-db33-4d24-81b9-081b4289d5f4",
+              "name": "switch org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "switchOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "4aeb89df-28dd-414b-8200-ac6b7dc920ba",
+              "name": "add user to org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "af55dc4a-1433-4f94-a1b4-532b0d568d77",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Only generate a random email if the data file did not provide one\r",
+                      "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                      "if (newusermail === undefined || newusermail === null) {\r",
+                      "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"newusermail\", newusermail);\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3d95ec2e-bf3b-4ed0-a7ef-54f3191bc601",
+              "name": "remove user",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "d",
+                    "{{removeuserid}}",
+                    "{{org_id}}",
+                    "removeUser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "7582ee69-c70b-47e8-9fa7-50e77561d4eb",
+              "name": "leave org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "leave-org"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "9a34d915-1082-4aa3-a1f7-77f1acad7064",
+              "name": "Beta Status",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "betaStatus"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "97417dce-41e3-4b84-ab5b-ea282a59adfa",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "d3fc8c95-372b-4d73-8d1e-4592dfb33051"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "1957dadc-da6c-4242-b5e9-85e4468519e9",
+                "type": "text/javascript",
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 3s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "176985fa-e268-485e-8460-ae635ed9503f"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d2ab4d5a-b246-4952-a7b8-b5c162f5af76",
+          "httpRequestId": "8a42b1ef-50e7-44a1-b2c5-993b99e37d13",
+          "scriptId": "1957dadc-da6c-4242-b5e9-85e4468519e9",
+          "execution": "176985fa-e268-485e-8460-ae635ed9503f"
+        }
+      }
+    ],
     "error": null
   }
 }

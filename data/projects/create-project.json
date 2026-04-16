@@ -1,17 +1,26 @@
 [
   {
-    "projectTitle": "january13",
+    "case": "valid_standard_title",
+    "projectTitle": null,
     "projectType": "flow",
     "expectedStatus": 201
   },
   {
-    "projectTitle": "january132026",
+    "case": "valid_title_with_numbers",
+    "projectTitle": null,
     "projectType": "flow",
     "expectedStatus": 201
   },
   {
+    "case": "valid_short_title",
+    "projectTitle": null,
+    "projectType": "flow",
+    "expectedStatus": 201
+  },
+  {
+    "case": "empty_title_should_fail",
     "projectTitle": "",
     "projectType": "flow",
-    "expectedStatus": 201
+    "expectedStatus": 400
   }
 ]

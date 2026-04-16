@@ -1,0 +1,15 @@
+# Node dependencies
+node_modules/
+node/node_modules/
+
+# Generated reports (large, auto-generated — don't commit)
+reports/
+reportsJson/
+newman/
+
+# Environment file contains sensitive auth tokens — NEVER commit this
+environment/env.json
+
+# OS files
+.DS_Store
+Thumbs.db

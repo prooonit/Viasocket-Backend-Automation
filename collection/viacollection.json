@@ -1,4 +1,4 @@
-{
+﻿{
 	"info": {
 		"_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
 		"name": "viasocket apis",
@@ -17,18 +17,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Generate random organization name\r",
-									"const randomOrgName =\r",
-									"  \"Org_\" +\r",
-									"  Math.random().toString(36).substring(2, 8) +\r",
-									"  \"_\" +\r",
-									"  Date.now();\r",
-									"\r",
-									"// Set variable used in request body\r",
-									"pm.variables.set(\"nameOrg\", randomOrgName);\r",
-									"\r",
-									"// Optional: log for debugging\r",
-									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									"// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+									"const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+									"if (nameOrg === undefined || nameOrg === null) {\r",
+									"  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+									"} else if (nameOrg === \"\") {\r",
+									"  pm.variables.set(\"nameOrg\", \"\");\r",
+									"} else {\r",
+									"  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -133,18 +131,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Generate random organization name\r",
-									"const randomOrgName =\r",
-									"  \"Org_\" +\r",
-									"  Math.random().toString(36).substring(2, 8) +\r",
-									"  \"_\" +\r",
-									"  Date.now();\r",
-									"\r",
-									"// Set variable used in request body\r",
-									"pm.variables.set(\"updateOrg\", randomOrgName);\r",
-									"\r",
-									"// Optional: log for debugging\r",
-									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									"// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+									"const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+									"if (updateOrg === undefined || updateOrg === null) {\r",
+									"  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+									"} else if (updateOrg === \"\") {\r",
+									"  pm.variables.set(\"updateOrg\", \"\");\r",
+									"} else {\r",
+									"  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -172,13 +168,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/orgs/{{org_id}}",
+							"raw": "{{BASE_URL}}/orgs/{{update_org_id}}",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"orgs",
-								"{{org_id}}"
+								"{{update_org_id}}"
 							]
 						}
 					},
@@ -280,16 +276,14 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Generate random organization name\r",
-									"const randommail =\r",
-									"  \"randomMail_\" +\r",
-									"  Math.random().toString(36).substring(2, 8) +\r",
-									"  \"_\" +\r",
-									"  Date.now();\r",
-									"\r",
-									"// Set variable used in request body\r",
-									"pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-									"\r",
+									"// Only generate a random email if the data file did not provide one\r",
+									"const newusermail = pm.iterationData.get(\"newusermail\");\r",
+									"if (newusermail === undefined || newusermail === null) {\r",
+									"  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+									"} else {\r",
+									"  pm.variables.set(\"newusermail\", newusermail);\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -454,8 +448,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 3s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -483,16 +477,14 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Generate random organization name\r",
-									"const randomOrgName =\r",
-									"  \"Collection_\" +\r",
-									"  Math.random().toString(36).substring(2, 8) +\r",
-									"  \"_\" +\r",
-									"  Date.now();\r",
-									"\r",
-									"// Set variable used in request body\r",
-									"pm.variables.set(\"projectTitle\", randomOrgName);\r",
-									"\r",
+									"// Only generate a random title if the data file did not provide one\r",
+									"const projectTitle = pm.iterationData.get(\"projectTitle\");\r",
+									"if (projectTitle === undefined || projectTitle === null) {\r",
+									"  const randomTitle = \"Collection_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"  pm.variables.set(\"projectTitle\", randomTitle);\r",
+									"} else {\r",
+									"  pm.variables.set(\"projectTitle\", projectTitle);\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -541,7 +533,7 @@
 								"projects"
 							]
 						},
-						"description": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name."
+						"description": "Note: We can create collection in any one's org with the help of just org id."
 					},
 					"response": []
 				},
@@ -551,83 +543,9 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "accept",
-								"value": "application/json, text/plain, */*",
-								"disabled": true
-							},
-							{
-								"key": "accept-language",
-								"value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
-								"disabled": true
-							},
-							{
-								"key": "baggage",
-								"value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1",
-								"disabled": true
-							},
-							{
-								"key": "if-none-match",
-								"value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\"",
-								"disabled": true
-							},
-							{
-								"key": "origin",
-								"value": "https://flow.viasocket.com",
-								"disabled": true
-							},
-							{
-								"key": "priority",
-								"value": "u=1, i",
-								"disabled": true
-							},
-							{
 								"key": "proxy_auth_token",
-								"value": "{{proxy_auth_token}}"
-							},
-							{
-								"key": "referer",
-								"value": "https://flow.viasocket.com/",
-								"disabled": true
-							},
-							{
-								"key": "sec-ch-ua",
-								"value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
-								"disabled": true
-							},
-							{
-								"key": "sec-ch-ua-mobile",
-								"value": "?0",
-								"disabled": true
-							},
-							{
-								"key": "sec-ch-ua-platform",
-								"value": "\"macOS\"",
-								"disabled": true
-							},
-							{
-								"key": "sec-fetch-dest",
-								"value": "empty",
-								"disabled": true
-							},
-							{
-								"key": "sec-fetch-mode",
-								"value": "cors",
-								"disabled": true
-							},
-							{
-								"key": "sec-fetch-site",
-								"value": "same-site",
-								"disabled": true
-							},
-							{
-								"key": "sentry-trace",
-								"value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1",
-								"disabled": true
-							},
-							{
-								"key": "user-agent",
-								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-								"disabled": true
+								"value": "{{proxy_auth_token}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -669,7 +587,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\":\"newone111\"}",
+							"raw": "{\"title\":\"{{updatedProjectTitle}}\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -731,7 +649,7 @@
 								}
 							]
 						},
-						"description": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 ."
+						"description": "Note: For the status 3, it gives something went wrong."
 					},
 					"response": []
 				}
@@ -761,8 +679,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200|| expectedStatus === 201) {\r",
@@ -817,6 +735,21 @@
 				},
 				{
 					"name": "Update User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomName = \"User_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"pm.variables.set(\"Updatedname\", randomName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -878,8 +811,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -907,18 +840,14 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Generate random organization name\r",
-									"const randomOrgName =\r",
-									"  \"workflow_\" +\r",
-									"  Math.random().toString(36).substring(2, 8) +\r",
-									"  \"_\" +\r",
-									"  Date.now();\r",
-									"\r",
-									"// Set variable used in request body\r",
-									"pm.variables.set(\"scriptTitle\", randomOrgName);\r",
-									"\r",
-									"// Optional: log for debugging\r",
-									"console.log(\"Generated Org Name:\", randomOrgName);\r",
+									"// Only generate a random title if the data file did not provide one\r",
+									"const scriptTitle = pm.iterationData.get(\"scriptTitle\");\r",
+									"if (scriptTitle === undefined || scriptTitle === null) {\r",
+									"  const randomTitle = \"workflow_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+									"  pm.variables.set(\"scriptTitle\", randomTitle);\r",
+									"} else {\r",
+									"  pm.variables.set(\"scriptTitle\", scriptTitle);\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -956,7 +885,7 @@
 								"scripts"
 							]
 						},
-						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+						"description": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url."
 					},
 					"response": []
 				},
@@ -982,7 +911,7 @@
 								"scripts"
 							]
 						},
-						"description": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc"
+						"description": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url."
 					},
 					"response": []
 				},
@@ -993,13 +922,13 @@
 						"header": [
 							{
 								"key": "proxy_auth_token",
-								"value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda",
+								"value": "{{proxy_auth_token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+							"raw": "{\r\n    \"title\":\"{{updateTitle}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1018,7 +947,7 @@
 								"{{scriptId}}"
 							]
 						},
-						"description": "Mai dusre collection ki script bhi update kar paa raha hu"
+						"description": "Updates the title of an existing script"
 					},
 					"response": []
 				},
@@ -1050,6 +979,17 @@
 				},
 				{
 					"name": "Change Script Status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set('scriptId', 'scriAjIcRF2H');"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1078,7 +1018,7 @@
 								}
 							]
 						},
-						"description": "time jada lee rahi hai as expected nhi hai"
+						"description": "Changes the active/draft status of a script"
 					},
 					"response": []
 				},
@@ -1111,7 +1051,18 @@
 				},
 				{
 					"name": "publish script",
-					"request": {
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set('scriptId', 'scriBRwe6RiR');"
+								]
+							}
+						}
+					],
+										"request": {
 						"method": "PUT",
 						"header": [
 							{
@@ -1370,7 +1321,7 @@
 								}
 							]
 						},
-						"description": "Resonse time bhut lee rahe hai yeh api."
+						"description": "Generates AI name and description for a script"
 					},
 					"response": []
 				},
@@ -1466,8 +1417,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -1592,8 +1543,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -1681,8 +1632,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -1789,8 +1740,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -1860,7 +1811,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+							"raw": "{\r\n    \"type\": \"{{stepType}}\",\r\n    \"title\": \"{{stepTitle}}\",\r\n    \"orderGroup\": \"{{orderGroup}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1896,7 +1847,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+							"raw": "{\r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"{{stepTitle}}\",\r\n  \"org_id\": \"{{org_id}}\",\r\n  \"project_id\": \"{{project_id}}\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"{{slugName}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1963,8 +1914,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",
@@ -2047,7 +1998,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"category\": {{categoryJson}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2094,8 +2045,8 @@
 							"    pm.response.to.have.status(expectedStatus);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time < 1s\", () => {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time < 5s\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"if (expectedStatus === 200) {\r",

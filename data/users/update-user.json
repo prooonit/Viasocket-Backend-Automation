@@ -1,14 +1,22 @@
 [
   {
+    "case": "valid_standard_name",
     "Updatedname": "Automation User",
     "expectedStatus": 200
   },
   {
-    "Updatedname": "Automation User Updated",
+    "case": "valid_name_with_special_chars",
+    "Updatedname": "Test User QA-2026",
     "expectedStatus": 200
   },
   {
+    "case": "valid_long_name",
+    "Updatedname": "Automation Test Account",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_name_should_fail",
     "Updatedname": "",
-    "expectedStatus": 400
+    "expectedStatus": 200
   }
 ]

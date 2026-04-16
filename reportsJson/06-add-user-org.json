@@ -7,11 +7,11 @@
     },
     "item": [
       {
-        "id": "4cab572f-27d0-4f4e-8ace-2e2e216df1d3",
+        "id": "674ab4c3-53fc-45c8-9c60-c09b08efc975",
         "name": "org",
         "item": [
           {
-            "id": "bf015004-e368-43dc-a7da-ef6b33f0d256",
+            "id": "c130061f-1202-4622-8fac-260b999ce653",
             "name": "createorg",
             "request": {
               "url": {
@@ -34,7 +34,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \"name\": \"tarun\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -47,22 +47,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "6ff905d1-9a28-4cf9-bfe4-129cbd2bbca7",
+                  "id": "46a3ac14-5ea5-46b3-882c-e4be01dba8d6",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"nameOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                    "if (nameOrg === undefined || nameOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                    "} else if (nameOrg === \"\") {\r",
+                    "  pm.variables.set(\"nameOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -70,7 +67,7 @@
             ]
           },
           {
-            "id": "9bd980fb-edb6-43b2-a5c0-7fb79e0a8236",
+            "id": "c3ef6122-f74d-40fa-bc36-33f158ccd4da",
             "name": "get all organization",
             "request": {
               "url": {
@@ -103,7 +100,7 @@
             "event": []
           },
           {
-            "id": "59bb8010-e061-431f-9b46-33103807a467",
+            "id": "05a8e891-ea88-44fe-b7f2-61b368d30d9b",
             "name": "get users of an organization",
             "request": {
               "url": {
@@ -131,13 +128,13 @@
             "event": []
           },
           {
-            "id": "b76e2abd-3282-4583-9563-f94509c86321",
+            "id": "77f5ff1a-4093-46f3-9a85-b15f1f9cc960",
             "name": "update an organization",
             "request": {
               "url": {
                 "path": [
                   "orgs",
-                  "{{org_id}}"
+                  "{{update_org_id}}"
                 ],
                 "host": [
                   "{{BASE_URL}}"
@@ -167,22 +164,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "190e57c7-05d1-4536-97f3-a059942409a7",
+                  "id": "0c3dca45-73ca-49f2-ab58-22a8bd0e6549",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"updateOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                    "if (updateOrg === undefined || updateOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                    "} else if (updateOrg === \"\") {\r",
+                    "  pm.variables.set(\"updateOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -190,7 +184,7 @@
             ]
           },
           {
-            "id": "76962016-767c-43ed-8022-084c6f3b34d3",
+            "id": "9ba0d33a-610b-463f-b717-8c456cb0d067",
             "name": "get org token",
             "request": {
               "url": {
@@ -217,7 +211,7 @@
             "event": []
           },
           {
-            "id": "b1d1f058-e03f-4a4e-b9bf-daa38beae45d",
+            "id": "b8a0d011-64f2-45fb-98c2-599249fac913",
             "name": "global search on org",
             "request": {
               "url": {
@@ -249,7 +243,7 @@
             "event": []
           },
           {
-            "id": "eb0dbb1c-5542-45a4-aa4a-aa1809c70283",
+            "id": "800f3cc9-6bb7-4e9a-9cd4-3431e4873bcc",
             "name": "switch org",
             "request": {
               "url": {
@@ -284,7 +278,7 @@
             "event": []
           },
           {
-            "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+            "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
             "name": "add user to org",
             "request": {
               "url": {
@@ -320,29 +314,26 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "15496cf5-3a67-4926-93e3-a455ce54ecd2",
+                  "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randommail =\r",
-                    "  \"randomMail_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                    "\r",
+                    "// Only generate a random email if the data file did not provide one\r",
+                    "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                    "if (newusermail === undefined || newusermail === null) {\r",
+                    "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"newusermail\", newusermail);\r",
+                    "}\r",
                     ""
                   ],
-                  "_lastExecutionId": "3b3af544-894e-4938-90c7-9428ed96cc26"
+                  "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
                 }
               }
             ]
           },
           {
-            "id": "e5b4f2f2-45f6-4f93-8435-7815866c7360",
+            "id": "5eb791c8-5933-479f-89d6-4ff011638ba5",
             "name": "remove user",
             "request": {
               "url": {
@@ -371,7 +362,7 @@
             "event": []
           },
           {
-            "id": "325e52a1-03a7-4d82-bab9-292083261315",
+            "id": "e1f12178-bd3d-4385-9699-44269f97d01d",
             "name": "leave org",
             "request": {
               "url": {
@@ -410,7 +401,7 @@
             "event": []
           },
           {
-            "id": "5818e875-bc1c-4709-8eaf-04cb2190598e",
+            "id": "0f471abe-ad4d-46e7-ac3a-45094ad83973",
             "name": "Beta Status",
             "request": {
               "url": {
@@ -450,21 +441,19 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "29467582-1dae-445b-a278-70c1cc091713",
+              "id": "c4f42842-ebb6-46cb-abdf-59770b4bc48a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ],
-              "_lastExecutionId": "d8397142-4700-44df-84ea-284e64e3efdf"
+              "_lastExecutionId": "34d65a6b-1780-4cf7-becb-92594941525b"
             }
           },
           {
             "listen": "test",
             "script": {
-              "id": "024ae674-bcd3-4267-90c5-fe91b417a5dd",
+              "id": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -487,21 +476,21 @@
                 "}\r",
                 ""
               ],
-              "_lastExecutionId": "330c1a64-75df-425a-bd62-e1b655b768c8"
+              "_lastExecutionId": "6ec438e4-20f9-495d-bbd2-2c418e8261a6"
             }
           }
         ]
       },
       {
-        "id": "e59a0ec2-e8d7-4c9e-a47b-c6e4b8891b68",
+        "id": "57ca7625-84df-4aee-8a3c-04b576b588e3",
         "name": "Projects",
         "item": [
           {
-            "id": "8dbfe277-34fc-4e31-a98c-555f33b37577",
+            "id": "05bae49f-19b6-4af9-ab7e-63de153a148a",
             "name": "Create Project",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                "content": "Note: We can create collection in any one's org with the help of just org id.",
                 "type": "text/plain"
               },
               "url": {
@@ -547,20 +536,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "af8fd76b-33a2-449f-8d7a-37876dcce482",
+                  "id": "8c05fc52-3a0f-4314-beb1-28507c27ce3d",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Collection_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"projectTitle\", randomOrgName);\r",
-                    "\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const projectTitle = pm.iterationData.get(\"projectTitle\");\r",
+                    "if (projectTitle === undefined || projectTitle === null) {\r",
+                    "  const randomTitle = \"Collection_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"projectTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"projectTitle\", projectTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -568,7 +554,7 @@
             ]
           },
           {
-            "id": "bf22ef0c-f686-41f6-b022-a4ef453726eb",
+            "id": "2feb1f33-e1dd-4f80-b962-95068994f2fa",
             "name": "Get All projects",
             "request": {
               "url": {
@@ -596,83 +582,8 @@
               },
               "header": [
                 {
-                  "disabled": true,
-                  "key": "accept",
-                  "value": "application/json, text/plain, */*"
-                },
-                {
-                  "disabled": true,
-                  "key": "accept-language",
-                  "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
-                },
-                {
-                  "disabled": true,
-                  "key": "baggage",
-                  "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
-                },
-                {
-                  "disabled": true,
-                  "key": "if-none-match",
-                  "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
-                },
-                {
-                  "disabled": true,
-                  "key": "origin",
-                  "value": "https://flow.viasocket.com"
-                },
-                {
-                  "disabled": true,
-                  "key": "priority",
-                  "value": "u=1, i"
-                },
-                {
                   "key": "proxy_auth_token",
                   "value": "{{proxy_auth_token}}"
-                },
-                {
-                  "disabled": true,
-                  "key": "referer",
-                  "value": "https://flow.viasocket.com/"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua",
-                  "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-mobile",
-                  "value": "?0"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-platform",
-                  "value": "\"macOS\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-dest",
-                  "value": "empty"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-mode",
-                  "value": "cors"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-site",
-                  "value": "same-site"
-                },
-                {
-                  "disabled": true,
-                  "key": "sentry-trace",
-                  "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
-                },
-                {
-                  "disabled": true,
-                  "key": "user-agent",
-                  "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                 }
               ],
               "method": "GET"
@@ -681,7 +592,7 @@
             "event": []
           },
           {
-            "id": "57636144-7ebd-478c-a725-32a845fabd18",
+            "id": "f895b271-fffc-49a1-9364-c31b3f7875b0",
             "name": "Update Project",
             "request": {
               "url": {
@@ -706,7 +617,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\"title\":\"newone111\"}",
+                "raw": "{\"title\":\"{{updatedProjectTitle}}\"}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -718,11 +629,11 @@
             "event": []
           },
           {
-            "id": "5b7eb1d7-29a6-4742-ab6b-3f4f403e4078",
+            "id": "20fdae52-7b20-4745-8abc-702e3e802416",
             "name": "Change Project Status",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                "content": "Note: For the status 3, it gives something went wrong.",
                 "type": "text/plain"
               },
               "url": {
@@ -768,9 +679,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "6fe75f3c-65dc-403e-91cf-483f093e6e7d",
+              "id": "b05827b1-e77c-47cb-af43-ef7b9f98b77d",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -779,9 +689,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "9c2d9815-f88a-49aa-8383-da28049f7cd2",
+              "id": "dc36136a-397d-440b-80ac-7a3485914671",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -809,11 +718,11 @@
         ]
       },
       {
-        "id": "736ba6e2-3040-4937-8ce9-54999bc7d8f0",
+        "id": "0e3c7c50-86c4-4530-ae4a-079380f4ee09",
         "name": "Users",
         "item": [
           {
-            "id": "5d180244-1628-4616-bc3b-eb0a00576825",
+            "id": "85048d10-026d-4c6a-bb8d-11115ae84f81",
             "name": "Get User Profile",
             "request": {
               "url": {
@@ -839,7 +748,7 @@
             "event": []
           },
           {
-            "id": "7cc0109c-bede-40ec-abc1-62f6bb5af033",
+            "id": "007f47f0-0f10-4fd8-8efd-f7d70b32049c",
             "name": "SSO Register",
             "request": {
               "url": {
@@ -852,7 +761,7 @@
             "event": []
           },
           {
-            "id": "61231e82-343e-46cd-b293-1deb97a475b4",
+            "id": "79417af3-4db9-45ea-ac84-463090cb606c",
             "name": "Update User",
             "request": {
               "url": {
@@ -888,16 +797,28 @@
               }
             },
             "response": [],
-            "event": []
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "7eb19be5-197c-4454-91a4-1301be0a97f0",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const randomName = \"User_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "pm.variables.set(\"Updatedname\", randomName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
           }
         ],
         "event": [
           {
             "listen": "prerequest",
             "script": {
-              "id": "29163911-120f-4221-824b-c1be2224ac1f",
+              "id": "6c057138-752e-4105-8e53-39f47387cf9b",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -906,9 +827,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "edfd7a48-615f-4df3-ae9a-1ee25d6fdce2",
+              "id": "81a15887-8b16-4666-9f98-6b136c0989b5",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -936,15 +856,15 @@
         ]
       },
       {
-        "id": "ea304cea-ccd1-41fd-986c-1e4e8d553357",
+        "id": "45dc19d3-840e-4b79-bf6d-65f34d566cb3",
         "name": "Scripts",
         "item": [
           {
-            "id": "422102c2-22e8-4629-a851-5085ca926ac3",
+            "id": "058e723d-ee54-418d-b595-e238a743f212",
             "name": "Create Script",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -981,22 +901,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "dd9b416b-fdc2-4947-9b7b-39e4608e25c2",
+                  "id": "354f0f0e-17f5-40c2-b2c7-6aa839150c31",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"workflow_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"scriptTitle\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const scriptTitle = pm.iterationData.get(\"scriptTitle\");\r",
+                    "if (scriptTitle === undefined || scriptTitle === null) {\r",
+                    "  const randomTitle = \"workflow_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"scriptTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"scriptTitle\", scriptTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -1004,11 +919,11 @@
             ]
           },
           {
-            "id": "2c5af0b7-5009-488e-a52f-0c6297e14248",
+            "id": "c0c31fe9-cb53-43d7-b54b-192a17d964c0",
             "name": "Get All Scripts",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -1035,11 +950,11 @@
             "event": []
           },
           {
-            "id": "b1cb63a5-ec39-4ab2-ba88-7dea32e79e17",
+            "id": "3850a17c-0afd-4da7-94b5-2a1bab870948",
             "name": "Update Script",
             "request": {
               "description": {
-                "content": "Mai dusre collection ki script bhi update kar paa raha hu",
+                "content": "Updates the title of an existing script",
                 "type": "text/plain"
               },
               "url": {
@@ -1058,13 +973,13 @@
               "header": [
                 {
                   "key": "proxy_auth_token",
-                  "value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda"
+                  "value": "{{proxy_auth_token}}"
                 }
               ],
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+                "raw": "{\r\n    \"title\":\"{{updateTitle}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -1076,7 +991,7 @@
             "event": []
           },
           {
-            "id": "a7ee6daa-2efb-4bda-ae2d-3f6c6cdd3c31",
+            "id": "b8670817-98dc-45df-bf62-e72e2c99bd23",
             "name": "Get One Script",
             "request": {
               "url": {
@@ -1104,11 +1019,11 @@
             "event": []
           },
           {
-            "id": "057ebbe6-63d0-4ecb-862b-6aa2ff80c670",
+            "id": "383c2bf1-def5-4a50-8187-f34007456d2d",
             "name": "Change Script Status",
             "request": {
               "description": {
-                "content": "time jada lee rahi hai as expected nhi hai",
+                "content": "Changes the active/draft status of a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1142,7 +1057,7 @@
             "event": []
           },
           {
-            "id": "b60279b0-83bd-4483-9cff-ceda4da1e401",
+            "id": "b02c9b6c-15c4-4110-9fb1-fe366d6b3d6f",
             "name": "Duplicate Script",
             "request": {
               "url": {
@@ -1171,7 +1086,7 @@
             "event": []
           },
           {
-            "id": "71496ea0-1ad0-4c68-a09a-9305d4a523c1",
+            "id": "99f56041-525b-4cb5-acaa-7e113d5697f0",
             "name": "publish script",
             "request": {
               "url": {
@@ -1204,7 +1119,7 @@
             "event": []
           },
           {
-            "id": "6ce48b5f-f8c2-42b6-b1cf-441bf6a4cc0a",
+            "id": "8cc63351-3802-4148-bab2-7f4fe05fa83a",
             "name": "revert script",
             "request": {
               "url": {
@@ -1237,7 +1152,7 @@
             "event": []
           },
           {
-            "id": "336eacf3-6bcd-4ce6-ae83-4bd04539b329",
+            "id": "e45601e9-c58f-407d-ab6d-044b5b2a5dc3",
             "name": "delete script",
             "request": {
               "url": {
@@ -1266,7 +1181,7 @@
             "event": []
           },
           {
-            "id": "694fcbf3-8680-455c-83d6-6acbf7c14db4",
+            "id": "c35bcadf-1e91-4660-ac4b-845074bc498d",
             "name": "Instantiate flow from template",
             "request": {
               "url": {
@@ -1298,7 +1213,7 @@
             "event": []
           },
           {
-            "id": "baed531b-a72d-48bf-a07e-a4ab4a731a8c",
+            "id": "7c3af6f5-3e7c-454b-a1e2-e5c1f26143b8",
             "name": "Move script from one collection to another",
             "request": {
               "url": {
@@ -1342,7 +1257,7 @@
             "event": []
           },
           {
-            "id": "c884a615-6876-472f-8a04-b36cecc7411d",
+            "id": "13c7b23f-eb01-4efa-a800-9dcf957838e0",
             "name": "Get Flow and Templates",
             "request": {
               "url": {
@@ -1369,7 +1284,7 @@
             "event": []
           },
           {
-            "id": "d3cf8ee0-0069-4ea2-8854-f3dc31412d7c",
+            "id": "fe00d23c-a309-41cb-ad25-5aa9d860f659",
             "name": "Delete Bulk Scripts Using Cron (Internal Api)",
             "request": {
               "url": {
@@ -1395,7 +1310,7 @@
             "event": []
           },
           {
-            "id": "f2ade212-6b64-457a-945d-55b55da99b86",
+            "id": "6964af30-1578-4d19-affc-832b05618555",
             "name": "MoveScriptToProject",
             "request": {
               "url": {
@@ -1408,11 +1323,11 @@
             "event": []
           },
           {
-            "id": "3ede819b-a6a0-4c44-9ce1-81140eee9dc1",
+            "id": "dcfc39b0-5581-4973-8c3a-a7aa5cb4b676",
             "name": "AI Name and Description",
             "request": {
               "description": {
-                "content": "Resonse time bhut lee rahe hai yeh api.",
+                "content": "Generates AI name and description for a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1455,7 +1370,7 @@
             "event": []
           },
           {
-            "id": "c43f51cc-04c0-4e78-aa2f-f3707baad2eb",
+            "id": "4ab565d9-500b-4ca2-8e09-c122c9d98fa2",
             "name": "Create Template from the flow",
             "request": {
               "url": {
@@ -1488,7 +1403,7 @@
             "event": []
           },
           {
-            "id": "b45c348a-b20f-41e8-9b64-edc9fa1e9ccb",
+            "id": "45375717-3475-478b-997c-154cf3d50fc4",
             "name": "Get All template by Org_Id",
             "request": {
               "url": {
@@ -1516,7 +1431,7 @@
             "event": []
           },
           {
-            "id": "29f2d3b5-0922-4d71-9ebb-ac3fc8eb0686",
+            "id": "74d7c5e9-b754-4413-81f9-29888a228535",
             "name": "New Request",
             "request": {
               "url": {
@@ -1533,9 +1448,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "ee7aefe7-dd19-4de4-9e16-bc076b17128c",
+              "id": "4538295a-09fe-4292-bccd-4eebdafab239",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1544,9 +1458,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "2f2ac083-98d3-472d-8da9-619d85f70c39",
+              "id": "4f590a6f-b973-4c66-a3a9-ab4f5205d976",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1574,11 +1487,11 @@
         ]
       },
       {
-        "id": "58aee3dd-0f9f-4f06-a71b-b2a9a60d4d11",
+        "id": "809b282d-a2ac-483f-801e-99c75fdae4f5",
         "name": "Functions",
         "item": [
           {
-            "id": "08ff1f19-6ca7-42fd-8986-ebd472d39a6c",
+            "id": "fca3c2cb-3fbe-42da-941f-7c5c1cf31176",
             "name": "Get All Functions",
             "request": {
               "url": {
@@ -1605,7 +1518,7 @@
             "event": []
           },
           {
-            "id": "095c0ed5-edcb-4aca-8e5a-13f8af73fd6b",
+            "id": "32d02190-f393-4568-807b-fc9d90db5467",
             "name": "Get One Function",
             "request": {
               "url": {
@@ -1633,7 +1546,7 @@
             "event": []
           },
           {
-            "id": "11656679-6907-4a14-bf40-5aa6d3c4adad",
+            "id": "9e19c95d-1eae-49be-b8fb-0e6139dc2450",
             "name": "Get Function by Title",
             "request": {
               "url": {
@@ -1666,9 +1579,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "a9efc6b5-e070-4ece-b6c5-7f4b391fc66a",
+              "id": "d978caa2-71f5-4ff3-9937-91c224db17c3",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1677,9 +1589,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "7409e248-0c09-4b01-be83-3c94a867cefa",
+              "id": "65173bea-785a-4dc3-9b1d-2542574a59e1",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1707,11 +1618,11 @@
         ]
       },
       {
-        "id": "bf92a70e-f292-41f9-b512-15412e802ff8",
+        "id": "3ede9821-8c8f-470f-a0e2-2973747e018d",
         "name": "Run Script",
         "item": [
           {
-            "id": "072dbc38-0d90-42fe-9505-511b0cd84ff3",
+            "id": "1df27711-819d-4882-8726-bc1058e0cdca",
             "name": "Run script endpoint url",
             "request": {
               "url": {
@@ -1724,7 +1635,7 @@
             "event": []
           },
           {
-            "id": "665f7ef5-7825-4e87-9b56-2ddc6823c4f3",
+            "id": "3a372a56-30c1-40e5-8343-f4054cbb1102",
             "name": "Dry run",
             "request": {
               "url": {
@@ -1763,9 +1674,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "bbc9ee1b-bbc2-4f43-ae93-672a19979507",
+              "id": "8058c2e6-1f9e-4382-81dd-7c3b002f60bb",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1774,9 +1684,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "ab3f19f9-3b3e-4779-bf32-457bbb554f87",
+              "id": "19ab3d96-ccb7-4121-973f-7893c230043c",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1804,11 +1713,11 @@
         ]
       },
       {
-        "id": "5e4cf337-b10d-414b-9d60-24a30bfe30ad",
+        "id": "31f4d4bb-8956-4976-a3b4-2ff2413b7e58",
         "name": "User orgaiztion Mapping",
         "item": [
           {
-            "id": "9b94e935-3dc7-4667-a8f4-5e110360ddc9",
+            "id": "44b3be26-21cc-4ad3-8647-53c1ab49faab",
             "name": "add user to org",
             "request": {
               "url": {
@@ -1843,7 +1752,7 @@
             "event": []
           },
           {
-            "id": "5aad2264-120f-4e80-8a94-180461256bd3",
+            "id": "6ce039ec-8107-490f-9366-e6473f715bae",
             "name": "remove user from the org",
             "request": {
               "url": {
@@ -1876,9 +1785,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "4ee71c31-598d-402c-81b3-63e3effb1915",
+              "id": "62cfac70-b840-4727-8b4e-cccf863aa180",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1887,9 +1795,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "5b0a7bb3-4610-4534-bd5d-e8189752fa73",
+              "id": "8a0cfeb8-0179-4964-bba4-bf21b726bf05",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1917,11 +1824,11 @@
         ]
       },
       {
-        "id": "4a4a2f4b-e53b-4410-b362-22c283088009",
+        "id": "9f8918f1-6958-46a9-b9d8-da34e5cf9875",
         "name": "flow",
         "item": [
           {
-            "id": "49307f9e-ab15-498f-8be0-e6f84ec8af83",
+            "id": "9fd9b72c-3311-477e-9cf3-ed68c987bead",
             "name": "Delete a step",
             "request": {
               "description": {
@@ -1962,7 +1869,7 @@
             "event": []
           },
           {
-            "id": "ca87d64d-0246-4ee9-a337-f3e7196fd139",
+            "id": "243f21ed-bec0-48a5-8559-fbfe4ef722eb",
             "name": "create step",
             "request": {
               "description": {
@@ -1991,7 +1898,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+                "raw": "{\r\n    \"type\": \"{{stepType}}\",\r\n    \"title\": \"{{stepTitle}}\",\r\n    \"orderGroup\": \"{{orderGroup}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2003,7 +1910,7 @@
             "event": []
           },
           {
-            "id": "61f1887a-3d14-4e42-8ebf-d21dc21e339d",
+            "id": "f728cb20-a264-4f23-8729-087e97c2a62b",
             "name": "update a step",
             "request": {
               "url": {
@@ -2028,7 +1935,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+                "raw": "{\r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"{{stepTitle}}\",\r\n  \"org_id\": \"{{org_id}}\",\r\n  \"project_id\": \"{{project_id}}\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"{{slugName}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2040,7 +1947,7 @@
             "event": []
           },
           {
-            "id": "d85911c3-9721-4613-8d51-1ae0daa7a874",
+            "id": "f0cc699b-7940-439d-885a-a0188953a062",
             "name": "reorder",
             "request": {
               "url": {
@@ -2065,9 +1972,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "30068d13-34ee-4f5b-9279-286588cf9b06",
+              "id": "93288108-abbf-458a-b242-4ee69f07487b",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2076,9 +1982,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "9216ab70-f664-4b54-8871-45243c021034",
+              "id": "68dc66ed-65ea-4431-b286-aff77b05a983",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2106,11 +2011,11 @@
         ]
       },
       {
-        "id": "6ac01b0d-2270-4b06-b6cf-039fd4c78310",
+        "id": "4e0ce5f8-8934-4d68-8e85-20a7a3f54947",
         "name": "Template",
         "item": [
           {
-            "id": "b17a2d17-3b9e-4a23-a4df-0611896b3788",
+            "id": "3d33376b-d020-4ee6-a765-ba27d3d70697",
             "name": "Get Template By Id",
             "request": {
               "url": {
@@ -2137,7 +2042,7 @@
             "event": []
           },
           {
-            "id": "07669c0e-27e8-469a-8038-7a81d4247e95",
+            "id": "36d7fd5f-a8d4-4264-b288-6ca5883fc2f4",
             "name": "Get all Templates",
             "request": {
               "url": {
@@ -2163,7 +2068,7 @@
             "event": []
           },
           {
-            "id": "b0f9e714-c64a-411a-8607-742a7019e8d3",
+            "id": "c174d69b-4588-4b1a-acdb-47eb704fc09e",
             "name": "Update template category",
             "request": {
               "url": {
@@ -2187,7 +2092,7 @@
               "method": "PATCH",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+                "raw": "{\r\n    \"category\": {{categoryJson}}\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2203,9 +2108,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "914f9dbc-0b34-43c2-b0f0-5506f94361fb",
+              "id": "df230728-9728-4d8b-815d-820ce15792d0",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2214,9 +2118,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "ee2cf472-48af-45a1-a7ae-c17584d98734",
+              "id": "02e99efc-25ae-4c1a-86b7-733ef68f7033",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2269,7 +2172,7 @@
     "values": [
       {
         "type": "any",
-        "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E=",
+        "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE=",
         "key": "proxy_auth_token"
       },
       {
@@ -2279,27 +2182,27 @@
       },
       {
         "type": "any",
-        "value": "56736",
+        "value": "19014",
         "key": "org_id"
       },
       {
         "type": "any",
-        "value": "22199",
+        "value": "23187",
         "key": "user_id"
       },
       {
         "type": "any",
-        "value": "pronitin",
+        "value": "TarunMewara",
         "key": "nameOrg"
       },
       {
         "type": "any",
-        "value": "updatiosndjs",
+        "value": "updatiosndjswe",
         "key": "updateOrg"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "51464",
         "key": "switchorgid"
       },
       {
@@ -2309,93 +2212,98 @@
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "53173",
         "key": "orgidtoleave"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "19014",
         "key": "orgidtoswitchinto"
       },
       {
         "type": "any",
-        "value": "",
+        "value": "17330",
         "key": "removeuserid"
       },
       {
         "type": "any",
-        "value": "projjDqKsRk0",
+        "value": "54275",
+        "key": "update_org_id"
+      },
+      {
+        "type": "any",
+        "value": "projXR0liAk0",
         "key": "project_id"
       },
       {
         "type": "any",
-        "value": "perbpopi",
+        "value": "perbpopir",
         "key": "Updatedname"
       },
       {
         "type": "any",
-        "value": "asnffdjksjksd",
+        "value": "scriZCEW9hog",
         "key": "scriptId"
       }
     ]
   },
   "globals": {
-    "id": "797ad96b-acda-4a71-97dd-c886a9dd1eae",
+    "id": "fb8aa3e8-fb84-4fa5-a7d8-6357705d46ad",
     "values": []
   },
   "run": {
     "stats": {
       "iterations": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "items": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "scripts": {
-        "total": 12,
+        "total": 15,
         "pending": 0,
         "failed": 0
       },
       "prerequests": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "requests": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "tests": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "assertions": {
-        "total": 12,
+        "total": 15,
         "pending": 0,
-        "failed": 0
+        "failed": 3
       },
       "testScripts": {
-        "total": 4,
+        "total": 5,
         "pending": 0,
         "failed": 0
       },
       "prerequestScripts": {
-        "total": 8,
+        "total": 10,
         "pending": 0,
         "failed": 0
       }
     },
     "timings": {
-      "responseAverage": 637.75,
-      "responseMin": 527,
-      "responseMax": 930,
-      "responseSd": 169.14102843485372,
+      "responseAverage": 66.6,
+      "responseMin": 53,
+      "responseMax": 113,
+      "responseSd": 23.23445717033217,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -2404,8 +2312,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1770278809207,
-      "completed": 1770278812214
+      "started": 1776244257430,
+      "completed": 1776244258152
     },
     "executions": [
       {
@@ -2413,16 +2321,16 @@
           "position": 0,
           "iteration": 0,
           "length": 1,
-          "cycles": 4,
+          "cycles": 5,
           "empty": false,
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "5b298e60-4224-4517-92e4-dfeff146e4e8",
-          "httpRequestId": "f56cd9e7-0dd3-4560-b31b-d389a1fbb574"
+          "ref": "b799a18f-c811-4351-880c-26c375dd6484",
+          "httpRequestId": "d8c29cc3-72da-4329-b7a4-047f0a10bd7d"
         },
         "item": {
-          "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
           "name": "add user to org",
           "request": {
             "url": {
@@ -2458,23 +2366,20 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "15496cf5-3a67-4926-93e3-a455ce54ecd2",
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
                 "type": "text/javascript",
-                "packages": {},
                 "exec": [
-                  "// Generate random organization name\r",
-                  "const randommail =\r",
-                  "  \"randomMail_\" +\r",
-                  "  Math.random().toString(36).substring(2, 8) +\r",
-                  "  \"_\" +\r",
-                  "  Date.now();\r",
-                  "\r",
-                  "// Set variable used in request body\r",
-                  "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                  "\r",
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
                   ""
                 ],
-                "_lastExecutionId": "3b3af544-894e-4938-90c7-9428ed96cc26"
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
               }
             }
           ]
@@ -2497,7 +2402,7 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "Content-Type",
@@ -2506,7 +2411,7 @@
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -2521,7 +2426,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "2e8bd159-796c-4b09-acb9-05066841e2c2",
+              "value": "585cf854-16cf-4e3e-8807-4d09d43f0a04",
               "system": true
             },
             {
@@ -2541,14 +2446,14 @@
             },
             {
               "key": "Content-Length",
-              "value": "87",
+              "value": 71,
               "system": true
             }
           ],
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"randomMail_734q5d_1770278809252@gmail.com\"\r\n    }\r\n}",
+            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"automation.user1@test.com\"\r\n    }\r\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -2557,21 +2462,21 @@
           }
         },
         "response": {
-          "id": "c87a81e9-7b16-440f-bda7-02eb8a73ed03",
-          "status": "OK",
-          "code": 200,
+          "id": "0c7195f6-deef-487e-9f09-cd81d5aff309",
+          "status": "Bad Request",
+          "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:49 GMT"
+              "value": "Wed, 15 Apr 2026 09:10:56 GMT"
             },
             {
               "key": "Content-Type",
               "value": "application/json; charset=utf-8"
             },
             {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
+              "key": "Content-Length",
+              "value": "112"
             },
             {
               "key": "Connection",
@@ -2591,7 +2496,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-V6mRhvYbgsrhQeDEGhhQdUEZggA\""
+              "value": "W/\"70-UIzHT6yvq6bSrOM1Y14js/JIQPs\""
             },
             {
               "key": "Via",
@@ -2615,11 +2520,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=oTJVwJV0zy7At743ELPNOZdv8%2F0%2BF%2BvulYuBXeJZOjnXlJMOEGmpk8pQ6Bsd6Q19G4o8PpuXKTjg1DmQw8VagVMZi414V6Pyz9KPQlhr69sJNcfF\"}]}"
-            },
-            {
-              "key": "Content-Encoding",
-              "value": "br"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZNwzIW3nYf3f4f0Rc%2FfB5Ow7v5r0dALs9Vt5ks54Rvb0bT0I%2B2zHvW7BX4zTCtSepTqmAVM1pEjIEOQUW4F02MMd0vri3O1sOhwTt48EUhHFFN7z%2BSmfV1VMxrRo%2BOFDQZqqD3CMqg%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -2627,7 +2528,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e91f3f3cff9e-BOM"
+              "value": "9ec9d1e85d51cdcf-BOM"
             },
             {
               "key": "alt-svc",
@@ -2648,9 +2549,10 @@
               115,
               34,
               58,
-              116,
-              114,
-              117,
+              102,
+              97,
+              108,
+              115,
               101,
               44,
               34,
@@ -2664,27 +2566,43 @@
               34,
               58,
               34,
-              73,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              105,
               110,
               118,
               105,
               116,
-              97,
-              116,
-              105,
-              111,
-              110,
+              101,
               32,
-              83,
               117,
-              99,
+              115,
               101,
-              115,
-              115,
-              102,
-              117,
-              108,
-              108,
+              114,
+              32,
+              116,
+              111,
+              32,
+              111,
+              114,
+              103,
+              97,
+              110,
+              105,
+              122,
+              97,
+              116,
+              105,
+              111,
+              110,
               34,
               44,
               34,
@@ -2694,357 +2612,62 @@
               97,
               34,
               58,
-              123,
               34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
+              82,
               101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              55,
-              51,
-              52,
               113,
-              53,
-              100,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              48,
-              57,
-              50,
-              53,
-              50,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
+              117,
               101,
-              110,
+              115,
               116,
-              95,
-              105,
-              100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              55,
-              51,
-              52,
-              113,
-              53,
-              100,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              48,
-              57,
-              50,
-              53,
-              50,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
+              32,
               102,
-              101,
               97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
               105,
-              103,
-              117,
-              114,
-              97,
-              116,
+              108,
+              101,
+              100,
+              32,
+              119,
               105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
               116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              52,
-              57,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              52,
-              57,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              100,
-              34,
-              58,
-              57,
-              51,
-              48,
-              57,
-              51,
-              125,
-              44,
-              34,
-              115,
-              116,
-              97,
-              116,
-              117,
-              115,
-              34,
-              58,
-              34,
-              115,
-              117,
-              99,
-              99,
-              101,
-              115,
-              115,
-              34,
-              44,
-              34,
               104,
-              97,
+              32,
               115,
-              69,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              115,
-              34,
-              58,
-              91,
-              93,
-              44,
-              34,
-              112,
-              114,
-              111,
-              120,
-              121,
-              95,
-              100,
-              117,
-              114,
+              116,
               97,
               116,
-              105,
-              111,
-              110,
-              34,
-              58,
-              51,
-              50,
-              51,
-              125,
-              44,
-              34,
-              105,
+              117,
               115,
-              67,
-              97,
+              32,
               99,
-              104,
-              101,
+              111,
               100,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
               101,
+              32,
+              52,
+              48,
+              49,
+              34,
               125
             ]
           },
           "cookie": [],
-          "responseTime": 930,
-          "responseSize": 397
+          "responseTime": 113,
+          "responseSize": 112
         },
-        "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+        "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
         "assertions": [
           {
             "assertion": "Status code is correct",
-            "skipped": false
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is correct",
+              "message": "expected response to have status code 200 but got 400",
+              "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)"
+            }
           },
           {
             "assertion": "Response time < 3s",
@@ -3058,16 +2681,16 @@
       },
       {
         "cursor": {
-          "ref": "855999f2-9454-4aa9-b185-0c4ac9cda900",
+          "ref": "d0a39edc-6997-42b4-a2b7-f5edd4f1a5de",
           "length": 1,
-          "cycles": 4,
+          "cycles": 5,
           "position": 0,
           "iteration": 1,
           "cr": true,
-          "httpRequestId": "0c8675f0-4b17-4c1a-a9ed-ab4c5ba5318b"
+          "httpRequestId": "7c7916c6-5bb7-412a-9607-ab37826ba21b"
         },
         "item": {
-          "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
           "name": "add user to org",
           "request": {
             "url": {
@@ -3103,23 +2726,20 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "15496cf5-3a67-4926-93e3-a455ce54ecd2",
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
                 "type": "text/javascript",
-                "packages": {},
                 "exec": [
-                  "// Generate random organization name\r",
-                  "const randommail =\r",
-                  "  \"randomMail_\" +\r",
-                  "  Math.random().toString(36).substring(2, 8) +\r",
-                  "  \"_\" +\r",
-                  "  Date.now();\r",
-                  "\r",
-                  "// Set variable used in request body\r",
-                  "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                  "\r",
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
                   ""
                 ],
-                "_lastExecutionId": "3b3af544-894e-4938-90c7-9428ed96cc26"
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
               }
             }
           ]
@@ -3142,7 +2762,7 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "Content-Type",
@@ -3151,7 +2771,7 @@
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -3166,7 +2786,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "21166749-8f0e-403d-b0fa-8e6914eb82ab",
+              "value": "f0bcffeb-b327-413d-82e0-da75d299b11f",
               "system": true
             },
             {
@@ -3186,14 +2806,14 @@
             },
             {
               "key": "Content-Length",
-              "value": "87",
+              "value": 71,
               "system": true
             }
           ],
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"randomMail_h4ucac_1770278810313@gmail.com\"\r\n    }\r\n}",
+            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"automation.user2@test.com\"\r\n    }\r\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -3202,21 +2822,21 @@
           }
         },
         "response": {
-          "id": "c5c68469-f49b-414c-85a0-da489bb3e377",
-          "status": "OK",
-          "code": 200,
+          "id": "adfd90e3-a454-4597-8399-4b08847feee9",
+          "status": "Bad Request",
+          "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:50 GMT"
+              "value": "Wed, 15 Apr 2026 09:10:56 GMT"
             },
             {
               "key": "Content-Type",
               "value": "application/json; charset=utf-8"
             },
             {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
+              "key": "Content-Length",
+              "value": "112"
             },
             {
               "key": "Connection",
@@ -3236,7 +2856,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-4HjhDDeNS5+dbR9DZv/LPm1NnxQ\""
+              "value": "W/\"70-UIzHT6yvq6bSrOM1Y14js/JIQPs\""
             },
             {
               "key": "Via",
@@ -3260,11 +2880,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sJ3hw1o2e3euFHgCOxebKIvKIdD1Uxyk62LWCKW3qMZVGCWsvwJClXzGEhehdC3tuOfAc0lh1xxxyz1YD6X%2F1Rj27g%2FIyuYSuNKN8azvbwNWRsOU\"}]}"
-            },
-            {
-              "key": "Content-Encoding",
-              "value": "br"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BrLe1y9GDYont%2FwsDYryNEWm2l4qK3oXTj7DV0y4MANr%2BT0d8Iyg%2B1D%2F8UNJHIh8zWM3COhLIvBuDmLHyxOiJYvw5aSoJ760M5sSZc9hy7stDQApIal6Gt01KcAl9%2BFfW849z7vlpw%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -3272,7 +2888,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e9247affff9e-BOM"
+              "value": "9ec9d1e94ecfcdcf-BOM"
             },
             {
               "key": "alt-svc",
@@ -3293,9 +2909,10 @@
               115,
               34,
               58,
-              116,
-              114,
-              117,
+              102,
+              97,
+              108,
+              115,
               101,
               44,
               34,
@@ -3309,387 +2926,108 @@
               34,
               58,
               34,
-              73,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              105,
               110,
               118,
               105,
               116,
-              97,
-              116,
-              105,
-              111,
-              110,
+              101,
               32,
-              83,
               117,
-              99,
-              101,
               115,
-              115,
-              102,
-              117,
-              108,
-              108,
-              34,
-              44,
-              34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
               101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
               114,
-              97,
-              110,
-              100,
+              32,
+              116,
               111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              104,
-              52,
-              117,
-              99,
-              97,
-              99,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              48,
-              51,
-              49,
-              51,
-              64,
+              32,
+              111,
+              114,
               103,
-              109,
               97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
               110,
+              105,
+              122,
+              97,
               116,
-              95,
               105,
-              100,
+              111,
+              110,
               34,
-              58,
-              56,
               44,
               34,
-              110,
+              100,
               97,
-              109,
-              101,
+              116,
+              97,
               34,
               58,
               34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              32,
+              102,
               97,
               105,
               108,
-              95,
+              101,
+              100,
+              32,
+              119,
+              105,
+              116,
               104,
+              32,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              32,
+              99,
+              111,
+              100,
+              101,
+              32,
               52,
-              117,
-              99,
-              97,
-              99,
-              95,
+              48,
               49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              48,
-              51,
-              49,
-              51,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
               34,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
-              48,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
-              48,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              100,
-              34,
-              58,
-              57,
-              51,
-              48,
-              57,
-              52,
-              125,
-              44,
-              34,
-              115,
-              116,
-              97,
-              116,
-              117,
-              115,
-              34,
-              58,
-              34,
-              115,
-              117,
-              99,
-              99,
-              101,
-              115,
-              115,
-              34,
-              44,
-              34,
-              104,
-              97,
-              115,
-              69,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              115,
-              34,
-              58,
-              91,
-              93,
-              44,
-              34,
-              112,
-              114,
-              111,
-              120,
-              121,
-              95,
-              100,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              34,
-              58,
-              51,
-              49,
-              52,
-              125,
-              44,
-              34,
-              105,
-              115,
-              67,
-              97,
-              99,
-              104,
-              101,
-              100,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
               125
             ]
           },
           "cookie": [],
-          "responseTime": 559,
-          "responseSize": 397
+          "responseTime": 55,
+          "responseSize": 112
         },
-        "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+        "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
         "assertions": [
           {
             "assertion": "Status code is correct",
-            "skipped": false
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is correct",
+              "message": "expected response to have status code 200 but got 400",
+              "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)"
+            }
           },
           {
             "assertion": "Response time < 3s",
@@ -3703,16 +3041,16 @@
       },
       {
         "cursor": {
-          "ref": "04d8f2cd-b3c8-4c85-af58-98d31a1f6d44",
+          "ref": "ea54303a-6482-4069-bf56-5367e812c7d2",
           "length": 1,
-          "cycles": 4,
+          "cycles": 5,
           "position": 0,
           "iteration": 2,
           "cr": true,
-          "httpRequestId": "64990057-d621-4ed6-967d-b2702ba0ad2a"
+          "httpRequestId": "2872fc76-4e68-44f0-9a96-775bf34a6e17"
         },
         "item": {
-          "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
           "name": "add user to org",
           "request": {
             "url": {
@@ -3748,23 +3086,20 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "15496cf5-3a67-4926-93e3-a455ce54ecd2",
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
                 "type": "text/javascript",
-                "packages": {},
                 "exec": [
-                  "// Generate random organization name\r",
-                  "const randommail =\r",
-                  "  \"randomMail_\" +\r",
-                  "  Math.random().toString(36).substring(2, 8) +\r",
-                  "  \"_\" +\r",
-                  "  Date.now();\r",
-                  "\r",
-                  "// Set variable used in request body\r",
-                  "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                  "\r",
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
                   ""
                 ],
-                "_lastExecutionId": "3b3af544-894e-4938-90c7-9428ed96cc26"
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
               }
             }
           ]
@@ -3787,7 +3122,7 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "Content-Type",
@@ -3796,7 +3131,7 @@
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -3811,7 +3146,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "7c7750c6-09dd-48d8-8cac-f4416e3f1869",
+              "value": "b9ff3d93-710b-4980-b01b-7c87818cb653",
               "system": true
             },
             {
@@ -3831,14 +3166,14 @@
             },
             {
               "key": "Content-Length",
-              "value": "87",
+              "value": 78,
               "system": true
             }
           ],
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"randomMail_may6du_1770278810978@gmail.com\"\r\n    }\r\n}",
+            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"no.such.user.xyz@notareal.domain\"\r\n    }\r\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -3847,21 +3182,21 @@
           }
         },
         "response": {
-          "id": "807f1fc5-5d42-4c21-a1f7-ed546feb39a2",
-          "status": "OK",
-          "code": 200,
+          "id": "a41e7a26-b887-43c5-8e33-0b0cb6fe126f",
+          "status": "Bad Request",
+          "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:51 GMT"
+              "value": "Wed, 15 Apr 2026 09:10:56 GMT"
             },
             {
               "key": "Content-Type",
               "value": "application/json; charset=utf-8"
             },
             {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
+              "key": "Content-Length",
+              "value": "112"
             },
             {
               "key": "Connection",
@@ -3881,7 +3216,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-dl3/6I7b2ekrrbKeU6ou5sthHX0\""
+              "value": "W/\"70-UIzHT6yvq6bSrOM1Y14js/JIQPs\""
             },
             {
               "key": "Via",
@@ -3905,11 +3240,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IVp2Tj%2BIDrfqGqn5JgHqUY9xLVSBEDl1usdrbEpjX1rtsfSnyLkLbfQu3v0L3fFiE7Rh6RaVJL4Daa8KiJSNOHcGlN6HSHSeMussiYTGYy7SRXlj\"}]}"
-            },
-            {
-              "key": "Content-Encoding",
-              "value": "br"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8VEgt67puD1FGLllu8YwtLkPh%2BhC9sKdowhG7%2B6q3yElbo9pIZuk2ORzMCnEbCDfRmd70UCvt7EWlF4u2WFnKvl4DntJZ6f6QBfJ%2BCW1CfZeQK77XDyeiIHPQy%2FoIv0eg9kCw9YHyg%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -3917,7 +3248,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e928bc3cff9e-BOM"
+              "value": "9ec9d1ea2feccdcf-BOM"
             },
             {
               "key": "alt-svc",
@@ -3938,9 +3269,10 @@
               115,
               34,
               58,
-              116,
-              114,
-              117,
+              102,
+              97,
+              108,
+              115,
               101,
               44,
               34,
@@ -3954,387 +3286,108 @@
               34,
               58,
               34,
-              73,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              105,
               110,
               118,
               105,
               116,
-              97,
-              116,
-              105,
-              111,
-              110,
+              101,
               32,
-              83,
               117,
-              99,
+              115,
+              101,
+              114,
+              32,
+              116,
+              111,
+              32,
+              111,
+              114,
+              103,
+              97,
+              110,
+              105,
+              122,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              34,
+              82,
+              101,
+              113,
+              117,
               101,
               115,
+              116,
+              32,
+              102,
+              97,
+              105,
+              108,
+              101,
+              100,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
               115,
-              102,
-              117,
-              108,
-              108,
-              34,
-              44,
-              34,
-              100,
-              97,
               116,
               97,
-              34,
-              58,
-              123,
-              34,
-              100,
-              97,
               116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              109,
-              97,
-              121,
-              54,
-              100,
               117,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              48,
-              57,
-              55,
-              56,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
+              115,
+              32,
               99,
               111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
               100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              110,
-              97,
-              109,
               101,
-              34,
-              58,
-              34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              109,
-              97,
-              121,
-              54,
-              100,
-              117,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              48,
-              57,
-              55,
-              56,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
+              32,
               52,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
               48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
               49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
               34,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
-              49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              105,
-              100,
-              34,
-              58,
-              57,
-              51,
-              48,
-              57,
-              53,
-              125,
-              44,
-              34,
-              115,
-              116,
-              97,
-              116,
-              117,
-              115,
-              34,
-              58,
-              34,
-              115,
-              117,
-              99,
-              99,
-              101,
-              115,
-              115,
-              34,
-              44,
-              34,
-              104,
-              97,
-              115,
-              69,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              115,
-              34,
-              58,
-              91,
-              93,
-              44,
-              34,
-              112,
-              114,
-              111,
-              120,
-              121,
-              95,
-              100,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              34,
-              58,
-              51,
-              48,
-              57,
-              125,
-              44,
-              34,
-              105,
-              115,
-              67,
-              97,
-              99,
-              104,
-              101,
-              100,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
               125
             ]
           },
           "cookie": [],
-          "responseTime": 535,
-          "responseSize": 397
+          "responseTime": 53,
+          "responseSize": 112
         },
-        "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+        "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
         "assertions": [
           {
             "assertion": "Status code is correct",
-            "skipped": false
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is correct",
+              "message": "expected response to have status code 200 but got 400",
+              "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)"
+            }
           },
           {
             "assertion": "Response time < 3s",
@@ -4348,16 +3401,16 @@
       },
       {
         "cursor": {
-          "ref": "8f2b7a68-83c0-4e4c-8442-48c49473fe54",
+          "ref": "eb1682c7-787c-4ac8-9472-1cabfff4f5b7",
           "length": 1,
-          "cycles": 4,
+          "cycles": 5,
           "position": 0,
           "iteration": 3,
           "cr": true,
-          "httpRequestId": "b2adec74-c51f-4b61-9438-9122968426cb"
+          "httpRequestId": "6afdfae1-6b17-48c8-bd8f-d2a9a9319543"
         },
         "item": {
-          "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
           "name": "add user to org",
           "request": {
             "url": {
@@ -4393,23 +3446,20 @@
             {
               "listen": "prerequest",
               "script": {
-                "id": "15496cf5-3a67-4926-93e3-a455ce54ecd2",
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
                 "type": "text/javascript",
-                "packages": {},
                 "exec": [
-                  "// Generate random organization name\r",
-                  "const randommail =\r",
-                  "  \"randomMail_\" +\r",
-                  "  Math.random().toString(36).substring(2, 8) +\r",
-                  "  \"_\" +\r",
-                  "  Date.now();\r",
-                  "\r",
-                  "// Set variable used in request body\r",
-                  "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                  "\r",
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
                   ""
                 ],
-                "_lastExecutionId": "3b3af544-894e-4938-90c7-9428ed96cc26"
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
               }
             }
           ]
@@ -4432,7 +3482,7 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "Content-Type",
@@ -4441,7 +3491,7 @@
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -4456,7 +3506,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "8fc1c273-aead-40e8-bc3d-4477e123628e",
+              "value": "b2c0d6e5-956d-44e4-8dbe-3345f5690ab8",
               "system": true
             },
             {
@@ -4476,14 +3526,14 @@
             },
             {
               "key": "Content-Length",
-              "value": "87",
+              "value": 59,
               "system": true
             }
           ],
           "method": "POST",
           "body": {
             "mode": "raw",
-            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"randomMail_zft4cr_1770278811605@gmail.com\"\r\n    }\r\n}",
+            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"invalid-email\"\r\n    }\r\n}",
             "options": {
               "raw": {
                 "language": "json"
@@ -4492,21 +3542,21 @@
           }
         },
         "response": {
-          "id": "af7623e9-62b6-4fa9-9538-a0618804de30",
-          "status": "OK",
-          "code": 200,
+          "id": "8ff4d1fc-1a49-48bd-a221-e4525245e5a6",
+          "status": "Bad Request",
+          "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:52 GMT"
+              "value": "Wed, 15 Apr 2026 09:10:56 GMT"
             },
             {
               "key": "Content-Type",
               "value": "application/json; charset=utf-8"
             },
             {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
+              "key": "Content-Length",
+              "value": "112"
             },
             {
               "key": "Connection",
@@ -4526,7 +3576,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"18d-dG2qZiS6LATc+bjFzZcU7Z7FOXg\""
+              "value": "W/\"70-UIzHT6yvq6bSrOM1Y14js/JIQPs\""
             },
             {
               "key": "Via",
@@ -4550,11 +3600,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=y%2BObd3a0O840My%2BeIehlnuVwrhlsMavHtagZwDs%2FB%2BZAAw2ABuGX4DXr83cpOp%2FmmMgEZwAWvXe6thq4FA%2FqOqKFzFfAe6AWvWqPwk29ugU3PcVT\"}]}"
-            },
-            {
-              "key": "Content-Encoding",
-              "value": "br"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VffXe2kOIvYBlzIxa65A3VvXTOD%2F1faFpceafeIy1adoyFh2g6lnNb7s0iycv1RuxSx6Oe9oRfB3ZxvcPDDzquWk%2Fd%2BNIHZ%2F7Qg7Fgos1%2FvmDrDlkDZQGR3L%2Fymkko6eCA3iwt8xdA%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -4562,7 +3608,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e92c8d60ff9e-BOM"
+              "value": "9ec9d1eae904cdcf-BOM"
             },
             {
               "key": "alt-svc",
@@ -4583,9 +3629,10 @@
               115,
               34,
               58,
-              116,
-              114,
-              117,
+              102,
+              97,
+              108,
+              115,
               101,
               44,
               34,
@@ -4599,383 +3646,97 @@
               34,
               58,
               34,
-              73,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              105,
               110,
               118,
               105,
               116,
-              97,
-              116,
-              105,
-              111,
-              110,
+              101,
               32,
-              83,
               117,
-              99,
-              101,
               115,
-              115,
-              102,
-              117,
-              108,
-              108,
-              34,
-              44,
-              34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
-              100,
-              97,
-              116,
-              97,
-              34,
-              58,
-              123,
-              34,
               101,
-              109,
-              97,
-              105,
-              108,
-              34,
-              58,
-              34,
               114,
+              32,
+              116,
+              111,
+              32,
+              111,
+              114,
+              103,
               97,
               110,
-              100,
-              111,
-              109,
-              77,
-              97,
               105,
-              108,
-              95,
               122,
-              102,
+              97,
               116,
-              52,
-              99,
-              114,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              49,
-              54,
-              48,
-              53,
-              64,
-              103,
-              109,
+              105,
+              111,
+              110,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              34,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              32,
+              102,
               97,
               105,
               108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              99,
-              108,
-              105,
-              101,
-              110,
-              116,
-              95,
-              105,
-              100,
-              34,
-              58,
-              56,
-              44,
-              34,
-              110,
-              97,
-              109,
-              101,
-              34,
-              58,
-              34,
-              114,
-              97,
-              110,
-              100,
-              111,
-              109,
-              77,
-              97,
-              105,
-              108,
-              95,
-              122,
-              102,
-              116,
-              52,
-              99,
-              114,
-              95,
-              49,
-              55,
-              55,
-              48,
-              50,
-              55,
-              56,
-              56,
-              49,
-              49,
-              54,
-              48,
-              53,
-              64,
-              103,
-              109,
-              97,
-              105,
-              108,
-              46,
-              99,
-              111,
-              109,
-              34,
-              44,
-              34,
-              102,
-              101,
-              97,
-              116,
-              117,
-              114,
-              101,
-              95,
-              99,
-              111,
-              110,
-              102,
-              105,
-              103,
-              117,
-              114,
-              97,
-              116,
-              105,
-              111,
-              110,
-              95,
-              105,
-              100,
-              34,
-              58,
-              52,
-              44,
-              34,
-              117,
-              112,
-              100,
-              97,
-              116,
               101,
               100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
-              49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
-              99,
-              114,
-              101,
-              97,
-              116,
-              101,
-              100,
-              95,
-              97,
-              116,
-              34,
-              58,
-              34,
-              50,
-              48,
-              50,
-              54,
-              45,
-              48,
-              50,
-              45,
-              48,
-              53,
-              84,
-              48,
-              56,
-              58,
-              48,
-              54,
-              58,
-              53,
-              49,
-              46,
-              48,
-              48,
-              48,
-              48,
-              48,
-              48,
-              90,
-              34,
-              44,
-              34,
+              32,
+              119,
               105,
-              100,
-              34,
-              58,
-              57,
-              51,
-              48,
-              57,
-              54,
-              125,
-              44,
-              34,
-              115,
               116,
-              97,
-              116,
-              117,
-              115,
-              34,
-              58,
-              34,
-              115,
-              117,
-              99,
-              99,
-              101,
-              115,
-              115,
-              34,
-              44,
-              34,
               104,
-              97,
+              32,
               115,
-              69,
-              114,
-              114,
-              111,
-              114,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
-              101,
-              44,
-              34,
-              101,
-              114,
-              114,
-              111,
-              114,
-              115,
-              34,
-              58,
-              91,
-              93,
-              44,
-              34,
-              112,
-              114,
-              111,
-              120,
-              121,
-              95,
-              100,
-              117,
-              114,
+              116,
               97,
               116,
-              105,
-              111,
-              110,
-              34,
-              58,
-              51,
-              52,
-              49,
-              125,
-              44,
-              34,
-              105,
+              117,
               115,
-              67,
-              97,
+              32,
               99,
-              104,
-              101,
+              111,
               100,
-              34,
-              58,
-              102,
-              97,
-              108,
-              115,
               101,
+              32,
+              52,
+              48,
+              49,
+              34,
               125
             ]
           },
           "cookie": [],
-          "responseTime": 527,
-          "responseSize": 397
+          "responseTime": 55,
+          "responseSize": 112
         },
-        "id": "4a0bc365-2003-47a3-b410-ca8a1c47b8e4",
+        "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
         "assertions": [
           {
             "assertion": "Status code is correct",
@@ -4986,16 +3747,2068 @@
             "skipped": false
           },
           {
-            "assertion": "Response is JSON",
+            "assertion": "Error message exists",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "9e713049-575e-49f6-8845-1e06458cf99b",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 4,
+          "cr": true,
+          "httpRequestId": "de1c271b-b655-4138-9613-d90699b45386"
+        },
+        "item": {
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+          "name": "add user to org",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "adduser"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                "type": "text/javascript",
+                "exec": [
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "adduser"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.24.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "7a731ff4-0f4a-4096-8376-68400b5f8415",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": 46,
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n    \"user\":{\r\n        \"email\": \"\"\r\n    }\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "15093fe9-51c1-4864-be72-1a25f92d9f8c",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 15 Apr 2026 09:10:56 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "112"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"70-UIzHT6yvq6bSrOM1Y14js/JIQPs\""
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FDLPBpkifmn3H9l6VTVX%2FqOG%2BB27B9aAbYJ7dykOd%2BgwLRc%2BGUG7oHQLyncmMa1LaaoBHo%2F%2FBUUzpIQ65cd%2F9adWnNsDeqLZPXdSu1ri40AJAmiKjKP7ompSpjsNQBM6EW4SAj7fxA%3D%3D\"}]}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9ec9d1ebaac4cdcf-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              105,
+              110,
+              118,
+              105,
+              116,
+              101,
+              32,
+              117,
+              115,
+              101,
+              114,
+              32,
+              116,
+              111,
+              32,
+              111,
+              114,
+              103,
+              97,
+              110,
+              105,
+              122,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              34,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              32,
+              102,
+              97,
+              105,
+              108,
+              101,
+              100,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              32,
+              99,
+              111,
+              100,
+              101,
+              32,
+              52,
+              48,
+              49,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 57,
+          "responseSize": 112
+        },
+        "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Error message exists",
             "skipped": false
           }
         ]
       }
     ],
     "transfers": {
-      "responseTotal": 1588
+      "responseTotal": 560
     },
-    "failures": [],
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is correct",
+          "message": "expected response to have status code 200 but got 400",
+          "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "27ae08c4d88c029b46bb09ae0a1eff8c",
+          "id": "3de6f0ad-d9ef-48a6-9f02-eed8fe481281",
+          "timestamp": 1776244257614,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+          "name": "add user to org",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "adduser"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                "type": "text/javascript",
+                "exec": [
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "674ab4c3-53fc-45c8-9c60-c09b08efc975",
+          "name": "org",
+          "item": [
+            {
+              "id": "c130061f-1202-4622-8fac-260b999ce653",
+              "name": "createorg",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "createOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "46a3ac14-5ea5-46b3-882c-e4be01dba8d6",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                      "if (nameOrg === undefined || nameOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                      "} else if (nameOrg === \"\") {\r",
+                      "  pm.variables.set(\"nameOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "c3ef6122-f74d-40fa-bc36-33f158ccd4da",
+              "name": "get all organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "getCompanies",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "proxy_auth_token",
+                      "value": "{{proxy_auth_token}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "05a8e891-ea88-44fe-b7f2-61b368d30d9b",
+              "name": "get users of an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "orgusers",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "77f5ff1a-4093-46f3-9a85-b15f1f9cc960",
+              "name": "update an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{update_org_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "0c3dca45-73ca-49f2-ab58-22a8bd0e6549",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                      "if (updateOrg === undefined || updateOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                      "} else if (updateOrg === \"\") {\r",
+                      "  pm.variables.set(\"updateOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9ba0d33a-610b-463f-b717-8c456cb0d067",
+              "name": "get org token",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "token"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "b8a0d011-64f2-45fb-98c2-599249fac913",
+              "name": "global search on org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "search"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "a"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "800f3cc9-6bb7-4e9a-9cd4-3431e4873bcc",
+              "name": "switch org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "switchOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+              "name": "add user to org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Only generate a random email if the data file did not provide one\r",
+                      "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                      "if (newusermail === undefined || newusermail === null) {\r",
+                      "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"newusermail\", newusermail);\r",
+                      "}\r",
+                      ""
+                    ],
+                    "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "5eb791c8-5933-479f-89d6-4ff011638ba5",
+              "name": "remove user",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "d",
+                    "{{removeuserid}}",
+                    "{{org_id}}",
+                    "removeUser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e1f12178-bd3d-4385-9699-44269f97d01d",
+              "name": "leave org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "leave-org"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "0f471abe-ad4d-46e7-ac3a-45094ad83973",
+              "name": "Beta Status",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "betaStatus"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "c4f42842-ebb6-46cb-abdf-59770b4bc48a",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "34d65a6b-1780-4cf7-becb-92594941525b"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+                "type": "text/javascript",
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 3s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "6ec438e4-20f9-495d-bbd2-2c418e8261a6"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 5,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b799a18f-c811-4351-880c-26c375dd6484",
+          "httpRequestId": "d8c29cc3-72da-4329-b7a4-047f0a10bd7d",
+          "scriptId": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+          "execution": "443c0725-e54b-43f4-b00b-03164167909b"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is correct",
+          "message": "expected response to have status code 200 but got 400",
+          "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "27ae08c4d88c029b46bb09ae0a1eff8c",
+          "id": "157b38e4-ef53-42bd-8b64-79b6439cf864",
+          "timestamp": 1776244257744,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+          "name": "add user to org",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "adduser"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                "type": "text/javascript",
+                "exec": [
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "674ab4c3-53fc-45c8-9c60-c09b08efc975",
+          "name": "org",
+          "item": [
+            {
+              "id": "c130061f-1202-4622-8fac-260b999ce653",
+              "name": "createorg",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "createOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "46a3ac14-5ea5-46b3-882c-e4be01dba8d6",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                      "if (nameOrg === undefined || nameOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                      "} else if (nameOrg === \"\") {\r",
+                      "  pm.variables.set(\"nameOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "c3ef6122-f74d-40fa-bc36-33f158ccd4da",
+              "name": "get all organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "getCompanies",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "proxy_auth_token",
+                      "value": "{{proxy_auth_token}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "05a8e891-ea88-44fe-b7f2-61b368d30d9b",
+              "name": "get users of an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "orgusers",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "77f5ff1a-4093-46f3-9a85-b15f1f9cc960",
+              "name": "update an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{update_org_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "0c3dca45-73ca-49f2-ab58-22a8bd0e6549",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                      "if (updateOrg === undefined || updateOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                      "} else if (updateOrg === \"\") {\r",
+                      "  pm.variables.set(\"updateOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9ba0d33a-610b-463f-b717-8c456cb0d067",
+              "name": "get org token",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "token"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "b8a0d011-64f2-45fb-98c2-599249fac913",
+              "name": "global search on org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "search"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "a"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "800f3cc9-6bb7-4e9a-9cd4-3431e4873bcc",
+              "name": "switch org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "switchOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+              "name": "add user to org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Only generate a random email if the data file did not provide one\r",
+                      "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                      "if (newusermail === undefined || newusermail === null) {\r",
+                      "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"newusermail\", newusermail);\r",
+                      "}\r",
+                      ""
+                    ],
+                    "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "5eb791c8-5933-479f-89d6-4ff011638ba5",
+              "name": "remove user",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "d",
+                    "{{removeuserid}}",
+                    "{{org_id}}",
+                    "removeUser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e1f12178-bd3d-4385-9699-44269f97d01d",
+              "name": "leave org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "leave-org"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "0f471abe-ad4d-46e7-ac3a-45094ad83973",
+              "name": "Beta Status",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "betaStatus"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "c4f42842-ebb6-46cb-abdf-59770b4bc48a",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "34d65a6b-1780-4cf7-becb-92594941525b"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+                "type": "text/javascript",
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 3s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "6ec438e4-20f9-495d-bbd2-2c418e8261a6"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "ref": "d0a39edc-6997-42b4-a2b7-f5edd4f1a5de",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "7c7916c6-5bb7-412a-9607-ab37826ba21b",
+          "scriptId": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+          "execution": "a620c546-75b6-4f15-b645-9892ab6140e8"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is correct",
+          "message": "expected response to have status code 200 but got 400",
+          "stack": "AssertionError: expected response to have status code 200 but got 400\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "27ae08c4d88c029b46bb09ae0a1eff8c",
+          "id": "f14bf008-5254-4229-9f43-e9ac14ecf80e",
+          "timestamp": 1776244257872,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+          "name": "add user to org",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "adduser"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                "type": "text/javascript",
+                "exec": [
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "674ab4c3-53fc-45c8-9c60-c09b08efc975",
+          "name": "org",
+          "item": [
+            {
+              "id": "c130061f-1202-4622-8fac-260b999ce653",
+              "name": "createorg",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "createOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "46a3ac14-5ea5-46b3-882c-e4be01dba8d6",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                      "if (nameOrg === undefined || nameOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                      "} else if (nameOrg === \"\") {\r",
+                      "  pm.variables.set(\"nameOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "c3ef6122-f74d-40fa-bc36-33f158ccd4da",
+              "name": "get all organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "getCompanies",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "proxy_auth_token",
+                      "value": "{{proxy_auth_token}}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "05a8e891-ea88-44fe-b7f2-61b368d30d9b",
+              "name": "get users of an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "orgusers",
+                    "all"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "77f5ff1a-4093-46f3-9a85-b15f1f9cc960",
+              "name": "update an organization",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{update_org_id}}"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "0c3dca45-73ca-49f2-ab58-22a8bd0e6549",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                      "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                      "if (updateOrg === undefined || updateOrg === null) {\r",
+                      "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                      "} else if (updateOrg === \"\") {\r",
+                      "  pm.variables.set(\"updateOrg\", \"\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                      "}\r",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9ba0d33a-610b-463f-b717-8c456cb0d067",
+              "name": "get org token",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "token"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "b8a0d011-64f2-45fb-98c2-599249fac913",
+              "name": "global search on org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "search"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "a"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "800f3cc9-6bb7-4e9a-9cd4-3431e4873bcc",
+              "name": "switch org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "switchOrg"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "1bed9aa5-ae4e-46ef-9ceb-fb6090f6343a",
+              "name": "add user to org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "ec21b8bb-8b9d-4fd5-8f82-ebdfdc04c0ef",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Only generate a random email if the data file did not provide one\r",
+                      "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                      "if (newusermail === undefined || newusermail === null) {\r",
+                      "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                      "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                      "} else {\r",
+                      "  pm.variables.set(\"newusermail\", newusermail);\r",
+                      "}\r",
+                      ""
+                    ],
+                    "_lastExecutionId": "2f69acd9-2e5c-4c37-a2d7-3ef93febc428"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "5eb791c8-5933-479f-89d6-4ff011638ba5",
+              "name": "remove user",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "d",
+                    "{{removeuserid}}",
+                    "{{org_id}}",
+                    "removeUser"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST"
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e1f12178-bd3d-4385-9699-44269f97d01d",
+              "name": "leave org",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "leave-org"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "0f471abe-ad4d-46e7-ac3a-45094ad83973",
+              "name": "Beta Status",
+              "request": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    "{{org_id}}",
+                    "betaStatus"
+                  ],
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "proxy_auth_token",
+                    "value": "{{proxy_auth_token}}"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "c4f42842-ebb6-46cb-abdf-59770b4bc48a",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "34d65a6b-1780-4cf7-becb-92594941525b"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+                "type": "text/javascript",
+                "exec": [
+                  "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+                  "\r",
+                  "pm.test(\"Status code is correct\", () => {\r",
+                  "    pm.response.to.have.status(expectedStatus);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 3s\", () => {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "if (expectedStatus === 200) {\r",
+                  "    pm.test(\"Response is JSON\", () => {\r",
+                  "        pm.response.to.be.json;\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test(\"Error message exists\", () => {\r",
+                  "        pm.expect(pm.response.json().message).to.exist;\r",
+                  "    });\r",
+                  "}\r",
+                  ""
+                ],
+                "_lastExecutionId": "6ec438e4-20f9-495d-bbd2-2c418e8261a6"
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "ref": "ea54303a-6482-4069-bf56-5367e812c7d2",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "2872fc76-4e68-44f0-9a96-775bf34a6e17",
+          "scriptId": "5f15d715-0404-4940-8a1b-c3caa8b24e03",
+          "execution": "3c1f63f1-618a-484f-bf70-9049c00b4c7a"
+        }
+      }
+    ],
     "error": null
   }
 }

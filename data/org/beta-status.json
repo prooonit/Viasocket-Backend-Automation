@@ -1,8 +1,12 @@
 [
   {
-     "betaStatus":true
+    "case": "enable_beta_status",
+    "betaStatus": true,
+    "expectedStatus": 200
   },
   {
-     "betaStatus":false
+    "case": "disable_beta_status",
+    "betaStatus": false,
+    "expectedStatus": 200
   }
 ]

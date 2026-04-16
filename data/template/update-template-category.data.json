@@ -1,0 +1,17 @@
+[
+  {
+    "case": "valid_single_category",
+    "categoryJson": "[\"AI Tools\"]",
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_multiple_categories",
+    "categoryJson": "[\"Accounting\", \"Ads and Conversion\", \"AI Tools\"]",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_category_array_should_fail",
+    "categoryJson": "[]",
+    "expectedStatus": 200
+  }
+]

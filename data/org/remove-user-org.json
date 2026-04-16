@@ -1,10 +1,17 @@
 [
   {
-    "removeuserid": 23187,
+    "case": "valid_user_removal",
+    "removeuserid": 17330,
     "expectedStatus": 200
   },
- {
-    "removeuserid": 9999,
+  {
+    "case": "non_existent_user_id",
+    "removeuserid": 9999999,
+    "expectedStatus": 400
+  },
+  {
+    "case": "zero_user_id_should_fail",
+    "removeuserid": 0,
     "expectedStatus": 400
   }
 ]

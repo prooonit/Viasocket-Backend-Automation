@@ -1,17 +1,22 @@
 [
   {
-    "case": "activate_script",
-    "scriptStatus": "active",
+    "case": "set_status_paused",
+    "scriptStatus": "2",
     "expectedStatus": 200
   },
   {
-    "case": "draft_script",
-    "scriptStatus": "draft",
+    "case": "set_status_draft",
+    "scriptStatus": "3",
     "expectedStatus": 200
   },
   {
-    "case": "invalid_status",
+    "case": "invalid_status_string_should_fail",
     "scriptStatus": "invalid",
+    "expectedStatus": 400
+  },
+  {
+    "case": "empty_status_should_fail",
+    "scriptStatus": "",
     "expectedStatus": 400
   }
 ]

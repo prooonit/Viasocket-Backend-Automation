@@ -1,14 +1,22 @@
 [
   {
-    "updateOrg": "UpdatedOrgName",
+    "case": "valid_update_standard",
+    "updateOrg": "Updated Org Name",
     "expectedStatus": 201
   },
   {
-    "updateOrg": "UpdatedOrgNameAgain",
+    "case": "valid_update_with_numbers",
+    "updateOrg": "Org2026Updated",
     "expectedStatus": 201
   },
   {
+    "case": "valid_short_name",
+    "updateOrg": "OrgV2",
+    "expectedStatus": 201
+  },
+  {
+    "case": "empty_name_should_fail",
     "updateOrg": "",
-    "expectedStatus": 201
+    "expectedStatus": 400
   }
 ]

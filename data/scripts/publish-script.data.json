@@ -1,6 +1,6 @@
 [
   {
     "case": "publish_script",
-    "expectedStatus": 200
+    "expectedStatus": 201
   }
 ]

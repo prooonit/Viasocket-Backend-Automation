@@ -7,11 +7,11 @@
     },
     "item": [
       {
-        "id": "a9aacea8-b96a-4611-9dc9-fbce4508be09",
+        "id": "eeeb4751-de41-4f14-957b-c12577c9e315",
         "name": "org",
         "item": [
           {
-            "id": "51895d21-2a6c-4554-a6f3-296d03e1032f",
+            "id": "43763199-f13e-4272-abfd-249b639b9223",
             "name": "createorg",
             "request": {
               "url": {
@@ -34,7 +34,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \"name\": \"tarun\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+                "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -47,22 +47,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "2273baeb-e3ef-4944-83c4-3dabb8238b8b",
+                  "id": "82f94822-d418-44c3-9f86-61df247c51b5",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"nameOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                    "if (nameOrg === undefined || nameOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                    "} else if (nameOrg === \"\") {\r",
+                    "  pm.variables.set(\"nameOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -70,7 +67,7 @@
             ]
           },
           {
-            "id": "9d882e12-e578-4e34-9f88-903e521afcb8",
+            "id": "7afe994b-569c-486f-8bee-da17354e483d",
             "name": "get all organization",
             "request": {
               "url": {
@@ -103,7 +100,7 @@
             "event": []
           },
           {
-            "id": "a05ee796-7972-42dc-a1aa-af832c5a6fa2",
+            "id": "e3db89ed-846e-4488-8f49-f9f9f202b602",
             "name": "get users of an organization",
             "request": {
               "url": {
@@ -131,13 +128,13 @@
             "event": []
           },
           {
-            "id": "1e804b11-bdf6-4977-8c5a-6f999734f14c",
+            "id": "b116e94e-72a8-4a4d-b21b-587094e14f4f",
             "name": "update an organization",
             "request": {
               "url": {
                 "path": [
                   "orgs",
-                  "{{org_id}}"
+                  "{{update_org_id}}"
                 ],
                 "host": [
                   "{{BASE_URL}}"
@@ -167,22 +164,19 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "9b072c3a-d1d1-4c20-a616-6e1804eabed4",
+                  "id": "9667e230-1968-4999-a56d-e92d45043ae7",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Org_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"updateOrg\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                    "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                    "if (updateOrg === undefined || updateOrg === null) {\r",
+                    "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                    "} else if (updateOrg === \"\") {\r",
+                    "  pm.variables.set(\"updateOrg\", \"\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -190,7 +184,7 @@
             ]
           },
           {
-            "id": "1e012bd0-bfec-4b1f-9f75-77dd29ab5af6",
+            "id": "e2f0e0e0-1016-4956-8761-ad505fe73deb",
             "name": "get org token",
             "request": {
               "url": {
@@ -217,7 +211,7 @@
             "event": []
           },
           {
-            "id": "b0da5dbc-ff09-49a5-b3b9-43e8d0af9dfa",
+            "id": "a5d35f0e-95e0-439e-8837-1a63fbaadf9e",
             "name": "global search on org",
             "request": {
               "url": {
@@ -249,7 +243,7 @@
             "event": []
           },
           {
-            "id": "533cfa74-2394-4af3-ac2d-42a9e42220df",
+            "id": "9ad9a3bc-f697-474b-8b3a-1cfabdd3ca1e",
             "name": "switch org",
             "request": {
               "url": {
@@ -284,7 +278,7 @@
             "event": []
           },
           {
-            "id": "380e678e-64e8-474d-adfe-fec9de9c8772",
+            "id": "13c71a59-5b2a-4452-a6e1-a86807843c2b",
             "name": "add user to org",
             "request": {
               "url": {
@@ -320,20 +314,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "789a4902-efbd-4c80-bfb4-6de0c20c9edc",
+                  "id": "490804ce-609a-46a7-8248-a091d8edd17a",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randommail =\r",
-                    "  \"randomMail_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"newusermail\", randommail+\"@gmail.com\");\r",
-                    "\r",
+                    "// Only generate a random email if the data file did not provide one\r",
+                    "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                    "if (newusermail === undefined || newusermail === null) {\r",
+                    "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"newusermail\", newusermail);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -341,7 +332,7 @@
             ]
           },
           {
-            "id": "70875778-b869-478f-8fc8-cf79c7b02841",
+            "id": "384bca99-6e35-43e3-99ca-54675182efba",
             "name": "remove user",
             "request": {
               "url": {
@@ -370,7 +361,7 @@
             "event": []
           },
           {
-            "id": "891647bc-b792-4190-9bf2-6c69b371960b",
+            "id": "c3f8ac60-04df-455f-ac11-b1c9cdc0bd49",
             "name": "leave org",
             "request": {
               "url": {
@@ -409,7 +400,7 @@
             "event": []
           },
           {
-            "id": "88ec385d-40b0-4e32-be12-e71128b4d60d",
+            "id": "e9553c0a-7a62-4295-851e-8e5c3109e7bd",
             "name": "Beta Status",
             "request": {
               "url": {
@@ -449,21 +440,19 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "e1944efa-bfce-49b4-816c-4f6c11b80d77",
+              "id": "4a760f05-f54e-41dc-b3ba-da0ed7df1c76",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ],
-              "_lastExecutionId": "67ee83c2-cf4b-4aaa-8cea-1c3e952d9100"
+              "_lastExecutionId": "39e907cc-403d-4fcd-876e-a8d68a771e00"
             }
           },
           {
             "listen": "test",
             "script": {
-              "id": "e0428512-7b02-42c7-ac7b-95ecb6f386c5",
+              "id": "2b22812f-5e9e-4d40-907e-547a358950b2",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -486,21 +475,21 @@
                 "}\r",
                 ""
               ],
-              "_lastExecutionId": "c64c8e52-0cd2-4aa0-b9ef-0f9d8ee79656"
+              "_lastExecutionId": "95e98a1d-935f-4aa4-833c-6f4a527bdedd"
             }
           }
         ]
       },
       {
-        "id": "a122722d-dd6c-4795-b4a3-dc68e3f169ad",
+        "id": "63eb9d04-762c-40ff-88b9-e3d78ce06939",
         "name": "Projects",
         "item": [
           {
-            "id": "bb6813b0-04dc-4b6c-af5c-ee06e697f41f",
+            "id": "ce95d422-8ca6-4040-9e23-1af15f2c3be5",
             "name": "Create Project",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.We can create collection in any one's org with the help of just org id.\n\n2.Validation check failed we can create the Folder with same name.",
+                "content": "Note: We can create collection in any one's org with the help of just org id.",
                 "type": "text/plain"
               },
               "url": {
@@ -546,20 +535,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "9e99cc77-69d8-49de-beb0-6be760cc6e47",
+                  "id": "e58e7c0e-4cc8-487c-9133-93d08848134c",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"Collection_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"projectTitle\", randomOrgName);\r",
-                    "\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const projectTitle = pm.iterationData.get(\"projectTitle\");\r",
+                    "if (projectTitle === undefined || projectTitle === null) {\r",
+                    "  const randomTitle = \"Collection_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"projectTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"projectTitle\", projectTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -567,7 +553,7 @@
             ]
           },
           {
-            "id": "8825c6a6-e1e2-499a-af4d-7fa401eebf1b",
+            "id": "0a50abc5-1f9c-44b9-9db9-441e1901f72d",
             "name": "Get All projects",
             "request": {
               "url": {
@@ -595,83 +581,8 @@
               },
               "header": [
                 {
-                  "disabled": true,
-                  "key": "accept",
-                  "value": "application/json, text/plain, */*"
-                },
-                {
-                  "disabled": true,
-                  "key": "accept-language",
-                  "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6"
-                },
-                {
-                  "disabled": true,
-                  "key": "baggage",
-                  "value": "sentry-environment=prod,sentry-public_key=31f8ba0c4b5f5963da7cef7ef7d687ab,sentry-trace_id=3560e74873c94a029a3608aac7a825cb,sentry-org_id=4506941812375552,sentry-sampled=true,sentry-sample_rand=0.048865646796176554,sentry-sample_rate=1"
-                },
-                {
-                  "disabled": true,
-                  "key": "if-none-match",
-                  "value": "W/\"6e-ErwTOQ5s1/9X5wzcfnPfdzjTO2A\""
-                },
-                {
-                  "disabled": true,
-                  "key": "origin",
-                  "value": "https://flow.viasocket.com"
-                },
-                {
-                  "disabled": true,
-                  "key": "priority",
-                  "value": "u=1, i"
-                },
-                {
                   "key": "proxy_auth_token",
                   "value": "{{proxy_auth_token}}"
-                },
-                {
-                  "disabled": true,
-                  "key": "referer",
-                  "value": "https://flow.viasocket.com/"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua",
-                  "value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-mobile",
-                  "value": "?0"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-ch-ua-platform",
-                  "value": "\"macOS\""
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-dest",
-                  "value": "empty"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-mode",
-                  "value": "cors"
-                },
-                {
-                  "disabled": true,
-                  "key": "sec-fetch-site",
-                  "value": "same-site"
-                },
-                {
-                  "disabled": true,
-                  "key": "sentry-trace",
-                  "value": "3560e74873c94a029a3608aac7a825cb-bfb9ed6214319522-1"
-                },
-                {
-                  "disabled": true,
-                  "key": "user-agent",
-                  "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                 }
               ],
               "method": "GET"
@@ -680,7 +591,7 @@
             "event": []
           },
           {
-            "id": "763a9b3a-dee9-40f0-9284-63c607bd909a",
+            "id": "bd397814-d1e5-42df-a5be-e017d734b986",
             "name": "Update Project",
             "request": {
               "url": {
@@ -705,7 +616,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\"title\":\"newone111\"}",
+                "raw": "{\"title\":\"{{updatedProjectTitle}}\"}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -717,11 +628,11 @@
             "event": []
           },
           {
-            "id": "8089e147-14b9-4e4f-a292-f9fa88ba10e4",
+            "id": "1586b1ae-9275-408c-af92-3c3ef83ae669",
             "name": "Change Project Status",
             "request": {
               "description": {
-                "content": "**Note:**\n\n1.For the status 3 , it gives something went wrong.\n\n2\\. We can login that org if i chnage the status of project to 3 .",
+                "content": "Note: For the status 3, it gives something went wrong.",
                 "type": "text/plain"
               },
               "url": {
@@ -767,9 +678,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "3f2197dc-dcc6-489a-ad9f-cce3d20686d3",
+              "id": "4832e8c7-7052-4442-92ac-4e4cdfd6977b",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -778,9 +688,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "ee382722-1bf9-4260-a0be-8d03fbb478d3",
+              "id": "3680efff-64c5-411a-bae8-55ae7e693e46",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -808,11 +717,11 @@
         ]
       },
       {
-        "id": "542c7ee5-c705-405a-b0d6-490293216607",
+        "id": "52705e6d-2b9f-4c4d-a7ad-edaaeee5ced4",
         "name": "Users",
         "item": [
           {
-            "id": "bc52678f-5e24-44da-8c9a-2541a9271354",
+            "id": "4742193d-71cc-4f59-b758-62755b3fd221",
             "name": "Get User Profile",
             "request": {
               "url": {
@@ -838,7 +747,7 @@
             "event": []
           },
           {
-            "id": "79a3f0d4-5d7f-49a0-b2bb-187a36bde358",
+            "id": "e887fed2-533f-41a1-819c-a7445223ba89",
             "name": "SSO Register",
             "request": {
               "url": {
@@ -851,7 +760,7 @@
             "event": []
           },
           {
-            "id": "2eb099d5-4527-46e4-ab37-e201e09da195",
+            "id": "7f8d7f4c-1ec0-4f85-9985-8aba9a77d360",
             "name": "Update User",
             "request": {
               "url": {
@@ -887,16 +796,28 @@
               }
             },
             "response": [],
-            "event": []
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "b0a3c559-1cdc-4067-a9f9-c519031cf3d1",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const randomName = \"User_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "pm.variables.set(\"Updatedname\", randomName);\r",
+                    ""
+                  ]
+                }
+              }
+            ]
           }
         ],
         "event": [
           {
             "listen": "prerequest",
             "script": {
-              "id": "fd17412e-63bc-493e-9503-cd6745bf39aa",
+              "id": "20f92e51-7d12-4ae7-a747-19fe324d2229",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -905,9 +826,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "71611665-11df-4fc2-bd9f-c43514b3318c",
+              "id": "6915690a-de03-44e2-805b-c815301e243a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -935,15 +855,15 @@
         ]
       },
       {
-        "id": "9bafd392-cac4-4fd5-add7-3e717cb4e539",
+        "id": "477301d0-4c66-477d-80f7-732043021d56",
         "name": "Scripts",
         "item": [
           {
-            "id": "38ff2f6c-2c19-4211-a68f-bfb6096c9f4f",
+            "id": "aed0cec7-d604-40dc-a096-9ab37baffc53",
             "name": "Create Script",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -980,22 +900,17 @@
               {
                 "listen": "prerequest",
                 "script": {
-                  "id": "c8e3e9b5-e581-455f-940e-540ad4fa6d05",
+                  "id": "452c0f7c-9f38-4438-9dd9-60107826f937",
                   "type": "text/javascript",
-                  "packages": {},
                   "exec": [
-                    "// Generate random organization name\r",
-                    "const randomOrgName =\r",
-                    "  \"workflow_\" +\r",
-                    "  Math.random().toString(36).substring(2, 8) +\r",
-                    "  \"_\" +\r",
-                    "  Date.now();\r",
-                    "\r",
-                    "// Set variable used in request body\r",
-                    "pm.variables.set(\"scriptTitle\", randomOrgName);\r",
-                    "\r",
-                    "// Optional: log for debugging\r",
-                    "console.log(\"Generated Org Name:\", randomOrgName);\r",
+                    "// Only generate a random title if the data file did not provide one\r",
+                    "const scriptTitle = pm.iterationData.get(\"scriptTitle\");\r",
+                    "if (scriptTitle === undefined || scriptTitle === null) {\r",
+                    "  const randomTitle = \"workflow_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                    "  pm.variables.set(\"scriptTitle\", randomTitle);\r",
+                    "} else {\r",
+                    "  pm.variables.set(\"scriptTitle\", scriptTitle);\r",
+                    "}\r",
                     ""
                   ]
                 }
@@ -1003,11 +918,11 @@
             ]
           },
           {
-            "id": "74a24fc2-52d5-49b2-86e5-a00cc2f97f05",
+            "id": "8f7c3219-df38-42ae-ab65-80e95affd340",
             "name": "Get All Scripts",
             "request": {
               "description": {
-                "content": "it is possible to create a script i.e workflow without a collection , but it is still asking for the project id  \nin url.\n\nis there any separate api for this ? if yes it is not mentioned in the api doc",
+                "content": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url.",
                 "type": "text/plain"
               },
               "url": {
@@ -1034,11 +949,11 @@
             "event": []
           },
           {
-            "id": "5c5bda7a-744e-4bf1-8bbf-94719c17c400",
+            "id": "d953b8f2-aaa5-4d39-9ba4-1a0001a992e7",
             "name": "Update Script",
             "request": {
               "description": {
-                "content": "Mai dusre collection ki script bhi update kar paa raha hu",
+                "content": "Updates the title of an existing script",
                 "type": "text/plain"
               },
               "url": {
@@ -1057,13 +972,13 @@
               "header": [
                 {
                   "key": "proxy_auth_token",
-                  "value": "UGtkOGJ2dDJEWDlReTBMSkFzZG5jWkNteHZNZjVYZ2h1SlBnVW93Q0J5d3FZaXZXVDlQNDlORjhKa0NBK09QVDNzQ3ArekFNMWl2UzlaYlFMYkhmcGhpZ3hSbUJtSmswVWUySUp1THNaUWhnS2Q1eXJHVDBreW9mNldtUmlFK0NXSTFPQ2t2d0NIc3duWjVLWjM4K2QzT3p6ajZ6OStVMWJybXhNVkFwdUpSNDdIV2Z0UW5aQk1oa2EwZWxQMlda"
+                  "value": "{{proxy_auth_token}}"
                 }
               ],
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"title\":\"mewara\",\r\n    \"description\":\"this is tartun\"\r\n}",
+                "raw": "{\r\n    \"title\":\"{{updateTitle}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -1075,7 +990,7 @@
             "event": []
           },
           {
-            "id": "15d37972-986a-4ac4-a4a4-04dc7b9e7e63",
+            "id": "dc97198b-f0f7-4ad1-9d70-ac8c64bc6672",
             "name": "Get One Script",
             "request": {
               "url": {
@@ -1103,11 +1018,11 @@
             "event": []
           },
           {
-            "id": "00df8b58-abed-45d0-936c-b533e9f22f50",
+            "id": "de150c4a-8832-4612-956c-3a1b9596ecb0",
             "name": "Change Script Status",
             "request": {
               "description": {
-                "content": "time jada lee rahi hai as expected nhi hai",
+                "content": "Changes the active/draft status of a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1141,7 +1056,7 @@
             "event": []
           },
           {
-            "id": "44035e1a-68fb-4795-8b10-b597ec4f3341",
+            "id": "c5f09f0c-1caf-4adf-a781-178fda45e06c",
             "name": "Duplicate Script",
             "request": {
               "url": {
@@ -1170,7 +1085,7 @@
             "event": []
           },
           {
-            "id": "a76f8fd6-3d16-4312-83ad-0928a0fdbacb",
+            "id": "66b3b02f-c09a-4953-8556-8a43e56a5d93",
             "name": "publish script",
             "request": {
               "url": {
@@ -1203,7 +1118,7 @@
             "event": []
           },
           {
-            "id": "13fc4e56-e242-4448-9446-25e8f63cee7c",
+            "id": "fbbd5122-2429-4439-af4c-e387515cfec2",
             "name": "revert script",
             "request": {
               "url": {
@@ -1236,7 +1151,7 @@
             "event": []
           },
           {
-            "id": "58a86c0e-862c-44d0-8092-5c2f12703f7d",
+            "id": "039dba70-5dff-4d39-a30e-4c008846ca32",
             "name": "delete script",
             "request": {
               "url": {
@@ -1265,7 +1180,7 @@
             "event": []
           },
           {
-            "id": "1843a170-5270-4406-a887-73ddbce7d5eb",
+            "id": "a3bf5264-dda9-4722-b4f6-e7de08328320",
             "name": "Instantiate flow from template",
             "request": {
               "url": {
@@ -1297,7 +1212,7 @@
             "event": []
           },
           {
-            "id": "a2921bbc-8a2e-48cb-9314-7818553f0aca",
+            "id": "b72ff6b7-5396-4deb-b017-5ee51f5533c6",
             "name": "Move script from one collection to another",
             "request": {
               "url": {
@@ -1341,7 +1256,7 @@
             "event": []
           },
           {
-            "id": "0643689d-11b4-4994-a895-c7ba0f1a7df6",
+            "id": "85dd91db-eceb-4bba-a520-dfe4fdb14f14",
             "name": "Get Flow and Templates",
             "request": {
               "url": {
@@ -1368,7 +1283,7 @@
             "event": []
           },
           {
-            "id": "4e386960-2c96-4298-a9c4-3a7391190416",
+            "id": "259a9ef6-ec10-494a-bbba-2e6baa05cf79",
             "name": "Delete Bulk Scripts Using Cron (Internal Api)",
             "request": {
               "url": {
@@ -1394,7 +1309,7 @@
             "event": []
           },
           {
-            "id": "228e88ed-07dc-4cee-9ffc-3682edfdfe35",
+            "id": "cba19240-5fa4-440a-a4f5-c42230c66555",
             "name": "MoveScriptToProject",
             "request": {
               "url": {
@@ -1407,11 +1322,11 @@
             "event": []
           },
           {
-            "id": "9dbad586-4ae1-444f-99ed-f0b9cb695f63",
+            "id": "0f662f7a-0899-4238-bdeb-bcc79f4ea953",
             "name": "AI Name and Description",
             "request": {
               "description": {
-                "content": "Resonse time bhut lee rahe hai yeh api.",
+                "content": "Generates AI name and description for a script",
                 "type": "text/plain"
               },
               "url": {
@@ -1454,7 +1369,7 @@
             "event": []
           },
           {
-            "id": "069c0e32-af41-424b-8abc-25dddcfa1512",
+            "id": "b8343ada-a3e8-4a4f-9e6e-31f75f3ba76c",
             "name": "Create Template from the flow",
             "request": {
               "url": {
@@ -1487,7 +1402,7 @@
             "event": []
           },
           {
-            "id": "2fcd658e-cd5e-4f05-87d3-8d9a70195cad",
+            "id": "1cf17ee8-d419-4238-be45-76f7d714e13d",
             "name": "Get All template by Org_Id",
             "request": {
               "url": {
@@ -1515,7 +1430,7 @@
             "event": []
           },
           {
-            "id": "617f0746-ed8d-46de-8491-650888ed3b3c",
+            "id": "2e7d9cee-b18d-49db-bb0c-ee07b403ca99",
             "name": "New Request",
             "request": {
               "url": {
@@ -1532,9 +1447,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "02ec6414-25ca-443c-86d1-312f863c9c1b",
+              "id": "02b0ae7c-bfa7-48b4-b51b-8df85c7df2fd",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1543,9 +1457,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "eddf4365-2a7c-4e4a-905d-dd143befb16e",
+              "id": "cc78f293-33a9-497f-8a45-a22233b04d92",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1573,11 +1486,11 @@
         ]
       },
       {
-        "id": "bf8ef7af-64ee-4279-9b5c-051bde68233d",
+        "id": "ab1e68db-13e4-437f-b61d-29385a82dbf6",
         "name": "Functions",
         "item": [
           {
-            "id": "a7711631-c768-4084-8181-8a6b441fd0d2",
+            "id": "90afe128-bb10-47f2-9eb8-57a58772336b",
             "name": "Get All Functions",
             "request": {
               "url": {
@@ -1604,7 +1517,7 @@
             "event": []
           },
           {
-            "id": "beb14764-2bd2-411b-8cab-35c29b48e0c8",
+            "id": "e277ff1b-373c-41bb-81e4-3dc6e7395262",
             "name": "Get One Function",
             "request": {
               "url": {
@@ -1632,7 +1545,7 @@
             "event": []
           },
           {
-            "id": "081ea25c-ee66-47dd-b3a8-32ba48fdb1db",
+            "id": "beac0d2d-f4e7-49cd-972d-b550c2f51ab4",
             "name": "Get Function by Title",
             "request": {
               "url": {
@@ -1665,9 +1578,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "9dd90bdc-3b71-4026-8c33-ca319633d323",
+              "id": "92670348-3c0b-432d-a589-30c78d03b434",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1676,9 +1588,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "bfc14725-fd8e-4ba3-915f-455943f89160",
+              "id": "a7f5d10c-e6b5-4fc0-80a6-fac80d865aba",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1706,11 +1617,11 @@
         ]
       },
       {
-        "id": "305bacc2-d575-44ad-84b6-615fd5178f2e",
+        "id": "cd55462e-e0b3-43fc-b6b6-4eb52c03bc01",
         "name": "Run Script",
         "item": [
           {
-            "id": "89752414-4129-4159-a6b1-17a61e7a224c",
+            "id": "cd8f33a5-859f-4017-9376-984523a93718",
             "name": "Run script endpoint url",
             "request": {
               "url": {
@@ -1723,7 +1634,7 @@
             "event": []
           },
           {
-            "id": "6b60a8ec-3287-4caa-963a-e2c063c67404",
+            "id": "b50f1131-b13c-4ec6-8bbe-4fcf7cda38df",
             "name": "Dry run",
             "request": {
               "url": {
@@ -1762,9 +1673,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "01ee11b6-a1b7-418d-98e3-3a641d028892",
+              "id": "cb6e3887-9783-4ddd-941e-c3b7de31c2d1",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1773,9 +1683,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "86ec7ed0-bc13-415f-891f-14e66340e5fa",
+              "id": "db2b29da-4abf-46a6-9e00-8fec969dd700",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1803,11 +1712,11 @@
         ]
       },
       {
-        "id": "d78e4e00-5ab1-4f20-a4e7-536c9334e849",
+        "id": "db43882b-fd94-45cf-8798-901ce44451ca",
         "name": "User orgaiztion Mapping",
         "item": [
           {
-            "id": "26380008-760f-40b1-809c-edf8268d5a94",
+            "id": "69e1cbf2-7f64-4e38-8c33-b241c5444cf7",
             "name": "add user to org",
             "request": {
               "url": {
@@ -1842,7 +1751,7 @@
             "event": []
           },
           {
-            "id": "5953e54a-a989-460f-88ac-3ea1078c7a4b",
+            "id": "e8835855-b061-4b8e-b2c0-32ddfa401f5d",
             "name": "remove user from the org",
             "request": {
               "url": {
@@ -1875,9 +1784,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "e1a8ee10-6e38-431d-9249-4d8980e6cc7a",
+              "id": "c5a9845a-ea7c-4703-83b9-235e3c8bd961",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -1886,9 +1794,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "9d610546-44e4-4fc8-8d26-06f8f95c4219",
+              "id": "b410a3b6-7cb7-4497-ad54-b69d667beb2a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -1916,11 +1823,11 @@
         ]
       },
       {
-        "id": "cfa13bf9-9d3f-447e-950d-c02b8c233894",
+        "id": "98d3f172-4b6d-449f-bd40-2d9298d2d788",
         "name": "flow",
         "item": [
           {
-            "id": "262141ff-6875-4b88-941e-cbec190304de",
+            "id": "8e6769ca-1267-45bc-80e8-b0002aa38d8a",
             "name": "Delete a step",
             "request": {
               "description": {
@@ -1961,7 +1868,7 @@
             "event": []
           },
           {
-            "id": "1e4ddd95-bd96-4323-bb4c-2364028afef7",
+            "id": "b6875269-666c-4aac-9ea2-3c3017ea6377",
             "name": "create step",
             "request": {
               "description": {
@@ -1990,7 +1897,7 @@
               "method": "POST",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"type\": \"function\",\r\n    \"title\": \"JS_Code\",\r\n    \"orderGroup\": \"root\"\r\n   \r\n}",
+                "raw": "{\r\n    \"type\": \"{{stepType}}\",\r\n    \"title\": \"{{stepTitle}}\",\r\n    \"orderGroup\": \"{{orderGroup}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2002,7 +1909,7 @@
             "event": []
           },
           {
-            "id": "70130cba-57cc-4f9c-86c2-62ddd77ed1fe",
+            "id": "9081dcf5-337b-4730-b406-40794c7a8430",
             "name": "update a step",
             "request": {
               "url": {
@@ -2027,7 +1934,7 @@
               "method": "PUT",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n  \r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"JS_Code\",\r\n  \"org_id\": \"16563\",\r\n  \"project_id\": \"proj16563\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"funcl4yBpBke\"\r\n}\r\n\r\n  \r\n",
+                "raw": "{\r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"{{stepTitle}}\",\r\n  \"org_id\": \"{{org_id}}\",\r\n  \"project_id\": \"{{project_id}}\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"{{slugName}}\"\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2039,7 +1946,7 @@
             "event": []
           },
           {
-            "id": "3195e74a-b912-42db-9559-33ce9ef05c39",
+            "id": "b1a16cd7-a3c5-470d-9b5d-48f31fd9bb07",
             "name": "reorder",
             "request": {
               "url": {
@@ -2064,9 +1971,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "0d064149-d81b-45c3-926a-1fd12e7764a6",
+              "id": "f3195bbc-c7c3-413a-9cf9-c3d6e8c1278a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2075,9 +1981,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "c2ac94ef-d9bf-49e5-b718-a62907e4b0ce",
+              "id": "18f7ed24-435b-4bd7-8297-07b95105940a",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2105,11 +2010,11 @@
         ]
       },
       {
-        "id": "0b362e8e-fb05-4105-a4c9-4f6f4a564535",
+        "id": "3278d267-4269-4c14-9ef4-7eb8445a2d7b",
         "name": "Template",
         "item": [
           {
-            "id": "70eb3b5f-895e-4dff-b721-f060164e0da0",
+            "id": "817caf68-2cf4-4f22-a361-c1179ae238b5",
             "name": "Get Template By Id",
             "request": {
               "url": {
@@ -2136,7 +2041,7 @@
             "event": []
           },
           {
-            "id": "0f34736c-119d-451c-a8d5-78b9dd816ad7",
+            "id": "828b5c94-5af6-427b-9b1f-8e603a7fbc50",
             "name": "Get all Templates",
             "request": {
               "url": {
@@ -2162,7 +2067,7 @@
             "event": []
           },
           {
-            "id": "21527e22-299d-40c0-bf1b-b07b349ec79b",
+            "id": "1afaa260-33d1-4cb0-a2d6-9966ec55bcb3",
             "name": "Update template category",
             "request": {
               "url": {
@@ -2186,7 +2091,7 @@
               "method": "PATCH",
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"category\": [\r\n        \"Accounting\",\r\n        \"Ads and Conversion\",\r\n        \"AI Tools\"\r\n    ]\r\n}",
+                "raw": "{\r\n    \"category\": {{categoryJson}}\r\n}",
                 "options": {
                   "raw": {
                     "language": "json"
@@ -2202,9 +2107,8 @@
           {
             "listen": "prerequest",
             "script": {
-              "id": "4c3041f1-3aae-4c54-80f9-b76d9850d164",
+              "id": "59f1d257-4e89-47ff-b786-bf569f6e84ee",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 ""
               ]
@@ -2213,9 +2117,8 @@
           {
             "listen": "test",
             "script": {
-              "id": "e8211896-f4cb-4306-944d-72e2fae5b4c4",
+              "id": "6e9d0076-dfa7-4dbd-860a-256ca5c6cee0",
               "type": "text/javascript",
-              "packages": {},
               "exec": [
                 "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
                 "\r",
@@ -2268,7 +2171,7 @@
     "values": [
       {
         "type": "any",
-        "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E=",
+        "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE=",
         "key": "proxy_auth_token"
       },
       {
@@ -2278,27 +2181,27 @@
       },
       {
         "type": "any",
-        "value": "56736",
+        "value": "19014",
         "key": "org_id"
       },
       {
         "type": "any",
-        "value": "22199",
+        "value": "23187",
         "key": "user_id"
       },
       {
         "type": "any",
-        "value": "pronitin",
+        "value": "TarunMewara",
         "key": "nameOrg"
       },
       {
         "type": "any",
-        "value": "updatiosndjs",
+        "value": "updatiosndjswe",
         "key": "updateOrg"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "51464",
         "key": "switchorgid"
       },
       {
@@ -2308,93 +2211,98 @@
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "53173",
         "key": "orgidtoleave"
       },
       {
         "type": "any",
-        "value": "56738",
+        "value": "19014",
         "key": "orgidtoswitchinto"
       },
       {
         "type": "any",
-        "value": "",
+        "value": "17330",
         "key": "removeuserid"
       },
       {
         "type": "any",
-        "value": "projjDqKsRk0",
+        "value": "54275",
+        "key": "update_org_id"
+      },
+      {
+        "type": "any",
+        "value": "projXR0liAk0",
         "key": "project_id"
       },
       {
         "type": "any",
-        "value": "perbpopi",
+        "value": "perbpopir",
         "key": "Updatedname"
       },
       {
         "type": "any",
-        "value": "asnffdjksjksd",
+        "value": "scriZCEW9hog",
         "key": "scriptId"
       }
     ]
   },
   "globals": {
-    "id": "d5825c64-cec3-4f13-ac75-5e6b6a255ab1",
+    "id": "da63d03c-ac19-4dfa-90be-d91aa5ccd0c2",
     "values": []
   },
   "run": {
     "stats": {
       "iterations": {
-        "total": 2,
+        "total": 3,
         "pending": 0,
         "failed": 0
       },
       "items": {
-        "total": 2,
+        "total": 3,
         "pending": 0,
         "failed": 0
       },
       "scripts": {
-        "total": 4,
-        "pending": 0,
-        "failed": 0
-      },
-      "prerequests": {
-        "total": 2,
-        "pending": 0,
-        "failed": 0
-      },
-      "requests": {
-        "total": 2,
-        "pending": 0,
-        "failed": 0
-      },
-      "tests": {
-        "total": 2,
-        "pending": 0,
-        "failed": 0
-      },
-      "assertions": {
         "total": 6,
         "pending": 0,
         "failed": 0
       },
+      "prerequests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 9,
+        "pending": 0,
+        "failed": 0
+      },
       "testScripts": {
-        "total": 2,
+        "total": 3,
         "pending": 0,
         "failed": 0
       },
       "prerequestScripts": {
-        "total": 2,
+        "total": 3,
         "pending": 0,
         "failed": 0
       }
     },
     "timings": {
-      "responseAverage": 1371,
-      "responseMin": 380,
-      "responseMax": 2362,
-      "responseSd": 991,
+      "responseAverage": 651.6666666666666,
+      "responseMin": 83,
+      "responseMax": 1788,
+      "responseSd": 803.509109400067,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -2403,8 +2311,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1770278815018,
-      "completed": 1770278818020
+      "started": 1776244262405,
+      "completed": 1776244264569
     },
     "executions": [
       {
@@ -2412,16 +2320,16 @@
           "position": 0,
           "iteration": 0,
           "length": 1,
-          "cycles": 2,
+          "cycles": 3,
           "empty": false,
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "02c7c2c1-294f-4bde-acf3-59ca48faef0e",
-          "httpRequestId": "c8621b54-b329-435e-a5ad-5cbb6dce80cf"
+          "ref": "9d12c80c-45a6-4078-b3f3-ca5a56caa2a9",
+          "httpRequestId": "228de6c9-714e-4e4c-bd7b-46337b019722"
         },
         "item": {
-          "id": "70875778-b869-478f-8fc8-cf79c7b02841",
+          "id": "384bca99-6e35-43e3-99ca-54675182efba",
           "name": "remove user",
           "request": {
             "url": {
@@ -2456,7 +2364,7 @@
               "orgs",
               "d",
               "23187",
-              "56736",
+              "19014",
               "removeUser"
             ],
             "host": [
@@ -2470,11 +2378,11 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -2489,7 +2397,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "8a0e8512-fc8a-4202-bdd7-cc29ae335426",
+              "value": "723c04e3-475e-404a-930a-42169c393773",
               "system": true
             },
             {
@@ -2509,20 +2417,20 @@
             },
             {
               "key": "Content-Length",
-              "value": "0",
+              "value": 0,
               "system": true
             }
           ],
           "method": "POST"
         },
         "response": {
-          "id": "9301466b-7418-4e73-be99-5dcd934cc073",
+          "id": "8984751e-e2cc-4024-a30c-3091d96af695",
           "status": "OK",
           "code": 200,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:57 GMT"
+              "value": "Wed, 15 Apr 2026 09:11:02 GMT"
             },
             {
               "key": "Content-Type",
@@ -2550,7 +2458,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"b8-V5G03xMjxGWSu0YvWD3sHJF6QuM\""
+              "value": "W/\"b8-Evq8PRBukaZ2ShDCgKQlYLZrlGI\""
             },
             {
               "key": "Via",
@@ -2574,7 +2482,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZaBoX4z7EDdjVHl1Cl2DijqaE79yXoDC7MTVlAl1HaUM37dg42SYS%2FgVpA1IEog1UkVuDFKeDsJstZ8Q8U4BzlfG6JefJmXd%2BJXhZ3zk25C4EOZa\"}]}"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=OrtGDtOL2C13b%2BKzbu%2FlpM8O%2F%2BkhfZFbnKUradiDua25ro70o8fvJdHC8FoBN%2Bwy%2BDhASUSGebGSr0BRkpiKKER3yQL28fCY9PeG6h%2F5D2AX8HOmmb7YAr3cMTp8bUNblOs1HrBQKg%3D%3D\"}]}"
             },
             {
               "key": "Content-Encoding",
@@ -2586,7 +2494,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e946b8e03a23-BOM"
+              "value": "9ec9d2078b4e12a9-BOM"
             },
             {
               "key": "alt-svc",
@@ -2758,9 +2666,9 @@
               34,
               58,
               49,
-              49,
-              51,
-              57,
+              54,
+              53,
+              55,
               125,
               44,
               34,
@@ -2783,10 +2691,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 2362,
+          "responseTime": 1788,
           "responseSize": 184
         },
-        "id": "70875778-b869-478f-8fc8-cf79c7b02841",
+        "id": "384bca99-6e35-43e3-99ca-54675182efba",
         "assertions": [
           {
             "assertion": "Status code is correct",
@@ -2804,16 +2712,16 @@
       },
       {
         "cursor": {
-          "ref": "7b82acc0-426a-4fd7-b63e-3d5a83f46e45",
+          "ref": "999239ee-a605-4995-b378-a29577ef4ae0",
           "length": 1,
-          "cycles": 2,
+          "cycles": 3,
           "position": 0,
           "iteration": 1,
           "cr": true,
-          "httpRequestId": "8ae316ae-b46a-48ab-a894-5d5a1f1b1088"
+          "httpRequestId": "1a324776-23c7-445b-a599-975c580dde95"
         },
         "item": {
-          "id": "70875778-b869-478f-8fc8-cf79c7b02841",
+          "id": "384bca99-6e35-43e3-99ca-54675182efba",
           "name": "remove user",
           "request": {
             "url": {
@@ -2847,8 +2755,8 @@
             "path": [
               "orgs",
               "d",
-              "9999",
-              "56736",
+              "9999999",
+              "19014",
               "removeUser"
             ],
             "host": [
@@ -2862,11 +2770,11 @@
           "header": [
             {
               "key": "proxy_auth_token",
-              "value": "RHhVUjhMV2lpNG9xQ2xQVHBsQ1BxVUVLVjZZSVlHQUlkenFhUzVzckpXMWVwQWRCcGwza2ZRS05NRWNoZHlWQlloVFdTOU9CRjFWbVAyQk4zNWlLOFZENW1XUnBqZ3ZXcG1FcFcvNUg5M0hxb0daZmFTQXN4YkYrL29ZUGY5T3g4LzhQWVZiQ3ZnVU5HTzdYZE4wTDBHSjVCNnhYeU03UnVXM3kvUG9CbjFpWUlUSSs5R2d2bm5mdG1jcDlUUEx4UTRadk1EKzlQUUNodXRIRUlzRDE4aUIzZ3JlQlV5cmZpYlhUS2xyRGtYa1hxd2F4L0JYZE1zSXlkWE5NU1h5R3UyeDZ6Z3d4KzJZRTJzdG1MSkxTMkcrZU5TOEk3RXZNYUQzbUZmWEs0Y1hYVFlJenkycHNuelVHcGszWi91c1E="
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
             },
             {
               "key": "User-Agent",
-              "value": "PostmanRuntime/7.39.1",
+              "value": "PostmanRuntime/7.24.1",
               "system": true
             },
             {
@@ -2881,7 +2789,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "620be42a-27e3-454b-bb93-dfe93871d928",
+              "value": "6e1d2381-b48b-4f92-b9a1-27473ccdaa3d",
               "system": true
             },
             {
@@ -2901,20 +2809,20 @@
             },
             {
               "key": "Content-Length",
-              "value": "0",
+              "value": 0,
               "system": true
             }
           ],
           "method": "POST"
         },
         "response": {
-          "id": "468e0194-03ae-47d5-852b-613f26467237",
+          "id": "3b7db109-47c2-4690-8db8-a9be023604f3",
           "status": "Bad Request",
           "code": 400,
           "header": [
             {
               "key": "Date",
-              "value": "Thu, 05 Feb 2026 08:06:57 GMT"
+              "value": "Wed, 15 Apr 2026 09:11:02 GMT"
             },
             {
               "key": "Content-Type",
@@ -2942,7 +2850,7 @@
             },
             {
               "key": "ETag",
-              "value": "W/\"4d-SdPWur7FDzspJiVpph95hfkqNBI\""
+              "value": "W/\"4d-bZ3E4paWr8Gj51X9XBY1xsCU64A\""
             },
             {
               "key": "Via",
@@ -2966,7 +2874,7 @@
             },
             {
               "key": "Report-To",
-              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3y%2BRQcGNzs1U2apuXqwRsX6e8usoLn0tPEYnDlLFwrRNa5SdSgnefvtV7puvvEx8%2BDfhuY%2FikBOiXVYhspAx008nvKQ8Gal4609%2BBLMWFaB9f2RC\"}]}"
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vllbQ9%2B6qDBs8n%2F9mCLMsNZfoQL6pocl%2FBgv5aU3OsBV30Bbmb8Xyt72L8YWmlU4zzNkJOfjnzWg8JzWEwHnXra%2BHzVKiPv3Nb9jz7dHeLhWJkARCWcAkvCRPQ%2BfaDWLQ%2FptLYnyYg%3D%3D\"}]}"
             },
             {
               "key": "Server",
@@ -2974,7 +2882,7 @@
             },
             {
               "key": "CF-RAY",
-              "value": "9c90e951ba2e3a23-BOM"
+              "value": "9ec9d212c85712a9-BOM"
             },
             {
               "key": "alt-svc",
@@ -3046,7 +2954,7 @@
               32,
               52,
               48,
-              49,
+              52,
               34,
               44,
               34,
@@ -3064,10 +2972,291 @@
             ]
           },
           "cookie": [],
-          "responseTime": 380,
+          "responseTime": 84,
           "responseSize": 77
         },
-        "id": "70875778-b869-478f-8fc8-cf79c7b02841",
+        "id": "384bca99-6e35-43e3-99ca-54675182efba",
+        "assertions": [
+          {
+            "assertion": "Status code is correct",
+            "skipped": false
+          },
+          {
+            "assertion": "Response time < 3s",
+            "skipped": false
+          },
+          {
+            "assertion": "Error message exists",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "c6007077-6d3a-4712-83b6-4eeafefa4332",
+          "length": 1,
+          "cycles": 3,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "99ddba7b-bef6-43f0-ae77-eca787acd0cf"
+        },
+        "item": {
+          "id": "384bca99-6e35-43e3-99ca-54675182efba",
+          "name": "remove user",
+          "request": {
+            "url": {
+              "path": [
+                "orgs",
+                "d",
+                "{{removeuserid}}",
+                "{{org_id}}",
+                "removeUser"
+              ],
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "orgs",
+              "d",
+              "0",
+              "19014",
+              "removeUser"
+            ],
+            "host": [
+              "dev-api",
+              "viasocket",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "proxy_auth_token",
+              "value": "a3ZZczNIamhuMHFaTE1STHErdXVDem85eWlpOTVWV2ZzNWJMTmJHckdsaE91YmlWbmNFalp5RzJBazJoazhESWN5UExBcFNRbUNDMGxLYTAvS2R4NlppRExmQ0FaRWdFUUE0WkxXajdZRkhIYWgrT3NmRkhMaDhpUm91ZjI2ZWo3ZUphVFdGWXRaMkVoQWJXbnZYRURuU2NhUUtubS83ZFc3WTFDNmpRVXZ3RXQ0ZTNRSEFPR0dhbDl6RDRtbFEwVlJKY3M4QVYxV2ZBR0xFMFFIdFUvS0pzNEVVN0dKd0drWnM1U3YyT2ZLOVFvd3JpOGZmanBFdkxsSlZmaS96UUFDdWpBTDNYcSt4VVoxbXVwTENYZ09sRnhCRFNjdjhkUEc4Q0ptamxoN1FXVm1lMjJqUGZ3akJCd3pqUmFzbkE="
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.24.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b402dedb-3d46-46a2-83e2-93ebb35e6bfd",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "dev-api.viasocket.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": 0,
+              "system": true
+            }
+          ],
+          "method": "POST"
+        },
+        "response": {
+          "id": "cd093aa9-966f-4ed8-8d8b-b0070283f815",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 15 Apr 2026 09:11:03 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "77"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"4d-bZ3E4paWr8Gj51X9XBY1xsCU64A\""
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=iXLKdvr4z8JjtOAGQsv2yNsccq8vb%2Bn6Nt%2BARY551gEF0bse0h562iFhVxpfocTTCMGWSyg2aHODNg3CMLk9SUUYWmY2LPKsnsBGNXlj6Bcr8hVoohh4K2YlDT4e4Uphn7gI%2FQCQ8Q%3D%3D\"}]}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9ec9d213ba4f12a9-BOM"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              32,
+              102,
+              97,
+              105,
+              108,
+              101,
+              100,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              32,
+              99,
+              111,
+              100,
+              101,
+              32,
+              52,
+              48,
+              52,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 83,
+          "responseSize": 77
+        },
+        "id": "384bca99-6e35-43e3-99ca-54675182efba",
         "assertions": [
           {
             "assertion": "Status code is correct",
@@ -3085,7 +3274,7 @@
       }
     ],
     "transfers": {
-      "responseTotal": 261
+      "responseTotal": 338
     },
     "failures": [],
     "error": null

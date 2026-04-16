@@ -2,27 +2,35 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
-const REPORTS_DIR = path.join(__dirname, "../reportsJson/projects");
+const REPORTS_ROOT = path.join(__dirname, "../reportsJson");
 const WEBHOOK_URL = "https://flow.sokt.io/func/scriDNWooIDY";
 
-// 1️⃣ Read all JSON files
-const files = fs.readdirSync(REPORTS_DIR).filter(f => f.endsWith(".json"));
+function collectJsonFiles(dir) {
+  let results = [];
+  if (!fs.existsSync(dir)) return results;
+  for (const item of fs.readdirSync(dir)) {
+    const fullPath = path.join(dir, item);
+    if (fs.statSync(fullPath).isDirectory()) {
+      results = results.concat(collectJsonFiles(fullPath));
+    } else if (item.endsWith(".json")) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
 
-console.log(`📂 Found ${files.length} report files`);
+const files = collectJsonFiles(REPORTS_ROOT);
+console.log(`Found ${files.length} report files`);
 
 async function sendAllReports() {
-  for (const file of files) {
-    const filePath = path.join(REPORTS_DIR, file);
+  for (const filePath of files) {
     const report = JSON.parse(fs.readFileSync(filePath, "utf8"));
-
     const stats = report.run.stats;
     const timings = report.run.timings;
-
-    // ✅ REMOVE .json EXTENSION
-    const reportName = path.parse(file).name;
+    const reportName = path.parse(filePath).name;
 
     const payload = {
-      reportName, // 👈 clean name now
+      reportName,
       collection: report.collection.info.name,
       totalRequests: stats.requests.total,
       totalAssertions: stats.assertions.total,
@@ -36,13 +44,13 @@ async function sendAllReports() {
 
     try {
       await axios.post(WEBHOOK_URL, payload);
-      console.log(`✅ Sent report: ${reportName}`);
+      console.log(`Sent report: ${reportName}`);
     } catch (err) {
-      console.error(`❌ Failed to send ${reportName}:`, err.message);
+      console.error(`Failed to send ${reportName}:`, err.message);
     }
   }
 
-  console.log("🚀 ALL REPORTS SENT SUCCESSFULLY");
+  console.log("ALL REPORTS SENT SUCCESSFULLY");
 }
 
 sendAllReports();

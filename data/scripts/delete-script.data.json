@@ -4,7 +4,7 @@
     "expectedStatus": 200
   },
   {
-    "case": "delete_again",
+    "case": "delete_already_deleted_script_should_fail",
     "expectedStatus": 404
   }
 ]

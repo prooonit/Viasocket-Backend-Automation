@@ -1,11 +1,21 @@
 [
   {
-    "case": "valid_update",
+    "case": "valid_standard_update",
     "updateTitle": "updated_workflow_name",
     "expectedStatus": 200
   },
   {
-    "case": "empty_title",
+    "case": "valid_title_with_spaces",
+    "updateTitle": "Updated Workflow Name",
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_short_title",
+    "updateTitle": "wf2",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_title_should_fail",
     "updateTitle": "",
     "expectedStatus": 400
   }

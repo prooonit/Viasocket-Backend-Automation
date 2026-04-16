@@ -1,18 +1,27 @@
 [
   {
-    "nameOrg": "sjkfnjsnfjdsjnskjfdkjd`${Math.floor(Math.random() * 1000)}`",
+    "case": "valid_standard_name",
+    "nameOrg": null,
     "expectedStatus": 200
   },
   {
-    "nameOrg": "kjsnkksjdksndkjsnjkjskswk",
+    "case": "valid_short_name",
+    "nameOrg": null,
     "expectedStatus": 200
   },
   {
-    "nameOrg": "peosn",
+    "case": "valid_name_with_numbers",
+    "nameOrg": null,
     "expectedStatus": 200
   },
   {
+    "case": "valid_name_with_spaces",
+    "nameOrg": null,
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_name_should_fail",
     "nameOrg": "",
-    "expectedStatus": 200
+    "expectedStatus": 400
   }
 ]

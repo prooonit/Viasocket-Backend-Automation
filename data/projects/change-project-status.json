@@ -1,13 +1,26 @@
 [
   {
+    "case": "valid_status_1",
     "projectstatus": 1,
     "expectedStatus": 200
   },
   {
+    "case": "valid_status_0",
+    "projectstatus": 0,
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_status_2",
+    "projectstatus": 2,
+    "expectedStatus": 200
+  },
+  {
+    "case": "negative_status_should_fail",
     "projectstatus": -1,
     "expectedStatus": 400
   },
   {
+    "case": "out_of_range_status_should_fail",
     "projectstatus": 999,
     "expectedStatus": 400
   }

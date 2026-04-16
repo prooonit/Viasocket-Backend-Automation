@@ -1,14 +1,22 @@
 [
   {
-    "switchorgid": 57862,
+    "case": "valid_org_switch",
+    "switchorgid": 51464,
     "expectedStatus": 201
   },
   {
+    "case": "non_existent_org_id",
     "switchorgid": 999999,
     "expectedStatus": 400
   },
   {
+    "case": "null_org_id_should_fail",
     "switchorgid": null,
+    "expectedStatus": 400
+  },
+  {
+    "case": "zero_org_id_should_fail",
+    "switchorgid": 0,
     "expectedStatus": 400
   }
 ]
