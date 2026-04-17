@@ -1,0 +1,17 @@
+[
+  {
+    "case": "valid_step_deletion",
+    "slugName": "JS_Code_AutoTest",
+    "expectedStatus": 200
+  },
+  {
+    "case": "delete_already_deleted_step_should_fail",
+    "slugName": "JS_Code_AutoTest",
+    "expectedStatus": 404
+  },
+  {
+    "case": "non_existent_slug_should_fail",
+    "slugName": "slug_xyz_not_real",
+    "expectedStatus": 404
+  }
+]

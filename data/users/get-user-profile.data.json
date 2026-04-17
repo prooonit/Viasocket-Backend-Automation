@@ -1,0 +1,6 @@
+[
+  {
+    "case": "get_user_profile",
+    "expectedStatus": 201
+  }
+]
