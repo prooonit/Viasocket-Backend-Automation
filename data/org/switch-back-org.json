@@ -1,0 +1,7 @@
+[
+  {
+    "case": "switch_back_to_default_org",
+    "switchorgid": 19014,
+    "expectedStatus": 201
+  }
+]

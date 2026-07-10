@@ -1,0 +1,6 @@
+[
+  {
+    "case": "valid_search_key",
+    "expectedStatus": 201
+  }
+]
