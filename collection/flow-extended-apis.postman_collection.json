@@ -1,0 +1,570 @@
+{
+  "info": {
+    "_postman_id": "03cde248-371a-45c4-a034-3ad53484c05c",
+    "name": "flow-extended-apis",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26640235",
+    "_collection_link": "https://go.postman.co/collection/26640235-03cde248-371a-45c4-a034-3ad53484c05c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Delete Step",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"{{SLUG_NAME}}_DELETED\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "stepv2",
+            "{{SLUG_NAME}}"
+          ]
+        },
+        "description": "Run Create step as a prerequisite"
+      },
+      "response": []
+    },
+    {
+      "name": "Add Drafted Trigger",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"configurationJson\": {},\n  \"configurationJsonEncrypted\": {}\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/drafttrigger/{{TRIGGER_ID}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{project_id}}",
+            "{{scriptId}}",
+            "drafttrigger",
+            "{{TRIGGER_ID}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Multiple Actions",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"actions\": [\n    {\n      \"stepname\": \"Step_One\",\n      \"code\": \"return true\",\n      \"description\": \"First step\",\n      \"iconUrl\": \"\",\n      \"config\": {},\n      \"subfunctions\": []\n    },\n    {\n      \"stepname\": \"Step_Two\",\n      \"code\": \"return context\",\n      \"description\": \"Second step\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/addmultipleactions",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{project_id}}",
+            "{{scriptId}}",
+            "addmultipleactions"
+          ]
+        },
+        "description": "only create js code and for other plugin type change the type field in the body"
+      },
+      "response": []
+    },
+    {
+      "name": "If_Block Duplicate Step",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/duplicatestep/IfBlock_Test",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "duplicatestep",
+            "IfBlock_Test"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Change Step Status",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"INACTIVE\",\n  \"scriptId\": \"{{scriptId}}\",\n  \"slugName\": \"{{SLUG_NAME}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}/changestatus",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "stepv2",
+            "{{SLUG_NAME}}",
+            "changestatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Step",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"function\",\n  \"title\": \"JS_Code_New\",\n  \"code\": \"return true\",\n  \"stepId\": \"func12345678\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "stepv2",
+            "{{SLUG_NAME}}"
+          ]
+        },
+        "description": "Success Message is Wrong"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Step",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"function\",\n  \"title\": \"{{SLUG_NAME}}\",\n  \"orderGroup\": \"root\",\n  \"scriptId\": \"{{scriptId}}\",\n  \"stepId\": \"func12345678\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/stepv2",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{project_id}}",
+            "{{scriptId}}",
+            "stepv2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reorder Step",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"newIndex\": 0,\n  \"parent\": \"root\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/reorder/{{SLUG_NAME}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "reorder",
+            "{{SLUG_NAME}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add / Update Trigger (Webhook)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"triggerType\": \"webhook\",\n  \"type\": \"add\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/trigger",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{project_id}}",
+            "{{scriptId}}",
+            "trigger"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Trigger Preprocess",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"preProcess\": {\n    \"type\": \"function\",\n    \"code\": \"return context.trigger\"\n  },\n  \"loops\": {\n    \"loopsEnabled\": false\n  },\n  \"preCondition\": null,\n  \"preProcessFilter\": null\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/trigger/preprocess",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{project_id}}",
+            "{{scriptId}}",
+            "trigger",
+            "preprocess"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Memory Auth",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/memoryauth",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "memoryauth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Title & Description (AI)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userPrompt\": \"Create a flow that sends slack message when form is submitted\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/title-description",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "title-description"
+          ]
+        },
+        "description": "only title is given in response"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Trigger Preprocess",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"preProcess\": true,\n  \"loops\": true,\n  \"preCondition\": true,\n  \"preProcessFilter\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/trigger/preprocess/delete",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "trigger",
+            "preprocess",
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Hire an Expert",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Need help integrating Stripe webhook\",\n  \"environment\": \"dev\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/hireAnExpert",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "hireAnExpert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Script",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dev-api.viasocket.com/projects/{{project_id}}/scripts",
+          "protocol": "https",
+          "host": [
+            "dev-api",
+            "viasocket",
+            "com"
+          ],
+          "path": [
+            "projects",
+            "{{project_id}}",
+            "scripts"
+          ]
+        },
+        "description": "Just for prerequisite"
+      },
+      "response": []
+    }
+  ]
+}
