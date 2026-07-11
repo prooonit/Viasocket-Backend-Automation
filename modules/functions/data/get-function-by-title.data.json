@@ -1,0 +1,17 @@
+[
+  {
+    "case": "valid_function_title",
+    "functitle": "JS_Code",
+    "expectedStatus": 200
+  },
+  {
+    "case": "non_existent_title_should_fail",
+    "functitle": "title_that_does_not_exist_xyz",
+    "expectedStatus": 404
+  },
+  {
+    "case": "empty_title_should_fail",
+    "functitle": "empty",
+    "expectedStatus": 404
+  }
+]

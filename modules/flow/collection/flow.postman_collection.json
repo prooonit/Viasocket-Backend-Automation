@@ -1,0 +1,191 @@
+{
+  "info": {
+    "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+    "name": "viasocket-flow",
+    "description": "ViaSocket flow API collection (split from viacollection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "flow",
+      "item": [
+        {
+          "name": "Delete a step",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"JS_Code_1_DELETED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{slugName}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{scriptId}}",
+                "stepv2",
+                "{{slugName}}"
+              ]
+            },
+            "description": "message should be 'successfully deleted step ' instead of 'successfully update step ' ."
+          },
+          "response": []
+        },
+        {
+          "name": "create step",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"type\": \"{{stepType}}\",\r\n    \"title\": \"{{stepTitle}}\",\r\n    \"orderGroup\": \"{{orderGroup}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/stepv2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{project_id}}",
+                "{{scriptId}}",
+                "stepv2"
+              ]
+            },
+            "description": "1.project id is missing in the url in the actual doc  \n2.in the body, it is asking to pass step id which is not created yet"
+          },
+          "response": []
+        },
+        {
+          "name": "update a step",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"type\": \"function\",\r\n  \"code\": \"return false\",\r\n  \"title\": \"{{stepTitle}}\",\r\n  \"org_id\": \"{{org_id}}\",\r\n  \"project_id\": \"{{project_id}}\",\r\n  \"calculateDetailedVariables\": false,\r\n  \"action_id\": null,\r\n  \"stepId\": \"{{slugName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{slugName}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{scriptId}}",
+                "stepv2",
+                "{{slugName}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reorder",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASEURL}}/scripts/{{script/reorder",
+              "host": [
+                "{{BASEURL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{script",
+                "reorder"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "scriptTitle",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

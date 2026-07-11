@@ -1,0 +1,477 @@
+{
+  "info": {
+    "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+    "name": "viasocket-org",
+    "description": "ViaSocket org API collection (split from viacollection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "org",
+      "item": [
+        {
+          "name": "createorg",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Set org name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                  "const nameOrg = pm.iterationData.get(\"nameOrg\");\r",
+                  "if (nameOrg === undefined || nameOrg === null) {\r",
+                  "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"nameOrg\", randomOrgName);\r",
+                  "} else if (nameOrg === \"\") {\r",
+                  "  pm.variables.set(\"nameOrg\", \"\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"nameOrg\", nameOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{nameOrg}}\",\r\n  \"timezone\": \"+05:30\",\r\n  \"meta\": {\r\n    \"domainUrl\": \"\",\r\n    \"timezoneIdentifier\": \"Asia/Kolkata\",\r\n    \"preferred_industry\": null\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/createOrg",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "createOrg"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/getCompanies/all",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "getCompanies",
+                "all"
+              ],
+              "query": [
+                {
+                  "key": "proxy_auth_token",
+                  "value": "{{proxy_auth_token}}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get users of an organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/orgusers/all",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "orgusers",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update an organization",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Set update name: random if not provided, unique suffix if provided, empty string passed as-is\r",
+                  "const updateOrg = pm.iterationData.get(\"updateOrg\");\r",
+                  "if (updateOrg === undefined || updateOrg === null) {\r",
+                  "  const randomOrgName = \"Org_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"updateOrg\", randomOrgName);\r",
+                  "} else if (updateOrg === \"\") {\r",
+                  "  pm.variables.set(\"updateOrg\", \"\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"updateOrg\", updateOrg + \"_\" + Math.random().toString(36).substring(2, 6));\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"{{updateOrg}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{update_org_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{update_org_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get org token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/token",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "global search on org",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/search?key=a",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "a"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "switch org",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\":{{switchorgid}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/switchOrg",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "switchOrg"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add user to org",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Only generate a random email if the data file did not provide one\r",
+                  "const newusermail = pm.iterationData.get(\"newusermail\");\r",
+                  "if (newusermail === undefined || newusermail === null) {\r",
+                  "  const randommail = \"randomMail_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"newusermail\", randommail + \"@gmail.com\");\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"newusermail\", newusermail);\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\":{\r\n        \"email\": \"{{newusermail}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/adduser",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "adduser"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "remove user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/d/{{removeuserid}}/{{org_id}}/removeUser",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "d",
+                "{{removeuserid}}",
+                "{{org_id}}",
+                "removeUser"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "leave org",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"orgToLeave\":{{orgidtoleave}},\r\n    \"orgToSwitchInto\":{{orgidtoswitchinto}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/leave-org",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "leave-org"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Beta Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"betaStatus\":{{betaStatus}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/betaStatus",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "betaStatus"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "scriptTitle",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

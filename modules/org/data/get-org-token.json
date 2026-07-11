@@ -1,0 +1,6 @@
+[
+  {
+    "case": "valid_org_token_fetch",
+    "expectedStatus": 200
+  }
+]

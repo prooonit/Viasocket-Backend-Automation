@@ -1,9 +1,6 @@
 # ============================================================
-# ViaSocket Backend Automation - Run All Suites
+# ViaSocket Backend Automation - Run All Modules
 # ============================================================
-# Runs all API test suites one by one, then automatically
-# sends the report summary to the configured webhook URL.
-#
 # Usage:
 #   .\runAll.ps1
 # ============================================================
@@ -14,64 +11,51 @@ Write-Host ""
 Write-Host "============================================"
 Write-Host " ViaSocket Backend Automation - Full Run"
 Write-Host "============================================"
+Write-Host " Modules live under: modules/<name>/"
+Write-Host " Shared env:         shared/environment/env.json"
+Write-Host "============================================"
 
-# ── 1. Org API Tests ────────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 1/7] ORG ----"
-& "$ROOT\runscriptOrg.ps1"
+$modules = @(
+  @{ Name = "ORG";           Path = "modules\org\run.ps1" },
+  @{ Name = "PROJECTS";      Path = "modules\projects\run.ps1" },
+  @{ Name = "SCRIPTS";       Path = "modules\scripts\run.ps1" },
+  @{ Name = "USERS";         Path = "modules\users\run.ps1" },
+  @{ Name = "FUNCTIONS";     Path = "modules\functions\run.ps1" },
+  @{ Name = "FLOW";          Path = "modules\flow\run.ps1" },
+  @{ Name = "FLOW EXTENDED"; Path = "modules\flow-extended\run.ps1" },
+  @{ Name = "TEMPLATE";      Path = "modules\template\run.ps1" }
+)
 
-# ── 2. Projects API Tests ────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 2/7] PROJECTS ----"
-& "$ROOT\runscriptProjects.ps1"
-
-# ── 3. Scripts API Tests ─────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 3/7] SCRIPTS ----"
-& "$ROOT\runscriptScripts.ps1"
-
-# ── 4. Users API Tests ───────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 4/7] USERS ----"
-& "$ROOT\runscriptUsers.ps1"
-
-# ── 5. Functions API Tests ───────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 5/7] FUNCTIONS ----"
-& "$ROOT\runscriptFunctions.ps1"
-
-# ── 6. Flow API Tests ────────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 6/8] FLOW ----"
-& "$ROOT\runscriptFlow.ps1"
-
-# ── 7. Flow Extended API Tests ───────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 7/8] FLOW EXTENDED ----"
-& "$ROOT\runscriptFlowExtended.ps1"
-
-# ── 8. Template API Tests ────────────────────────────────────
-Write-Host ""
-Write-Host "---- [Suite 8/8] TEMPLATE ----"
-& "$ROOT\runscriptTemplate.ps1"
-
-# ── 8. Send Reports to Webhook ───────────────────────────────
-Write-Host ""
-Write-Host "---- Sending reports to webhook ----"
-
-$NODE_DIR = "$ROOT\node"
-
-if (-not (Test-Path "$NODE_DIR\node_modules")) {
-    Write-Host "Installing node dependencies..."
-    npm install --prefix $NODE_DIR
+$i = 0
+foreach ($m in $modules) {
+  $i++
+  Write-Host ""
+  Write-Host "---- [Suite $i/$($modules.Count)] $($m.Name) ----"
+  $script = Join-Path $ROOT $m.Path
+  if (-not (Test-Path $script)) {
+    Write-Host "MISSING: $script" -ForegroundColor Red
+    continue
+  }
+  & $script
 }
 
-node "$NODE_DIR\sendReports.js"
+Write-Host ""
+Write-Host "---- Sending reports to webhook ----"
+$NODE_DIR = Join-Path $ROOT "node"
+if (-not (Test-Path (Join-Path $NODE_DIR "node_modules"))) {
+  Write-Host "Installing node dependencies..."
+  npm install --prefix $NODE_DIR
+}
+# Point sendReports at modules/*/reportsJson
+$env:REPORTS_ROOT = Join-Path $ROOT "modules"
+if (Get-Command node -ErrorAction SilentlyContinue) {
+  node (Join-Path $NODE_DIR "sendReports.js")
+} else {
+  Write-Host "Skip webhook: node not on PATH"
+}
 
-# ── Done ─────────────────────────────────────────────────────
 Write-Host ""
 Write-Host "============================================"
-Write-Host " ALL SUITES COMPLETE"
-Write-Host " HTML reports -> reports/"
-Write-Host " Reports sent to webhook"
+Write-Host " ALL MODULES COMPLETE"
+Write-Host " Reports -> modules/<module>/reports/"
 Write-Host "============================================"

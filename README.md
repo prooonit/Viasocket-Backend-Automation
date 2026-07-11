@@ -1,139 +1,114 @@
 # ViaSocket Backend Automation
 
-Automated API test suite for the ViaSocket backend, built with **Newman** (the command-line runner for Postman collections). Runs tests, checks responses, and generates HTML + JSON reports.
+Automated API test suite for the ViaSocket backend, built with **Newman**.  
+Each backend module owns its own **collection**, **data**, and **reports**.
 
 ---
 
 ## Prerequisites
 
-Install these once on your machine before anything else:
-
-1. **Node.js** (v16+) → https://nodejs.org/en/download  
-   *(This also installs `npm` and `npx` automatically)*
-
-2. Verify the install worked by opening a terminal and running:
-   ```
-   node -v
-   npx -v
-   ```
+1. **Node.js** (v16+) → https://nodejs.org  
+2. From repo root: `npm install`
 
 ---
 
-## Setup (First Time Only)
+## Setup
 
-1. Clone or download this project folder.
+Edit shared env (preferred):
 
-2. Open a terminal **inside this folder** and run:
-   ```
-   npm install
-   ```
-   This installs `newman` and `newman-reporter-html`.
+`shared/environment/env.json`
 
-3. Open `environment/env.json` and update the values for your account:
+| Key | Purpose |
+|---|---|
+| `proxy_auth_token` | ViaSocket auth token |
+| `BASE_URL` | API base URL |
+| `org_id` / `project_id` / `scriptId` | Test context IDs |
 
-   | Key | What it is |
-   |---|---|
-   | `proxy_auth_token` | Your ViaSocket auth token |
-   | `BASE_URL` | API base URL (default: `https://dev-api.viasocket.com`) |
-   | `org_id` | Your organization ID |
-   | `user_id` | Your user ID |
-   | `project_id` | A project ID to test against |
+(`environment/env.json` is kept in sync for older scripts.)
 
 ---
 
-## How to Run Tests
+## Project structure
 
-Open a PowerShell terminal inside the project folder and run:
-
-```powershell
-# Run ALL tests (org + projects)
-.\run.ps1
-
-# Run only Org API tests
-.\run.ps1 -Suite org
-
-# Run only Project API tests
-.\run.ps1 -Suite projects
+```
+Viasocket-Backend-Automation/
+├── modules/
+│   ├── org/
+│   │   ├── collection/          # org.postman_collection.json
+│   │   ├── data/                # iteration data files
+│   │   ├── reports/             # HTML + DETAILED_REPORT (if any)
+│   │   ├── reportsJson/         # Newman JSON reports
+│   │   └── run.ps1              # run this module only
+│   ├── projects/
+│   ├── users/
+│   ├── scripts/
+│   ├── functions/
+│   ├── flow/
+│   ├── flow-extended/
+│   └── template/
+├── shared/
+│   ├── environment/env.json
+│   └── Resolve-Newman.ps1
+├── run.ps1                      # .\run.ps1 -Suite org|projects|...|all
+├── runAll.ps1                   # runs every module
+└── package.json
 ```
 
-> **First time on Windows?** If PowerShell blocks the script, run this once:
-> ```powershell
-> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-> ```
+Legacy root folders (`collection/`, `data/`, `reports/`) are superseded by `modules/`.  
+Root `runscript*.ps1` files are thin wrappers to `modules/*/run.ps1`.
 
 ---
 
-## Where Are the Reports?
+## How to run
 
-After running tests, reports are saved in two formats:
+```powershell
+# One module
+.\modules\org\run.ps1
+.\modules\flow-extended\run.ps1
 
-| Format | Location | Use for |
-|---|---|---|
-| HTML | `reports/` | Human-readable, open in browser |
-| JSON | `reportsJson/` | Sending to webhook / dashboard |
+# Via master entry
+.\run.ps1 -Suite org
+.\run.ps1 -Suite flow-extended
+.\run.ps1 -Suite all
 
-Open any `.html` file in your browser to see a full pass/fail breakdown.
+# Or
+.\runAll.ps1
+```
 
 ---
 
-## Sending Reports to the Webhook
+## Reports
 
-After running the JSON tests, you can push a summary to the configured webhook:
+| Format | Location |
+|---|---|
+| HTML | `modules/<module>/reports/*.html` |
+| JSON | `modules/<module>/reportsJson/*.json` |
+| Markdown (flow-extended) | `modules/flow-extended/reports/DETAILED_REPORT.md` |
 
-```bash
+---
+
+## Adding a new module
+
+1. Create `modules/<name>/{collection,data,reports,reportsJson}/`
+2. Add `<name>.postman_collection.json` under `collection/`
+3. Add data files under `data/`
+4. Copy an existing `run.ps1` and point paths at the new collection/data
+5. Register the module in `runAll.ps1` and `run.ps1`
+
+To re-split collections from the legacy monolith:
+
+```powershell
+node scripts/restructure-modules.js
+```
+
+---
+
+## Webhook summaries
+
+```powershell
 cd node
 npm install
 node sendReports.js
 ```
 
-This reads all JSON reports from `reportsJson/` and POSTs a summary to the webhook URL in `sendReports.js`.
-
----
-
-## Project Structure
-
-```
-├── run.ps1                    ← START HERE — master run script
-├── collection/
-│   └── viacollection.json     ← All API requests + test assertions (Postman collection)
-├── environment/
-│   └── env.json               ← Config: base URL, auth token, IDs
-├── data/
-│   ├── org/                   ← Test cases for Org APIs
-│   ├── projects/              ← Test cases for Project APIs
-│   ├── scripts/               ← Test cases for Script APIs
-│   └── users/                 ← Test cases for User APIs
-├── reports/                   ← HTML reports (generated after run)
-├── reportsJson/               ← JSON reports (generated after run)
-└── node/
-    └── sendReports.js         ← Sends report summaries to webhook
-```
-
----
-
-## How Test Cases Work
-
-Each file in `data/` is a list of test scenarios. Newman runs the API **once per row**.
-
-Example — `data/org/create-org.json`:
-```json
-[
-  { "nameOrg": "TestOrg_ValidName",  "expectedStatus": 200 },
-  { "nameOrg": "AnotherOrg",         "expectedStatus": 200 },
-  { "nameOrg": "",                   "expectedStatus": 400 }
-]
-```
-
-Row 3 tests what happens when you send an empty name — the test expects a `400` error back.  
-If the server returns `200` instead, the test **fails** and shows up red in the report.
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| `npx: command not found` | Install Node.js from nodejs.org |
-| `newman: not found` | Run `npm install` in the project root |
-| All tests fail with 401 | Update `proxy_auth_token` in `environment/env.json` |
-| HTML report not opening | Make sure tests have been run at least once |
+Scans `modules/*/reportsJson/**/*.json` by default.

@@ -1,0 +1,21 @@
+[
+  {
+    "case": "valid_step_deletion",
+    "setup": "functionStep",
+    "deleteTitle": "Step_DELETED",
+    "expectedStatus": 200
+  },
+  {
+    "case": "delete_already_gone_should_fail",
+    "setup": "deletedFunctionStep",
+    "deleteTitle": "Step_GONE",
+    "expectedStatus": 400
+  },
+  {
+    "case": "non_existent_slug_should_fail",
+    "setup": "script",
+    "SLUG_NAME": "slug_xyz_not_real",
+    "deleteTitle": "slug_xyz_not_real_DELETED",
+    "expectedStatus": 400
+  }
+]

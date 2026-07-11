@@ -1,0 +1,23 @@
+[
+  {
+    "case": "valid_function_step",
+    "stepType": "function",
+    "stepTitle": "JS_Code_AutoTest",
+    "orderGroup": "root",
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_step_different_title",
+    "stepType": "function",
+    "stepTitle": "JS_Code_QA",
+    "orderGroup": "root",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_title_should_fail",
+    "stepType": "function",
+    "stepTitle": "",
+    "orderGroup": "root",
+    "expectedStatus": 400
+  }
+]

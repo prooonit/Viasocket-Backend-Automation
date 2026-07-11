@@ -1,0 +1,623 @@
+{
+  "info": {
+    "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+    "name": "viasocket-scripts",
+    "description": "ViaSocket scripts API collection (split from viacollection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Scripts",
+      "item": [
+        {
+          "name": "Create Script",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Only generate a random title if the data file did not provide one\r",
+                  "const scriptTitle = pm.iterationData.get(\"scriptTitle\");\r",
+                  "if (scriptTitle === undefined || scriptTitle === null) {\r",
+                  "  const randomTitle = \"workflow_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"scriptTitle\", randomTitle);\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"scriptTitle\", scriptTitle);\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"{{scriptTitle}}\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts"
+              ]
+            },
+            "description": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Scripts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts"
+              ]
+            },
+            "description": "It is possible to create a script i.e workflow without a collection, but it is still asking for the project id in url."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Script",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"{{updateTitle}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}"
+              ]
+            },
+            "description": "Updates the title of an existing script"
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Script",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Script Status",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set('scriptId', 'scriAjIcRF2H');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/status?status={{scriptStatus}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{scriptStatus}}"
+                }
+              ]
+            },
+            "description": "Changes the active/draft status of a script"
+          },
+          "response": []
+        },
+        {
+          "name": "Duplicate Script",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/duplicate",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "duplicate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "publish script",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set('scriptId', 'scriBRwe6RiR');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/publish",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "publish"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "revert script",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/revert",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "revert"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete script",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/delete",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "delete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Instantiate flow from template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/template/{{scriptId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "template",
+                "{{scriptId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Move script from one collection to another",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newProjectId\":\"{{newProjectId}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/move",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "move"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Flow and Templates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/templates",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "templates"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Bulk Scripts Using Cron (Internal Api)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/deleteScriptCron",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "deleteScriptCron"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "MoveScriptToProject",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "AI Name and Description",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"metadata\": {\r\n        \"description\": \"Creates a fron23232it\"\r\n    },\r\n     \"type\": \"flow\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Generates AI name and description for a script"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Template from the flow",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts/{{scriptId}}/makeTemplate",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "{{project_id}}",
+                "scripts",
+                "{{scriptId}}",
+                "makeTemplate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All template by Org_Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/projects/templates/{{org_id}}/getAllTemplates",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "projects",
+                "templates",
+                "{{org_id}}",
+                "getAllTemplates"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "scriptTitle",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

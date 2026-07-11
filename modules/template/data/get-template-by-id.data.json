@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_template_id",
+    "templateId": "scrinKBXRlFc",
+    "expectedStatus": 200
+  },
+  {
+    "case": "non_existent_template_id_should_fail",
+    "templateId": "template_id_does_not_exist_xyz",
+    "expectedStatus": 400
+  }
+]

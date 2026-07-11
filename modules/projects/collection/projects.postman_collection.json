@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+    "name": "viasocket-projects",
+    "description": "ViaSocket projects API collection (split from viacollection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Create Project",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Only generate a random title if the data file did not provide one\r",
+                  "const projectTitle = pm.iterationData.get(\"projectTitle\");\r",
+                  "if (projectTitle === undefined || projectTitle === null) {\r",
+                  "  const randomTitle = \"Collection_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now();\r",
+                  "  pm.variables.set(\"projectTitle\", randomTitle);\r",
+                  "} else {\r",
+                  "  pm.variables.set(\"projectTitle\", projectTitle);\r",
+                  "}\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{projectTitle}}\",\n  \"org_id\": \"{{org_id}}\",\n  \"type\": \"{{projectType}}\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects"
+              ]
+            },
+            "description": "Note: We can create collection in any one's org with the help of just org id."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "flow",
+                  "disabled": true
+                },
+                {
+                  "key": "bringflows",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"{{updatedProjectTitle}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Project Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}/status?status={{projectstatus}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orgs",
+                "{{org_id}}",
+                "projects",
+                "{{project_id}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "{{projectstatus}}"
+                }
+              ]
+            },
+            "description": "Note: For the status 3, it gives something went wrong."
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200|| expectedStatus === 201) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "scriptTitle",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

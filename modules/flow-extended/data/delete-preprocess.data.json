@@ -1,0 +1,20 @@
+[
+  {
+    "case": "delete_all_preprocess_sections",
+    "setup": "preprocess",
+    "deletePreProcess": true,
+    "deleteLoops": true,
+    "deletePreCondition": true,
+    "deletePreProcessFilter": true,
+    "expectedStatus": 200
+  },
+  {
+    "case": "delete_preprocess_only",
+    "setup": "preprocess",
+    "deletePreProcess": true,
+    "deleteLoops": false,
+    "deletePreCondition": false,
+    "deletePreProcessFilter": false,
+    "expectedStatus": 200
+  }
+]

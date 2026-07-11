@@ -2,7 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
-const REPORTS_ROOT = path.join(__dirname, "../reportsJson");
+const REPORTS_ROOT = process.env.REPORTS_ROOT
+  ? path.resolve(process.env.REPORTS_ROOT)
+  : path.join(__dirname, "../modules");
 const WEBHOOK_URL = "https://flow.sokt.io/func/scriDNWooIDY";
 
 function collectJsonFiles(dir) {
@@ -11,8 +13,11 @@ function collectJsonFiles(dir) {
   for (const item of fs.readdirSync(dir)) {
     const fullPath = path.join(dir, item);
     if (fs.statSync(fullPath).isDirectory()) {
-      results = results.concat(collectJsonFiles(fullPath));
-    } else if (item.endsWith(".json")) {
+      // Prefer module reportsJson folders; also accept nested reportsJson
+      if (item === "reportsJson" || item === "modules" || !["node_modules", ".git", "collection", "data", "reports"].includes(item)) {
+        results = results.concat(collectJsonFiles(fullPath));
+      }
+    } else if (item.endsWith(".json") && fullPath.includes(`${path.sep}reportsJson${path.sep}`)) {
       results.push(fullPath);
     }
   }

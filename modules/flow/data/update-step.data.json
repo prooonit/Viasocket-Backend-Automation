@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_step_update",
+    "slugName": "JS_Code_AutoTest",
+    "stepTitle": "JS_Code_AutoTest",
+    "expectedStatus": 200
+  },
+  {
+    "case": "non_existent_slug_should_fail",
+    "slugName": "slug_that_does_not_exist_xyz",
+    "stepTitle": "JS_Code_AutoTest",
+    "expectedStatus": 404
+  }
+]

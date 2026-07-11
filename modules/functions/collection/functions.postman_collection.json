@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "5ac244a7-b6e7-4bf3-a069-966b7867adb2",
+    "name": "viasocket-functions",
+    "description": "ViaSocket functions API collection (split from viacollection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Functions",
+      "item": [
+        {
+          "name": "Get All Functions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{scriptId}}",
+                "functions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Function",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions/{{function_Id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{scriptId}}",
+                "functions",
+                "{{function_Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Function by Title",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "proxy_auth_token",
+                "value": "{{proxy_auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/functions/title/{{functitle}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "scripts",
+                "{{scriptId}}",
+                "functions",
+                "title",
+                "{{functitle}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "scriptTitle",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
