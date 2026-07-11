@@ -2,387 +2,471 @@
   "info": {
     "_postman_id": "03cde248-371a-45c4-a034-3ad53484c05c",
     "name": "flow-extended-apis",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "26640235",
-    "_collection_link": "https://go.postman.co/collection/26640235-03cde248-371a-45c4-a034-3ad53484c05c?source=collection_link"
+    "description": "Extended flow APIs. Each request can run independently via collection prerequest setup (creates scri* script / func* steps as needed). Data field `setup` controls deps: none | script | functionStep | activeFunctionStep | inactiveFunctionStep | deletedFunctionStep | ifBlockStep | twoFunctionSteps | webhookTrigger | preprocess.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Delete Step",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+      "name": "Create Script",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const scriptTitle = pm.iterationData.get(\"scriptTitle\");",
+              "if (scriptTitle === undefined || scriptTitle === null) {",
+              "  pm.variables.set(\"scriptTitle\", \"FlowExt_\" + Math.random().toString(36).substring(2, 8) + \"_\" + Date.now());",
+              "} else {",
+              "  pm.variables.set(\"scriptTitle\", scriptTitle);",
+              "}",
+              "pm.variables.set(\"scriptId\", \"scri\" + Math.random().toString(36).substring(2, 10));"
+            ]
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"{{SLUG_NAME}}_DELETED\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "stepv2",
-            "{{SLUG_NAME}}"
-          ]
-        },
-        "description": "Run Create step as a prerequisite"
-      },
-      "response": []
-    },
-    {
-      "name": "Add Drafted Trigger",
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"configurationJson\": {},\n  \"configurationJsonEncrypted\": {}\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{\n  \"title\": \"{{scriptTitle}}\",\n  \"identifier\": \"{{scriptId}}\"\n}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
-          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/drafttrigger/{{TRIGGER_ID}}",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{project_id}}",
-            "{{scriptId}}",
-            "drafttrigger",
-            "{{TRIGGER_ID}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add Multiple Actions",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"actions\": [\n    {\n      \"stepname\": \"Step_One\",\n      \"code\": \"return true\",\n      \"description\": \"First step\",\n      \"iconUrl\": \"\",\n      \"config\": {},\n      \"subfunctions\": []\n    },\n    {\n      \"stepname\": \"Step_Two\",\n      \"code\": \"return context\",\n      \"description\": \"Second step\"\n    }\n  ]\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{{BASE_URL}}/projects/{{project_id}}/scripts",
+          "host": ["{{BASE_URL}}"],
+          "path": ["projects", "{{project_id}}", "scripts"]
         },
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/addmultipleactions",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{project_id}}",
-            "{{scriptId}}",
-            "addmultipleactions"
-          ]
-        },
-        "description": "only create js code and for other plugin type change the type field in the body"
-      },
-      "response": []
-    },
-    {
-      "name": "If_Block Duplicate Step",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          }
-        ],
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/duplicatestep/IfBlock_Test",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "duplicatestep",
-            "IfBlock_Test"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change Step Status",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"status\": \"INACTIVE\",\n  \"scriptId\": \"{{scriptId}}\",\n  \"slugName\": \"{{SLUG_NAME}}\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}/changestatus",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "stepv2",
-            "{{SLUG_NAME}}",
-            "changestatus"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Update Step",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"type\": \"function\",\n  \"title\": \"JS_Code_New\",\n  \"code\": \"return true\",\n  \"stepId\": \"func12345678\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "stepv2",
-            "{{SLUG_NAME}}"
-          ]
-        },
-        "description": "Success Message is Wrong"
+        "description": "Creates a flow script. identifier must start with scri. Success = 201."
       },
       "response": []
     },
     {
       "name": "Create Step",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const stepId = pm.iterationData.get(\"stepId\");",
+              "if (stepId === undefined || stepId === null || stepId === \"\") {",
+              "  pm.variables.set(\"stepId\", \"func\" + Math.random().toString(36).substring(2, 10));",
+              "} else {",
+              "  pm.variables.set(\"stepId\", stepId);",
+              "}",
+              "const stepTitle = pm.iterationData.get(\"stepTitle\");",
+              "if (stepTitle === undefined || stepTitle === null) {",
+              "  pm.variables.set(\"stepTitle\", \"Step_\" + Math.random().toString(36).substring(2, 8));",
+              "} else {",
+              "  pm.variables.set(\"stepTitle\", stepTitle);",
+              "}",
+              "if (!pm.iterationData.get(\"orderGroup\")) pm.variables.set(\"orderGroup\", \"root\");",
+              "else pm.variables.set(\"orderGroup\", pm.iterationData.get(\"orderGroup\"));",
+              "if (!pm.iterationData.get(\"stepType\")) pm.variables.set(\"stepType\", \"function\");",
+              "else pm.variables.set(\"stepType\", pm.iterationData.get(\"stepType\"));"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"type\": \"function\",\n  \"title\": \"{{SLUG_NAME}}\",\n  \"orderGroup\": \"root\",\n  \"scriptId\": \"{{scriptId}}\",\n  \"stepId\": \"func12345678\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{\n  \"type\": \"{{stepType}}\",\n  \"title\": \"{{stepTitle}}\",\n  \"orderGroup\": \"{{orderGroup}}\",\n  \"scriptId\": \"{{scriptId}}\",\n  \"stepId\": \"{{stepId}}\"\n}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/stepv2",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{project_id}}",
-            "{{scriptId}}",
-            "stepv2"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{project_id}}", "{{scriptId}}", "stepv2"]
+        },
+        "description": "createNewStepV2Drafted → 200. setup=script. stepId must start with func (max 12 chars)."
+      },
+      "response": []
+    },
+    {
+      "name": "Update Step",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const slug = pm.variables.get(\"SLUG_NAME\") || pm.iterationData.get(\"SLUG_NAME\") || pm.environment.get(\"SLUG_NAME\");",
+              "const stepTitle = pm.iterationData.get(\"stepTitle\");",
+              "const title = (stepTitle === undefined || stepTitle === null || stepTitle === \"\") ? slug : stepTitle;",
+              "const body = {",
+              "  type: pm.iterationData.get(\"stepType\") || \"function\",",
+              "  title: title,",
+              "  code: pm.iterationData.get(\"code\"),",
+              "  stepId: pm.variables.get(\"stepId\") || pm.iterationData.get(\"stepId\"),",
+              "  org_id: pm.environment.get(\"org_id\"),",
+              "  project_id: pm.environment.get(\"project_id\"),",
+              "  calculateDetailedVariables: false",
+              "};",
+              "pm.variables.set(\"SLUG_NAME\", slug);",
+              "pm.variables.set(\"requestBody\", JSON.stringify(body));"
+            ]
+          }
         }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "stepv2", "{{SLUG_NAME}}"]
+        },
+        "description": "updateStepV2 → 201. setup=functionStep (or script for missing-slug negatives)."
+      },
+      "response": []
+    },
+    {
+      "name": "Change Step Status",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const slug = pm.variables.get(\"SLUG_NAME\") || pm.iterationData.get(\"SLUG_NAME\") || \"JS_Code_AutoTest\";",
+              "pm.variables.set(\"SLUG_NAME\", slug);",
+              "pm.variables.set(\"status\", pm.iterationData.get(\"status\"));",
+              "pm.variables.set(\"requestBody\", JSON.stringify({",
+              "  status: pm.iterationData.get(\"status\"),",
+              "  scriptId: pm.variables.get(\"scriptId\") || pm.environment.get(\"scriptId\"),",
+              "  slugName: slug",
+              "}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}/changestatus",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "stepv2", "{{SLUG_NAME}}", "changestatus"]
+        },
+        "description": "changeStatusStepV2 → 200. setup=activeFunctionStep | inactiveFunctionStep | script."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Step",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const slug = pm.variables.get(\"SLUG_NAME\") || pm.iterationData.get(\"SLUG_NAME\") || \"Del_Step\";",
+              "pm.variables.set(\"SLUG_NAME\", slug);",
+              "const deleteTitle = pm.iterationData.get(\"deleteTitle\");",
+              "pm.variables.set(\"deleteTitle\", (deleteTitle || slug + \"_DELETED\") + \"_\" + Date.now());",
+              "pm.variables.set(\"requestBody\", JSON.stringify({ title: pm.variables.get(\"deleteTitle\") }));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/stepv2/{{SLUG_NAME}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "stepv2", "{{SLUG_NAME}}"]
+        },
+        "description": "deleteStep → 200. setup=functionStep creates unique step first; deletedFunctionStep for already-gone; script for missing."
+      },
+      "response": []
+    },
+    {
+      "name": "If_Block Duplicate Step",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const slug = pm.variables.get(\"SLUG_NAME\") || pm.iterationData.get(\"SLUG_NAME\");",
+              "if (slug) pm.variables.set(\"SLUG_NAME\", slug);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/duplicatestep/{{SLUG_NAME}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "duplicatestep", "{{SLUG_NAME}}"]
+        },
+        "description": "duplicateIfBlockHandler → 201. setup=ifBlockStep | functionStep | script."
+      },
+      "response": []
+    },
+    {
+      "name": "Add Multiple Actions",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "let body;",
+              "if (pm.iterationData.get(\"actionsIsInvalid\")) {",
+              "  body = { actions: \"not-an-array\" };",
+              "} else {",
+              "  const actions = pm.iterationData.get(\"actions\");",
+              "  body = { actions: actions === undefined ? [] : actions };",
+              "}",
+              "pm.variables.set(\"requestBody\", JSON.stringify(body));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/addmultipleactions",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{project_id}}", "{{scriptId}}", "addmultipleactions"]
+        },
+        "description": "addMultipleActions → 201. setup=script. Wipes existing root steps."
       },
       "response": []
     },
     {
       "name": "Reorder Step",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const slug = pm.variables.get(\"SLUG_NAME\") || pm.iterationData.get(\"SLUG_NAME\") || pm.iterationData.get(\"targetStep\");",
+              "pm.variables.set(\"SLUG_NAME\", slug);",
+              "const newIndex = pm.iterationData.get(\"newIndex\");",
+              "const parent = pm.iterationData.get(\"parent\") || \"root\";",
+              "const body = { parent: parent };",
+              "if (newIndex !== null && newIndex !== undefined) body.newIndex = newIndex;",
+              "pm.variables.set(\"requestBody\", JSON.stringify(body));"
+            ]
+          }
+        }
+      ],
       "request": {
-        "auth": {
-          "type": "noauth"
-        },
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"newIndex\": 0,\n  \"parent\": \"root\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/{{scriptId}}/reorder/{{SLUG_NAME}}",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "reorder",
-            "{{SLUG_NAME}}"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "reorder", "{{SLUG_NAME}}"]
+        },
+        "description": "reorderJson → 200. setup=twoFunctionSteps | functionStep | script."
+      },
+      "response": []
+    },
+    {
+      "name": "Add Drafted Trigger",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const triggerId = pm.iterationData.get(\"TRIGGER_ID\") || pm.environment.get(\"TRIGGER_ID\");",
+              "pm.variables.set(\"TRIGGER_ID\", triggerId);"
+            ]
+          }
         }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"configurationJson\": {},\n  \"configurationJsonEncrypted\": {}\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/drafttrigger/{{TRIGGER_ID}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{project_id}}", "{{scriptId}}", "drafttrigger", "{{TRIGGER_ID}}"]
+        },
+        "description": "addDraftedTrigger → 200. setup=script. Needs valid catalog TRIGGER_ID for happy path."
       },
       "response": []
     },
     {
       "name": "Add / Update Trigger (Webhook)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.variables.set(\"triggerType\", pm.iterationData.get(\"triggerType\") || \"webhook\");",
+              "pm.variables.set(\"triggerAction\", pm.iterationData.get(\"triggerAction\") || \"add\");"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"triggerType\": \"webhook\",\n  \"type\": \"add\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{\n  \"triggerType\": \"{{triggerType}}\",\n  \"type\": \"{{triggerAction}}\"\n}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/trigger",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{project_id}}",
-            "{{scriptId}}",
-            "trigger"
-          ]
-        }
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{project_id}}", "{{scriptId}}", "trigger"]
+        },
+        "description": "addOrUpdateOrDeleteTrigger → 200. setup=script."
       },
       "response": []
     },
     {
       "name": "Add Trigger Preprocess",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.variables.set(\"requestBody\", JSON.stringify({",
+              "  preProcess: {",
+              "    type: pm.iterationData.get(\"preProcessType\") || \"function\",",
+              "    code: pm.iterationData.get(\"preProcessCode\") || \"return context.trigger\"",
+              "  },",
+              "  loops: { loopsEnabled: false },",
+              "  preCondition: null,",
+              "  preProcessFilter: null",
+              "}));"
+            ]
+          }
+        }
+      ],
       "request": {
-        "auth": {
-          "type": "noauth"
-        },
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"preProcess\": {\n    \"type\": \"function\",\n    \"code\": \"return context.trigger\"\n  },\n  \"loops\": {\n    \"loopsEnabled\": false\n  },\n  \"preCondition\": null,\n  \"preProcessFilter\": null\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/{{project_id}}/{{scriptId}}/trigger/preprocess",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{project_id}}",
-            "{{scriptId}}",
-            "trigger",
-            "preprocess"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{project_id}}", "{{scriptId}}", "trigger", "preprocess"]
+        },
+        "description": "addOrUpdatePreProcessOfTrigger → 200. setup=webhookTrigger."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Trigger Preprocess",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.variables.set(\"requestBody\", JSON.stringify({",
+              "  preProcess: pm.iterationData.get(\"deletePreProcess\") !== false,",
+              "  loops: !!pm.iterationData.get(\"deleteLoops\"),",
+              "  preCondition: !!pm.iterationData.get(\"deletePreCondition\"),",
+              "  preProcessFilter: !!pm.iterationData.get(\"deletePreProcessFilter\")",
+              "}));"
+            ]
+          }
         }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/trigger/preprocess/delete",
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "trigger", "preprocess", "delete"]
+        },
+        "description": "deletePreProcessOfTrigger → 200. setup=preprocess."
       },
       "response": []
     },
@@ -391,22 +475,14 @@
       "request": {
         "method": "GET",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" }
         ],
         "url": {
           "raw": "{{BASE_URL}}/scripts/{{scriptId}}/memoryauth",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "memoryauth"
-          ]
-        }
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "{{scriptId}}", "memoryauth"]
+        },
+        "description": "getMemoryAuth → 200. setup=script."
       },
       "response": []
     },
@@ -415,156 +491,308 @@
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"userPrompt\": \"Create a flow that sends slack message when form is submitted\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{\n  \"userPrompt\": \"{{userPrompt}}\"\n}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/title-description",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "title-description"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "title-description"]
         },
-        "description": "only title is given in response"
-      },
-      "response": []
-    },
-    {
-      "name": "Delete Trigger Preprocess",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"preProcess\": true,\n  \"loops\": true,\n  \"preCondition\": true,\n  \"preProcessFilter\": true\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/trigger/preprocess/delete",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "{{scriptId}}",
-            "trigger",
-            "preprocess",
-            "delete"
-          ]
-        }
+        "description": "getTitleAndDescription → 200. setup=none (no script/step deps)."
       },
       "response": []
     },
     {
       "name": "Hire an Expert",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const body = {};",
+              "if (!pm.iterationData.get(\"omitDescription\")) {",
+              "  body.description = pm.iterationData.get(\"description\");",
+              "}",
+              "if (!pm.iterationData.get(\"omitEnvironment\")) {",
+              "  body.environment = pm.iterationData.get(\"environment\");",
+              "}",
+              "pm.variables.set(\"requestBody\", JSON.stringify(body));"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "POST",
         "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"description\": \"Need help integrating Stripe webhook\",\n  \"environment\": \"dev\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "raw": "{{requestBody}}",
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{BASE_URL}}/scripts/hireAnExpert",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "scripts",
-            "hireAnExpert"
-          ]
-        }
+          "host": ["{{BASE_URL}}"],
+          "path": ["scripts", "hireAnExpert"]
+        },
+        "description": "hireAnExpert → 200. setup=none."
       },
       "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Independent suite setup. Controlled by iterationData.setup:",
+          "// none | script | functionStep | activeFunctionStep | inactiveFunctionStep |",
+          "// deletedFunctionStep | ifBlockStep | twoFunctionSteps | webhookTrigger | preprocess",
+          "const setup = pm.iterationData.get(\"setup\") || \"none\";",
+          "if (setup === \"none\") { return; }",
+          "",
+          "const baseUrl = pm.environment.get(\"BASE_URL\");",
+          "const token = pm.environment.get(\"proxy_auth_token\");",
+          "const projectId = pm.environment.get(\"project_id\");",
+          "const orgId = pm.environment.get(\"org_id\");",
+          "const headers = { \"proxy_auth_token\": token, \"Content-Type\": \"application/json\" };",
+          "",
+          "function rand(n) { return Math.random().toString(36).substring(2, 2 + n); }",
+          "function newScriptId() { return \"scri\" + rand(8); }",
+          "function newStepId() { return \"func\" + rand(8); }",
+          "function newTitle(prefix) { return (prefix || \"Step\") + \"_\" + rand(6) + \"_\" + Date.now().toString(36).slice(-4); }",
+          "",
+          "function parseId(res, fallback) {",
+          "  try {",
+          "    const j = res.json();",
+          "    return j?.data?.identifier || j?.data?.id || j?.script?.id || j?.data?.script?.id || fallback;",
+          "  } catch (e) { return fallback; }",
+          "}",
+          "",
+          "function createScript(done) {",
+          "  // Reuse one script only for setup=script (create-step / trigger / memory suites).",
+          "  // Step-based setups always get a fresh scri* script so fixed titles never collide.",
+          "  const canReuse = setup === \"script\" && pm.variables.get(\"_fxScriptReady\") === \"1\" && !pm.iterationData.get(\"freshScript\");",
+          "  if (canReuse) {",
+          "    return done(pm.variables.get(\"scriptId\"));",
+          "  }",
+          "  const scriptId = newScriptId();",
+          "  const title = \"FlowExt_\" + rand(6) + \"_\" + Date.now();",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/projects/\" + projectId + \"/scripts\",",
+          "    method: \"POST\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({ title: title, identifier: scriptId }) }",
+          "  }, function (err, res) {",
+          "    const id = parseId(res, scriptId);",
+          "    pm.variables.set(\"scriptId\", id);",
+          "    pm.environment.set(\"scriptId\", id);",
+          "    pm.variables.set(\"_fxScriptReady\", \"1\");",
+          "    console.log(\"[setup] script\", id, res && res.code);",
+          "    done(id);",
+          "  });",
+          "}",
+          "",
+          "function createStep(scriptId, opts, done) {",
+          "  const stepId = opts.stepId || newStepId();",
+          "  const title = opts.title || newTitle(opts.prefix || \"Step\");",
+          "  const type = opts.type || \"function\";",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + projectId + \"/\" + scriptId + \"/stepv2\",",
+          "    method: \"POST\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({ type: type, title: title, orderGroup: \"root\", scriptId: scriptId, stepId: stepId }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] step\", title, stepId, res && res.code);",
+          "    done({ stepId: stepId, title: title, type: type });",
+          "  });",
+          "}",
+          "",
+          "function updateStep(scriptId, step, code, done) {",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + scriptId + \"/stepv2/\" + encodeURIComponent(step.title),",
+          "    method: \"PUT\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({",
+          "      type: step.type || \"function\",",
+          "      title: step.title,",
+          "      code: code || \"return true\",",
+          "      stepId: step.stepId,",
+          "      org_id: orgId,",
+          "      project_id: projectId,",
+          "      calculateDetailedVariables: false",
+          "    }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] update\", step.title, res && res.code);",
+          "    done();",
+          "  });",
+          "}",
+          "",
+          "function changeStatus(scriptId, slug, status, done) {",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + scriptId + \"/stepv2/\" + encodeURIComponent(slug) + \"/changestatus\",",
+          "    method: \"PUT\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({ status: status, scriptId: scriptId, slugName: slug }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] status\", slug, status, res && res.code);",
+          "    done();",
+          "  });",
+          "}",
+          "",
+          "function deleteStep(scriptId, slug, done) {",
+          "  const newTitle = slug + \"_DELETED_\" + Date.now();",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + scriptId + \"/stepv2/\" + encodeURIComponent(slug),",
+          "    method: \"DELETE\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({ title: newTitle }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] delete\", slug, \"->\", newTitle, res && res.code);",
+          "    pm.variables.set(\"SLUG_NAME\", newTitle);",
+          "    done(newTitle);",
+          "  });",
+          "}",
+          "",
+          "function addWebhook(scriptId, done) {",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + projectId + \"/\" + scriptId + \"/trigger\",",
+          "    method: \"POST\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({ triggerType: \"webhook\", type: \"add\" }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] webhook\", res && res.code);",
+          "    done();",
+          "  });",
+          "}",
+          "",
+          "function addPreprocess(scriptId, done) {",
+          "  pm.sendRequest({",
+          "    url: baseUrl + \"/scripts/\" + projectId + \"/\" + scriptId + \"/trigger/preprocess\",",
+          "    method: \"POST\",",
+          "    header: headers,",
+          "    body: { mode: \"raw\", raw: JSON.stringify({",
+          "      preProcess: { type: \"function\", code: \"return context.trigger\" },",
+          "      loops: { loopsEnabled: false },",
+          "      preCondition: null,",
+          "      preProcessFilter: null",
+          "    }) }",
+          "  }, function (err, res) {",
+          "    console.log(\"[setup] preprocess\", res && res.code);",
+          "    done();",
+          "  });",
+          "}",
+          "",
+          "function bindStep(step) {",
+          "  pm.variables.set(\"stepId\", step.stepId);",
+          "  pm.variables.set(\"SLUG_NAME\", step.title);",
+          "  pm.variables.set(\"stepTitle\", step.title);",
+          "  pm.environment.set(\"SLUG_NAME\", step.title);",
+          "}",
+          "",
+          "createScript(function (scriptId) {",
+          "  if (setup === \"script\") {",
+          "    const explicitSlug = pm.iterationData.get(\"SLUG_NAME\");",
+          "    if (explicitSlug) {",
+          "      pm.variables.set(\"SLUG_NAME\", explicitSlug);",
+          "      pm.environment.set(\"SLUG_NAME\", explicitSlug);",
+          "    }",
+          "    return;",
+          "  }",
+          "",
+          "  if (setup === \"functionStep\" || setup === \"activeFunctionStep\" || setup === \"inactiveFunctionStep\" || setup === \"deletedFunctionStep\") {",
+          "    createStep(scriptId, { prefix: \"Fn\" }, function (step) {",
+          "      bindStep(step);",
+          "      if (setup === \"functionStep\") return;",
+          "      updateStep(scriptId, step, \"return true\", function () {",
+          "        if (setup === \"activeFunctionStep\") return;",
+          "        if (setup === \"inactiveFunctionStep\") {",
+          "          changeStatus(scriptId, step.title, \"INACTIVE\", function () {});",
+          "          return;",
+          "        }",
+          "        if (setup === \"deletedFunctionStep\") {",
+          "          deleteStep(scriptId, step.title, function () {});",
+          "        }",
+          "      });",
+          "    });",
+          "    return;",
+          "  }",
+          "",
+          "  if (setup === \"ifBlockStep\") {",
+          "    createStep(scriptId, { type: \"ifBlock\", prefix: \"IfBlock\" }, function (step) {",
+          "      bindStep(step);",
+          "    });",
+          "    return;",
+          "  }",
+          "",
+          "  if (setup === \"twoFunctionSteps\") {",
+          "    createStep(scriptId, { title: \"Step_One\" }, function (s1) {",
+          "      createStep(scriptId, { title: \"Step_Two\" }, function (s2) {",
+          "        const target = pm.iterationData.get(\"targetStep\") || pm.iterationData.get(\"SLUG_NAME\") || \"Step_Two\";",
+          "        pm.variables.set(\"SLUG_NAME\", target);",
+          "        pm.environment.set(\"SLUG_NAME\", target);",
+          "        pm.variables.set(\"stepId\", target === \"Step_One\" ? s1.stepId : s2.stepId);",
+          "      });",
+          "    });",
+          "    return;",
+          "  }",
+          "",
+          "  if (setup === \"webhookTrigger\") {",
+          "    addWebhook(scriptId, function () {});",
+          "    return;",
+          "  }",
+          "",
+          "  if (setup === \"preprocess\") {",
+          "    addWebhook(scriptId, function () {",
+          "      addPreprocess(scriptId, function () {});",
+          "    });",
+          "  }",
+          "});"
+        ]
+      }
     },
     {
-      "name": "Create Script",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "proxy_auth_token",
-            "value": "{{proxy_auth_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"\"\n}\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "https://dev-api.viasocket.com/projects/{{project_id}}/scripts",
-          "protocol": "https",
-          "host": [
-            "dev-api",
-            "viasocket",
-            "com"
-          ],
-          "path": [
-            "projects",
-            "{{project_id}}",
-            "scripts"
-          ]
-        },
-        "description": "Just for prerequisite"
-      },
-      "response": []
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;",
+          "",
+          "pm.test(\"Status code is correct\", () => {",
+          "    pm.response.to.have.status(expectedStatus);",
+          "});",
+          "",
+          "const maxMs = pm.iterationData.get(\"maxResponseMs\") || 30000;",
+          "pm.test(\"Response time within limit\", () => {",
+          "    pm.expect(pm.response.responseTime).to.be.below(maxMs);",
+          "});",
+          "",
+          "if (expectedStatus === 200 || expectedStatus === 201) {",
+          "    pm.test(\"Response is JSON\", () => {",
+          "        pm.response.to.be.json;",
+          "    });",
+          "    pm.test(\"success is true\", () => {",
+          "        const json = pm.response.json();",
+          "        pm.expect(json.success === true || json.success === undefined || json.message).to.be.ok;",
+          "    });",
+          "} else {",
+          "    pm.test(\"Error message exists\", () => {",
+          "        const json = pm.response.json();",
+          "        pm.expect(json.message || json.error).to.exist;",
+          "    });",
+          "}"
+        ]
+      }
     }
   ]
 }

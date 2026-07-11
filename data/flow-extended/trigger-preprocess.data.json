@@ -1,0 +1,9 @@
+[
+  {
+    "case": "valid_function_preprocess",
+    "setup": "webhookTrigger",
+    "preProcessType": "function",
+    "preProcessCode": "return context.trigger",
+    "expectedStatus": 200
+  }
+]

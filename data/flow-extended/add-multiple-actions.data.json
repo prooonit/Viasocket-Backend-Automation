@@ -1,0 +1,46 @@
+[
+  {
+    "case": "valid_two_function_actions",
+    "setup": "script",
+    "actions": [
+      {
+        "stepname": "Step_One",
+        "code": "return true",
+        "description": "First step",
+        "iconUrl": "",
+        "config": {},
+        "subfunctions": []
+      },
+      {
+        "stepname": "Step_Two",
+        "code": "return context",
+        "description": "Second step"
+      }
+    ],
+    "expectedStatus": 201
+  },
+  {
+    "case": "valid_single_action",
+    "setup": "script",
+    "actions": [
+      {
+        "stepname": "Only_Step",
+        "code": "return 1",
+        "description": "Single JS step"
+      }
+    ],
+    "expectedStatus": 201
+  },
+  {
+    "case": "empty_actions_array",
+    "setup": "script",
+    "actions": [],
+    "expectedStatus": 201
+  },
+  {
+    "case": "actions_not_array_should_fail",
+    "setup": "script",
+    "actionsIsInvalid": true,
+    "expectedStatus": 400
+  }
+]

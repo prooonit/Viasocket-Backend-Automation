@@ -1,0 +1,18 @@
+[
+  {
+    "case": "valid_ifBlock_duplicate",
+    "setup": "ifBlockStep",
+    "expectedStatus": 201
+  },
+  {
+    "case": "function_step_cannot_duplicate",
+    "setup": "functionStep",
+    "expectedStatus": 400
+  },
+  {
+    "case": "non_existent_block_should_fail",
+    "setup": "script",
+    "SLUG_NAME": "Missing_IfBlock_XYZ",
+    "expectedStatus": 400
+  }
+]

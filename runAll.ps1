@@ -42,12 +42,17 @@ Write-Host "---- [Suite 5/7] FUNCTIONS ----"
 
 # ── 6. Flow API Tests ────────────────────────────────────────
 Write-Host ""
-Write-Host "---- [Suite 6/7] FLOW ----"
+Write-Host "---- [Suite 6/8] FLOW ----"
 & "$ROOT\runscriptFlow.ps1"
 
-# ── 7. Template API Tests ────────────────────────────────────
+# ── 7. Flow Extended API Tests ───────────────────────────────
 Write-Host ""
-Write-Host "---- [Suite 7/7] TEMPLATE ----"
+Write-Host "---- [Suite 7/8] FLOW EXTENDED ----"
+& "$ROOT\runscriptFlowExtended.ps1"
+
+# ── 8. Template API Tests ────────────────────────────────────
+Write-Host ""
+Write-Host "---- [Suite 8/8] TEMPLATE ----"
 & "$ROOT\runscriptTemplate.ps1"
 
 # ── 8. Send Reports to Webhook ───────────────────────────────
