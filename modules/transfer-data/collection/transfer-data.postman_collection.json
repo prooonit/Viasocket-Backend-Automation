@@ -1,0 +1,136 @@
+{
+  "info": {
+    "_postman_id": "b1a9d5e2-3c4f-4e8b-9f11-transferdata01",
+    "name": "viasocket-transfer-data",
+    "description": "ViaSocket Transfer Data API collection (module: transfer-data). Routes mounted at /scripts under transfer_routes.js.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Transfer Data",
+      "item": [
+        {
+          "name": "Get All Transfer Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/getalldata",
+              "host": ["{{BASE_URL}}"],
+              "path": ["scripts", "{{scriptId}}", "transfer", "getalldata"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start Transfer Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer",
+              "host": ["{{BASE_URL}}"],
+              "path": ["scripts", "{{scriptId}}", "transfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transfer Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/getstatus",
+              "host": ["{{BASE_URL}}"],
+              "path": ["scripts", "{{scriptId}}", "transfer", "getstatus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stop Transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/stop",
+              "host": ["{{BASE_URL}}"],
+              "path": ["scripts", "{{scriptId}}", "transfer", "stop"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 5s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

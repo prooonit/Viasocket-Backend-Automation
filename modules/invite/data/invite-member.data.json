@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_invite_member",
+    "orgId": "19014",
+    "body": "{\"email\": \"invitee-auto-test@example.com\"}",
+    "expectedStatus": 201
+  },
+  {
+    "case": "unauthorized_org_should_fail",
+    "orgId": "99999999",
+    "body": "{\"email\": \"invitee-auto-test@example.com\"}",
+    "expectedStatus": 403
+  }
+]

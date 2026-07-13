@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_start_transfer_empty_identifiers",
+    "scriptId": "scrienxr4w3z",
+    "body": "{\"selectedIdentifiers\": []}",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_scriptId_too_long_should_fail",
+    "scriptId": "abcdefghijklmnopqrst",
+    "body": "{\"selectedIdentifiers\": []}",
+    "expectedStatus": 400
+  }
+]

@@ -11,7 +11,7 @@
 param(
     [ValidateSet(
         "org", "projects", "users", "scripts", "functions",
-        "flow", "flow-extended", "template", "all"
+        "flow", "flow-extended", "template", "transfer-data", "invite", "all"
     )]
     [string]$Suite = "all"
 )
@@ -27,6 +27,8 @@ $map = @{
     "flow"          = "modules\flow\run.ps1"
     "flow-extended" = "modules\flow-extended\run.ps1"
     "template"      = "modules\template\run.ps1"
+    "transfer-data" = "modules\transfer-data\run.ps1"
+    "invite"        = "modules\invite\run.ps1"
 }
 
 if ($Suite -eq "all") {

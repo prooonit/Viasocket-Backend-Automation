@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_get_transfer_status",
+    "scriptId": "scrienxr4w3z",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_scriptId_too_long_should_fail",
+    "scriptId": "abcdefghijklmnopqrst",
+    "expectedStatus": 400
+  }
+]

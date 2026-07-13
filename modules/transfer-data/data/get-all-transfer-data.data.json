@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_get_all_transfer_data",
+    "scriptId": "scriqGKKtdfI",
+    "body": "{\"offset\": \"\", \"skipCache\": false}",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_scriptId_too_long_should_fail",
+    "scriptId": "abcdefghijklmnopqrst",
+    "body": "{\"offset\": \"\", \"skipCache\": false}",
+    "expectedStatus": 400
+  }
+]

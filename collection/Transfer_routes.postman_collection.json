@@ -1,0 +1,163 @@
+{
+  "info": {
+    "_postman_id": "fc39ee60-e673-4bbd-8f27-b2ec55a9c4fd",
+    "name": "Transfer_routes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26640235",
+    "_collection_link": "https://go.postman.co/collection/26640235-fc39ee60-e673-4bbd-8f27-b2ec55a9c4fd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get All Transfer Data (preview / paginate)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"offset\": \"\",\n  \"skipCache\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/getalldata",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "transfer",
+            "getalldata"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Transfer Status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/getstatus",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "transfer",
+            "getstatus"
+          ]
+        },
+        "description": "Api is for getting the data but set as Post"
+      },
+      "response": []
+    },
+    {
+      "name": "Start Transfer Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "transfer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Stop Transfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/scripts/{{scriptId}}/transfer/stop",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "scripts",
+            "{{scriptId}}",
+            "transfer",
+            "stop"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
