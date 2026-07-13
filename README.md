@@ -95,12 +95,6 @@ Root `runscript*.ps1` files are thin wrappers to `modules/*/run.ps1`.
 4. Copy an existing `run.ps1` and point paths at the new collection/data
 5. Register the module in `runAll.ps1` and `run.ps1`
 
-To re-split collections from the legacy monolith:
-
-```powershell
-node scripts/restructure-modules.js
-```
-
 ---
 
 ## Webhook summaries

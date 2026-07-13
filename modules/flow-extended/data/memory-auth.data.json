@@ -1,7 +1,0 @@
-[
-  {
-    "case": "valid_get_memory_auth",
-    "setup": "script",
-    "expectedStatus": 200
-  }
-]

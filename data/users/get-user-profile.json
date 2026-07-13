@@ -1,6 +1,0 @@
-[
-  {
-    "case": "get_user_profile_valid",
-    "expectedStatus": 201
-  }
-]

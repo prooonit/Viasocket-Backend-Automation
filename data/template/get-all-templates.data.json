@@ -1,6 +1,0 @@
-[
-  {
-    "case": "get_all_templates_valid",
-    "expectedStatus": 200
-  }
-]

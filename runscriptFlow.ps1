@@ -1,2 +1,2 @@
-# Deprecated wrapper — use: .\modules\flow\run.ps1
-& "$PSScriptRoot\modules\flow\run.ps1"
+# Deprecated wrapper — use: .\modules\flow-extended\run.ps1
+& "$PSScriptRoot\modules\flow-extended\run.ps1"

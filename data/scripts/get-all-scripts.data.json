@@ -1,6 +1,0 @@
-[
-  {
-    "case": "get_all_scripts",
-    "expectedStatus": 200
-  }
-]

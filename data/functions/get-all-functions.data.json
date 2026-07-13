@@ -1,6 +1,0 @@
-[
-  {
-    "case": "get_all_functions_valid",
-    "expectedStatus": 200
-  }
-]

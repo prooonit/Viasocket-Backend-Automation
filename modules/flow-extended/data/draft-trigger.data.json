@@ -1,8 +1,0 @@
-[
-  {
-    "case": "invalid_trigger_id_should_fail",
-    "setup": "script",
-    "TRIGGER_ID": "invalidTriggerId999",
-    "expectedStatus": 400
-  }
-]

@@ -21,8 +21,7 @@ $modules = @(
   @{ Name = "SCRIPTS";       Path = "modules\scripts\run.ps1" },
   @{ Name = "USERS";         Path = "modules\users\run.ps1" },
   @{ Name = "FUNCTIONS";     Path = "modules\functions\run.ps1" },
-  @{ Name = "FLOW";          Path = "modules\flow\run.ps1" },
-  @{ Name = "FLOW EXTENDED"; Path = "modules\flow-extended\run.ps1" },
+  @{ Name = "FLOW "; Path = "modules\flow\run.ps1" },
   @{ Name = "TEMPLATE";      Path = "modules\template\run.ps1" },
   @{ Name = "TRANSFER-DATA"; Path = "modules\transfer-data\run.ps1" },
   @{ Name = "INVITE";        Path = "modules\invite\run.ps1" }

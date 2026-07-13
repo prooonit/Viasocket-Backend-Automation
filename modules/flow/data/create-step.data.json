@@ -1,23 +1,65 @@
 [
   {
     "case": "valid_function_step",
+    "setup": "script",
     "stepType": "function",
     "stepTitle": "JS_Code_AutoTest",
     "orderGroup": "root",
+    "stepId": null,
     "expectedStatus": 200
   },
   {
-    "case": "valid_step_different_title",
-    "stepType": "function",
-    "stepTitle": "JS_Code_QA",
+    "case": "valid_api_step_draft",
+    "setup": "script",
+    "stepType": "api",
+    "stepTitle": "API_Step_AutoTest",
     "orderGroup": "root",
+    "stepId": null,
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_ifBlock_step",
+    "setup": "script",
+    "stepType": "ifBlock",
+    "stepTitle": "IfBlock_Test",
+    "orderGroup": "root",
+    "stepId": null,
+    "expectedStatus": 200
+  },
+  {
+    "case": "valid_variable_step",
+    "setup": "script",
+    "stepType": "variable",
+    "stepTitle": "my_variable",
+    "orderGroup": "root",
+    "stepId": null,
     "expectedStatus": 200
   },
   {
     "case": "empty_title_should_fail",
+    "setup": "script",
     "stepType": "function",
     "stepTitle": "",
     "orderGroup": "root",
+    "stepId": null,
+    "expectedStatus": 400
+  },
+  {
+    "case": "invalid_type_should_fail",
+    "setup": "script",
+    "stepType": "invalidType",
+    "stepTitle": "Bad_Type_Step",
+    "orderGroup": "root",
+    "stepId": null,
+    "expectedStatus": 400
+  },
+  {
+    "case": "title_starts_with_underscore_should_fail",
+    "setup": "script",
+    "stepType": "function",
+    "stepTitle": "_BadTitle",
+    "orderGroup": "root",
+    "stepId": null,
     "expectedStatus": 400
   }
 ]
