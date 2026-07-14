@@ -1,0 +1,11 @@
+[
+  {
+    "case": "valid_get_hire_an_expert_request",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

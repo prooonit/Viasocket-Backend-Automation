@@ -1,0 +1,15 @@
+[
+  {
+    "case": "valid_next_action_lookup",
+    "scriptId": "scriSkzvvlsa",
+    "actionsArr": "%5B%22row8gjpfv%22%5D",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "scriptId": "scriSkzvvlsa",
+    "actionsArr": "%5B%22row8gjpfv%22%5D",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

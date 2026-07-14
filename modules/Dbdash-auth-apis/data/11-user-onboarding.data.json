@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_onboarding_with_mobile",
+    "body": "{\"mobile\":\"+919876543210\"}",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "body": "{\"mobile\":\"+919876543210\"}",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

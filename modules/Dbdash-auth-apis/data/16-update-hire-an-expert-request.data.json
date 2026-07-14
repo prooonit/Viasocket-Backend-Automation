@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_update_maintenance",
+    "req_id": "req1LTcoUcH",
+    "body": "{\"req_id\":\"req1LTcoUcH\",\"isMaintenanceEnabled\":true}",
+    "expectedStatus": 200
+  },
+  {
+    "case": "missing_req_id_in_body_backend_returns_200",
+    "req_id": "req1LTcoUcH",
+    "body": "{\"isMaintenanceEnabled\":true}",
+    "expectedStatus": 200
+  }
+]

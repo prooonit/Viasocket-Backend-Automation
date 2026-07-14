@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_action_table_slack",
+    "tableName": "action",
+    "pluginRecordId": "slack",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_tableName_should_fail",
+    "tableName": "notatable",
+    "pluginRecordId": "slack",
+    "expectedStatus": 400
+  }
+]

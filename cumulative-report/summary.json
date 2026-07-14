@@ -1,12 +1,199 @@
 ﻿{
-    "generatedAt":  "2026-07-13T15:30:59",
-    "totalReports":  52,
-    "totalRequests":  192,
-    "totalAssertions":  431,
-    "failedAssertions":  11,
-    "totalFailures":  11,
+    "generatedAt":  "2026-07-14T16:14:07",
+    "totalReports":  69,
+    "totalRequests":  226,
+    "totalAssertions":  533,
+    "failedAssertions":  16,
+    "totalFailures":  16,
     "overallSuccess":  false,
     "reports":  [
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "01-get-plugin",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  1,
+                        "failures":  1,
+                        "avgResponseMs":  84,
+                        "success":  false
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "02-get-private-plugins",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  1,
+                        "failures":  1,
+                        "avgResponseMs":  282,
+                        "success":  false
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "03-get-plugins-with-events",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  410,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "04-get-plug-data-by-id",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  163,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "05-get-plugin-by-query",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  196,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "06-get-generic-functions",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  97,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "07-get-after-signup-data",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  98,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "08-get-recommendations",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  126,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "09-get-recommendations-multiple",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  1,
+                        "failures":  1,
+                        "avgResponseMs":  8194,
+                        "success":  false
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "10-get-recommendations-next-action",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  136,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "11-user-onboarding",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  154,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "12-get-video-data",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  1,
+                        "failures":  1,
+                        "avgResponseMs":  162,
+                        "success":  false
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "13-get-most-used-triggers",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  140,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "14-get-onboarding-data",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  130,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "15-get-learning-hub-features",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  118,
+                        "success":  true
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "16-update-hire-an-expert-request",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  1,
+                        "failures":  1,
+                        "avgResponseMs":  301,
+                        "success":  false
+                    },
+                    {
+                        "module":  "Dbdash-auth-apis",
+                        "reportName":  "17-get-hire-an-expert-request",
+                        "collection":  "viasocket-dbdash-auth-apis",
+                        "requests":  2,
+                        "assertions":  6,
+                        "failedAssertions":  0,
+                        "failures":  0,
+                        "avgResponseMs":  115,
+                        "success":  true
+                    },
                     {
                         "module":  "flow",
                         "reportName":  "01-create-step",
@@ -15,7 +202,7 @@
                         "assertions":  25,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  116,
+                        "avgResponseMs":  112,
                         "success":  true
                     },
                     {
@@ -26,7 +213,7 @@
                         "assertions":  17,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  123,
+                        "avgResponseMs":  166,
                         "success":  true
                     },
                     {
@@ -37,7 +224,7 @@
                         "assertions":  17,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  123,
+                        "avgResponseMs":  121,
                         "success":  true
                     },
                     {
@@ -59,7 +246,7 @@
                         "assertions":  10,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  112,
+                        "avgResponseMs":  115,
                         "success":  true
                     },
                     {
@@ -70,7 +257,7 @@
                         "assertions":  7,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  137,
+                        "avgResponseMs":  144,
                         "success":  true
                     },
                     {
@@ -81,7 +268,7 @@
                         "assertions":  4,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  136,
+                        "avgResponseMs":  145,
                         "success":  true
                     },
                     {
@@ -92,7 +279,7 @@
                         "assertions":  8,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  118,
+                        "avgResponseMs":  159,
                         "success":  true
                     },
                     {
@@ -103,7 +290,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  420,
+                        "avgResponseMs":  130,
                         "success":  true
                     },
                     {
@@ -114,7 +301,7 @@
                         "assertions":  4,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  244,
+                        "avgResponseMs":  237,
                         "success":  true
                     },
                     {
@@ -125,7 +312,7 @@
                         "assertions":  8,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  2452,
+                        "avgResponseMs":  2227,
                         "success":  true
                     },
                     {
@@ -136,7 +323,7 @@
                         "assertions":  10,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  12389,
+                        "avgResponseMs":  7887,
                         "success":  true
                     },
                     {
@@ -147,7 +334,7 @@
                         "assertions":  10,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  176,
+                        "avgResponseMs":  128,
                         "success":  true
                     },
                     {
@@ -158,7 +345,7 @@
                         "assertions":  15,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  136,
+                        "avgResponseMs":  168,
                         "success":  true
                     },
                     {
@@ -169,7 +356,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  100,
+                        "avgResponseMs":  116,
                         "success":  true
                     },
                     {
@@ -180,7 +367,7 @@
                         "assertions":  9,
                         "failedAssertions":  3,
                         "failures":  3,
-                        "avgResponseMs":  98,
+                        "avgResponseMs":  109,
                         "success":  false
                     },
                     {
@@ -191,7 +378,7 @@
                         "assertions":  9,
                         "failedAssertions":  2,
                         "failures":  2,
-                        "avgResponseMs":  104,
+                        "avgResponseMs":  101,
                         "success":  false
                     },
                     {
@@ -202,7 +389,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  154,
+                        "avgResponseMs":  152,
                         "success":  true
                     },
                     {
@@ -213,7 +400,7 @@
                         "assertions":  15,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  1383,
+                        "avgResponseMs":  1340,
                         "success":  true
                     },
                     {
@@ -224,7 +411,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  331,
+                        "avgResponseMs":  342,
                         "success":  true
                     },
                     {
@@ -235,7 +422,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  269,
+                        "avgResponseMs":  274,
                         "success":  true
                     },
                     {
@@ -246,7 +433,7 @@
                         "assertions":  12,
                         "failedAssertions":  3,
                         "failures":  3,
-                        "avgResponseMs":  206,
+                        "avgResponseMs":  158,
                         "success":  false
                     },
                     {
@@ -257,7 +444,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  237,
+                        "avgResponseMs":  171,
                         "success":  true
                     },
                     {
@@ -268,7 +455,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  145,
+                        "avgResponseMs":  166,
                         "success":  true
                     },
                     {
@@ -279,7 +466,7 @@
                         "assertions":  15,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  378,
+                        "avgResponseMs":  371,
                         "success":  true
                     },
                     {
@@ -290,7 +477,7 @@
                         "assertions":  9,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  318,
+                        "avgResponseMs":  766,
                         "success":  true
                     },
                     {
@@ -301,7 +488,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  216,
+                        "avgResponseMs":  224,
                         "success":  true
                     },
                     {
@@ -312,7 +499,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  703,
+                        "avgResponseMs":  589,
                         "success":  true
                     },
                     {
@@ -323,7 +510,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  941,
+                        "avgResponseMs":  699,
                         "success":  true
                     },
                     {
@@ -334,7 +521,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  186,
+                        "avgResponseMs":  178,
                         "success":  true
                     },
                     {
@@ -345,7 +532,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  53,
+                        "avgResponseMs":  69,
                         "success":  true
                     },
                     {
@@ -356,7 +543,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  105,
+                        "avgResponseMs":  102,
                         "success":  true
                     },
                     {
@@ -367,7 +554,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  62,
+                        "avgResponseMs":  56,
                         "success":  true
                     },
                     {
@@ -378,7 +565,7 @@
                         "assertions":  15,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  187,
+                        "avgResponseMs":  284,
                         "success":  true
                     },
                     {
@@ -389,7 +576,7 @@
                         "assertions":  15,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  54,
+                        "avgResponseMs":  166,
                         "success":  true
                     },
                     {
@@ -400,7 +587,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  609,
+                        "avgResponseMs":  621,
                         "success":  true
                     },
                     {
@@ -411,7 +598,7 @@
                         "assertions":  9,
                         "failedAssertions":  1,
                         "failures":  1,
-                        "avgResponseMs":  63,
+                        "avgResponseMs":  54,
                         "success":  false
                     },
                     {
@@ -422,7 +609,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  78,
+                        "avgResponseMs":  83,
                         "success":  true
                     },
                     {
@@ -433,7 +620,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  86,
+                        "avgResponseMs":  68,
                         "success":  true
                     },
                     {
@@ -455,7 +642,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  144,
+                        "avgResponseMs":  423,
                         "success":  true
                     },
                     {
@@ -488,7 +675,7 @@
                         "assertions":  3,
                         "failedAssertions":  2,
                         "failures":  2,
-                        "avgResponseMs":  144,
+                        "avgResponseMs":  104,
                         "success":  false
                     },
                     {
@@ -499,7 +686,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  296,
+                        "avgResponseMs":  132,
                         "success":  true
                     },
                     {
@@ -510,7 +697,7 @@
                         "assertions":  9,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  173,
+                        "avgResponseMs":  130,
                         "success":  true
                     },
                     {
@@ -521,7 +708,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  152,
+                        "avgResponseMs":  162,
                         "success":  true
                     },
                     {
@@ -532,7 +719,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  184,
+                        "avgResponseMs":  126,
                         "success":  true
                     },
                     {
@@ -543,7 +730,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  1488,
+                        "avgResponseMs":  1298,
                         "success":  true
                     },
                     {
@@ -554,7 +741,7 @@
                         "assertions":  6,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  1258,
+                        "avgResponseMs":  1297,
                         "success":  true
                     },
                     {
@@ -565,7 +752,7 @@
                         "assertions":  3,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  136,
+                        "avgResponseMs":  150,
                         "success":  true
                     },
                     {
@@ -576,7 +763,7 @@
                         "assertions":  12,
                         "failedAssertions":  0,
                         "failures":  0,
-                        "avgResponseMs":  128,
+                        "avgResponseMs":  142,
                         "success":  true
                     }
                 ]

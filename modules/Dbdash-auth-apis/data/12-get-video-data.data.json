@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_page_name",
+    "page_name": "home_page",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_page_name_backend_returns_200",
+    "page_name": "",
+    "expectedStatus": 200
+  }
+]

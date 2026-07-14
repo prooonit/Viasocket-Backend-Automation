@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_search_query",
+    "query": "gmail",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "query": "gmail",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

@@ -1,0 +1,359 @@
+{
+  "info": {
+    "_postman_id": "b1a9d5e2-3c4f-4e8b-9f11-dbdashauth001",
+    "name": "viasocket-dbdash-auth-apis",
+    "description": "ViaSocket dbdash routes (auth required) — module: dbdash-auth-apis. Routes mounted at /dbdash under dbdash_routes.js.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "DBDash Auth APIs",
+      "item": [
+        {
+          "name": "Get Plugin",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getplugin",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getplugin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Private Plugins",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/{{orgId}}/get-private-plugins",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "{{orgId}}", "get-private-plugins"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plugins With Events",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getpluginsWithEvents",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getpluginsWithEvents"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plug Data By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getpluginbyplugid/{{tableName}}?pluginrecordid={{pluginRecordId}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getpluginbyplugid", "{{tableName}}"],
+              "query": [
+                { "key": "pluginrecordid", "value": "{{pluginRecordId}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plugin By Query",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getPluginByQuery?query={{query}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getPluginByQuery"],
+              "query": [
+                { "key": "query", "value": "{{query}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Generic Functions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getGenericFunctions",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getGenericFunctions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get After Signup Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getAfterSignupData/{{tableId}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getAfterSignupData", "{{tableId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/recommendation/{{serviceName}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "recommendation", "{{serviceName}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recommendations For Multiple Plugins",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getRecommendationsForMultiplePlugins?serviceNames={{serviceNames}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getRecommendationsForMultiplePlugins"],
+              "query": [
+                { "key": "serviceNames", "value": "{{serviceNames}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recommendations For Next Action",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getRecommendationsForNextAction/{{scriptId}}?actions={{actionsArr}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getRecommendationsForNextAction", "{{scriptId}}"],
+              "query": [
+                { "key": "actions", "value": "{{actionsArr}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Onboarding",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/dbdash/userOnboarding",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "userOnboarding"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Video Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getVideoData?page_name={{page_name}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getVideoData"],
+              "query": [
+                { "key": "page_name", "value": "{{page_name}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Most Used Triggers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/mostusedtriggers",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "mostusedtriggers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Onboarding Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/{{orgId}}/getOnboardingData",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "{{orgId}}", "getOnboardingData"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Learning Hub Features",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getLearningHubFeatures",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getLearningHubFeatures"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Hire An Expert Request",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/dbdash/updateHireAnExpertRequest/{{req_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "updateHireAnExpertRequest", "{{req_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Hire An Expert Request",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dbdash/getHireAnExpertRequest",
+              "host": ["{{base_url}}"],
+              "path": ["dbdash", "getHireAnExpertRequest"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Hardcoded env fallbacks for dbdash-auth-apis module.",
+              "// If a var is not set in the environment, set it here.",
+              "const defaults = {",
+              "  base_url: 'https://dev-api.viasocket.com',",
+              "  proxy_auth_token: 'RCt4NytZdzRmVjI5RzNiYXd1bGFYMXU0aGQyOTB1anRxYzVjYjhPSiswQ1A4ZGdVNi95LzlZc1lGa3Y0UDAyV3htdU5lMmJsams4QkpFWXBPZ0dCOWt6NlVZTXFueUhRU2tnYWo2UXZqMVRJbzYrRXJKaERRUUNqWE9GVDd2SkRTU3RweWRDTUQ2NmFId0lTRXBpMFJrN2xyWEV3ZGV1YXJaSTIyU09lejY2OHdIMEdFbGFvV25WQWtvaXQwZHN4',",
+              "  orgId: '19014',",
+              "  serviceName: 'gmail',",
+              "  scriptId: 'scriSkzvvlsa',",
+              "  mobile: '+919876543210',",
+              "  page_name: 'home_page',",
+              "  req_id: 'req1LTcoUcH',",
+              "  tableId: 'tbl1j7rk3',",
+              "  tableName: 'action',",
+              "  pluginRecordId: 'slack',",
+              "  query: 'gmail',",
+              "  serviceNames: '[\"gmail\",\"slack\"]',",
+              "  actionsArr: '[\"row8gjpfv\"]',",
+              "  body: '{}'",
+              "};",
+              "Object.keys(defaults).forEach((k) => {",
+              "  if (!pm.variables.get(k)) pm.variables.set(k, defaults[k]);",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const expectedStatus = Number(pm.iterationData.get('expectedStatus') || pm.variables.get('expectedStatus') || 200);",
+              "",
+              "pm.test(`Status code is ${expectedStatus}`, () => {",
+              "  pm.response.to.have.status(expectedStatus);",
+              "});",
+              "",
+              "pm.test('Response time < 30s', () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(30000);",
+              "});",
+              "",
+              "if (expectedStatus >= 200 && expectedStatus < 300) {",
+              "  pm.test('Response is JSON', () => { pm.response.to.be.json; });",
+              "} else {",
+              "  pm.test('Error response has message', () => {",
+              "    try {",
+              "      const body = pm.response.json();",
+              "      pm.expect(body.message || body.error || body).to.exist;",
+              "    } catch (e) {",
+              "      pm.expect(pm.response.text()).to.exist;",
+              "    }",
+              "  });",
+              "}"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

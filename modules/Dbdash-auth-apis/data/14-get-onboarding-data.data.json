@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_org_owner_access",
+    "orgId": "19014",
+    "expectedStatus": 200
+  },
+  {
+    "case": "unauthorized_org_should_fail",
+    "orgId": "99999999",
+    "expectedStatus": 403
+  }
+]

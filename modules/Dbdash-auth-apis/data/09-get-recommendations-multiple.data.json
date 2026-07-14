@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_multiple_services",
+    "serviceNames": "%5B%22gmail%22%2C%22slack%22%5D",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "serviceNames": "%5B%22gmail%22%5D",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

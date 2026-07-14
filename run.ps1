@@ -28,6 +28,7 @@ $map = @{
     "template"      = "modules\template\run.ps1"
     "transfer-data" = "modules\transfer-data\run.ps1"
     "invite"        = "modules\invite\run.ps1"
+    "dbdash-auth-apis" = "modules\Dbdash-auth-apis\run.ps1"
 }
 
 if ($Suite -eq "all") {

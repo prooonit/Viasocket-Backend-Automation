@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_service_gmail",
+    "serviceName": "gmail",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "serviceName": "gmail",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

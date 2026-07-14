@@ -24,7 +24,8 @@ $modules = @(
   @{ Name = "FLOW "; Path = "modules\flow\run.ps1" },
   @{ Name = "TEMPLATE";      Path = "modules\template\run.ps1" },
   @{ Name = "TRANSFER-DATA"; Path = "modules\transfer-data\run.ps1" },
-  @{ Name = "INVITE";        Path = "modules\invite\run.ps1" }
+  @{ Name = "INVITE";        Path = "modules\invite\run.ps1" },
+  @{ Name = "DBDASH-AUTH-APIS"; Path = "modules\Dbdash-auth-apis\run.ps1" }
 )
 
 $i = 0

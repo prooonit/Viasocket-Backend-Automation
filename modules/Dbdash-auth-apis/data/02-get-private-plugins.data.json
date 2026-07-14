@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_get_private_plugins",
+    "orgId": "19014",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_orgId_backend_returns_200",
+    "orgId": "notanumber",
+    "expectedStatus": 200
+  }
+]

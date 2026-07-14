@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_tableId",
+    "tableId": "tbl1j7rk3",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_tableId_should_fail",
+    "tableId": "invalidtbl000",
+    "expectedStatus": 400
+  }
+]

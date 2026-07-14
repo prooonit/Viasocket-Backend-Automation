@@ -1,0 +1,11 @@
+[
+  {
+    "case": "valid_most_used_triggers",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_should_fail",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 401
+  }
+]

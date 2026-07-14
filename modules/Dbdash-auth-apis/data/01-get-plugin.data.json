@@ -1,0 +1,11 @@
+[
+  {
+    "case": "valid_get_plugin",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_token_backend_returns_200",
+    "proxy_auth_token": "invalid_token_xxxxx",
+    "expectedStatus": 200
+  }
+]

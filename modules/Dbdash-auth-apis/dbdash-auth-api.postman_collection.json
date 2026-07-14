@@ -1,0 +1,474 @@
+{
+  "info": {
+    "_postman_id": "988f935d-a9a1-4025-9e1b-93ed2ed4e3c4",
+    "name": "dbdash-auth-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26640235",
+    "_collection_link": "https://go.postman.co/collection/26640235-988f935d-a9a1-4025-9e1b-93ed2ed4e3c4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "get plug in details",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getplugin",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getplugin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get private  plugin details",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/{{orgId}}/get-private-plugins",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "{{orgId}}",
+            "get-private-plugins"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "initial plugin with actions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getpluginsWithEvents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getpluginsWithEvents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get plug data by id",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getpluginbyplugid/action?pluginrecordid=slack",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getpluginbyplugid",
+            "action"
+          ],
+          "query": [
+            {
+              "key": "pluginrecordid",
+              "value": "slack"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get plugin by query",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "RCt4NytZdzRmVjI5RzNiYXd1bGFYMXU0aGQyOTB1anRxYzVjYjhPSiswQ1A4ZGdVNi95LzlZc1lGa3Y0UDAyV3htdU5lMmJsams4QkpFWXBPZ0dCOWt6NlVZTXFueUhRU2tnYWo2UXZqMVRJbzYrRXJKaERRUUNqWE9GVDd2SkRTU3RweWRDTUQ2NmFId0lTRXBpMFJrN2xyWEV3ZGV1YXJaSTIyU09lejY2OHdIMEdFbGFvV25WQWtvaXQwZHN4"
+          }
+        ],
+        "url": {
+          "raw": "https://dev-api.viasocket.com/dbdash/getPluginByQuery?query=anything",
+          "protocol": "https",
+          "host": [
+            "dev-api",
+            "viasocket",
+            "com"
+          ],
+          "path": [
+            "dbdash",
+            "getPluginByQuery"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "anything"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "fetch generic functions (removeCircularReferences)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getGenericFunctions",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getGenericFunctions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get after signup data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getAfterSignupData/{{tableId}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getAfterSignupData",
+            "{{tableId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get recommendations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/recommendation/{{serviceName}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "recommendation",
+            "{{serviceName}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get recommendations for multiple plugins",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getRecommendationsForMultiplePlugins?serviceNames=%5B%22gmail%22%2C%22slack%22%2C%22salesforce%22%5D",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getRecommendationsForMultiplePlugins"
+          ],
+          "query": [
+            {
+              "key": "serviceNames",
+              "value": "%5B%22gmail%22%2C%22slack%22%2C%22salesforce%22%5D"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get Recommendations For Next Action",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getRecommendationsForNextAction/{{scriptId}}?actions=%5B%22row8gjpfv%22%5D",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getRecommendationsForNextAction",
+            "{{scriptId}}"
+          ],
+          "query": [
+            {
+              "key": "actions",
+              "value": "%5B%22row8gjpfv%22%5D"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "store Onboarding Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"mobile\": \"{{mobile}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/dbdash/userOnboarding",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "userOnboarding"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get video data with filters",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "https://dev-api.viasocket.com/dbdash/getVideoData?page_name={{page_name}}",
+          "protocol": "https",
+          "host": [
+            "dev-api",
+            "viasocket",
+            "com"
+          ],
+          "path": [
+            "dbdash",
+            "getVideoData"
+          ],
+          "query": [
+            {
+              "key": "page_name",
+              "value": "{{page_name}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get Most Used Triggers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/mostusedtriggers",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "mostusedtriggers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Onboarding Data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/{{orgId}}/getOnboardingData",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "{{orgId}}",
+            "getOnboardingData"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Learning Hub Features",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getLearningHubFeatures",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getLearningHubFeatures"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update Hire An Expert Request",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"req_id\": \"{{req_id}}\",\n    \"isMaintenanceEnabled\": true\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/dbdash/updateHireAnExpertRequest/{{req_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "updateHireAnExpertRequest",
+            "{{req_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Hire An Expert Request",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/dbdash/getHireAnExpertRequest",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dbdash",
+            "getHireAnExpertRequest"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
