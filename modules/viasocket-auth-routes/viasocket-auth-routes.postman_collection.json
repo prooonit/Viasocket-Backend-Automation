@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "8641d30a-8674-432a-9947-91b7b887bda0",
+    "name": "viasocket-auth-routes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26640235",
+    "_collection_link": "https://go.postman.co/collection/26640235-8641d30a-8674-432a-9947-91b7b887bda0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "get all connections of an org",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/viasocket-auth/v1/get-all-auths",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "viasocket-auth",
+            "v1",
+            "get-all-auths"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete Unused connection Data",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/authtoken/org/{{orgId}}/auth/{{auth_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authtoken",
+            "org",
+            "{{orgId}}",
+            "auth",
+            "{{auth_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update connection /auth",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"description\": \"moved to project scope\",\n    \"old_access_level_id\": \"{{orgId}}\",\n    \"access_level_id\": \"{{project_id}}\"\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/authtoken/org/{{orgId}}/auth/{{authIdToUpdate}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authtoken",
+            "org",
+            "{{orgId}}",
+            "auth",
+            "{{authIdToUpdate}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get flows of a connection",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/authtoken/usedin/{{getflowsofauthid}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authtoken",
+            "usedin",
+            "{{getflowsofauthid}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get info at auth table using id",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/authtoken/authInfo/{{auth_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authtoken",
+            "authInfo",
+            "{{auth_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "is auth valid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/authtoken/authvalid/{{auth_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authtoken",
+            "authvalid",
+            "{{auth_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "execute api",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

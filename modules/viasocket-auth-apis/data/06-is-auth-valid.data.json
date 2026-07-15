@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_auth_id_returns_validity",
+    "auth_id": "auth2mzMsthE_row8gjpfv",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_token_returns_unauthorized",
+    "auth_id": "auth2mzMsthE_row8gjpfv",
+    "proxy_auth_token": "",
+    "expectedStatus": 401
+  }
+]

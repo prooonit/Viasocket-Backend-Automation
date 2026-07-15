@@ -26,7 +26,8 @@ $modules = @(
   @{ Name = "TRANSFER-DATA"; Path = "modules\transfer-data\run.ps1" },
   @{ Name = "INVITE";        Path = "modules\invite\run.ps1" },
   @{ Name = "DBDASH-AUTH-APIS"; Path = "modules\Dbdash-auth-apis\run.ps1" },
-  @{ Name = "LOGS";          Path = "modules\logs\run.ps1" }
+  @{ Name = "LOGS";          Path = "modules\logs\run.ps1" },
+  @{ Name = "VIASOCKET-AUTH-APIS"; Path = "modules\viasocket-auth-apis\run.ps1" }
 )
 
 $i = 0

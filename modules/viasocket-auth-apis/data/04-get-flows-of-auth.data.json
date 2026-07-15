@@ -1,0 +1,13 @@
+[
+  {
+    "case": "valid_token_returns_scripts_using_auth",
+    "getflowsofauthid": "auth2ZACUdiO_row8gjpfv",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_token_returns_unauthorized",
+    "getflowsofauthid": "auth2ZACUdiO_row8gjpfv",
+    "proxy_auth_token": "",
+    "expectedStatus": 401
+  }
+]

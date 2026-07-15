@@ -1,0 +1,14 @@
+[
+  {
+    "case": "update_description_on_valid_auth",
+    "authIdToUpdate": "auth21cb83Xr_row8gjpfv",
+    "description": "automation-test-description",
+    "expectedStatus": 200
+  },
+  {
+    "case": "non_existent_auth_id_not_authorized",
+    "authIdToUpdate": "auth2NoNeXiSt_test000000",
+    "description": "automation-negative-test",
+    "expectedStatus": 400
+  }
+]

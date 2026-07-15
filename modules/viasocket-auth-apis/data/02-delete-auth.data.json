@@ -1,0 +1,12 @@
+[
+  {
+    "case": "well_formed_non_existent_id_idempotent_delete_safe",
+    "auth_id": "auth2NoNeXiSt_test000000",
+    "expectedStatus": 200
+  },
+  {
+    "case": "malformed_id_fails_joi_validation",
+    "auth_id": "bad-id-!!!",
+    "expectedStatus": 400
+  }
+]

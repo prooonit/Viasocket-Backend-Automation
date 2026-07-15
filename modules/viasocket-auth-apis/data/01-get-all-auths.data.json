@@ -1,0 +1,11 @@
+[
+  {
+    "case": "valid_token_returns_auth_list",
+    "expectedStatus": 200
+  },
+  {
+    "case": "empty_token_returns_unauthorized",
+    "proxy_auth_token": "",
+    "expectedStatus": 401
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_auth_id_returns_info",
+    "auth_id": "auth2mzMsthE_row8gjpfv",
+    "expectedStatus": 200
+  },
+  {
+    "case": "malformed_id_fails_joi",
+    "auth_id": "bad-id-!!!",
+    "expectedStatus": 400
+  }
+]
