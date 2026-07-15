@@ -1,0 +1,126 @@
+{
+  "info": {
+    "_postman_id": "c1a9d5e2-3c4f-4e8b-9f11-logsapicoll01",
+    "name": "viasocket-logs",
+    "description": "ViaSocket Logs API collection (module: logs). Routes mounted at /logs via Logs_routes.js.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Logs",
+      "item": [
+        {
+          "name": "Get All Logs By Script Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/logs/orgId/{{org_id}}?scriptId={{scriptId}}&page=1&limit=10",
+              "host": ["{{BASE_URL}}"],
+              "path": ["logs", "orgId", "{{org_id}}"],
+              "query": [
+                { "key": "scriptId", "value": "{{scriptId}}" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Process Bulk Logs",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/logs/projectid/{{project_id}}/scriptid/{{scriptId}}/run-logs?filter={{filter}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["logs", "projectid", "{{project_id}}", "scriptid", "{{scriptId}}", "run-logs"],
+              "query": [
+                { "key": "filter", "value": "{{filter}}" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Log By Flow Hit Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/logs/scriptid/{{scriptId}}/singlelog/{{flowHitId}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["logs", "scriptid", "{{scriptId}}", "singlelog", "{{flowHitId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recent Log",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "proxy_auth_token", "value": "{{proxy_auth_token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/logs/scriptid/{{scriptId}}/recent",
+              "host": ["{{BASE_URL}}"],
+              "path": ["logs", "scriptid", "{{scriptId}}", "recent"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const expectedStatus = pm.iterationData.get(\"expectedStatus\") || 200;\r",
+              "\r",
+              "pm.test(\"Status code is correct\", () => {\r",
+              "    pm.response.to.have.status(expectedStatus);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time < 10s\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
+              "});\r",
+              "\r",
+              "if (expectedStatus === 200) {\r",
+              "    pm.test(\"Response is JSON\", () => {\r",
+              "        pm.response.to.be.json;\r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Error message exists\", () => {\r",
+              "        pm.expect(pm.response.json().message).to.exist;\r",
+              "    });\r",
+              "}\r",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

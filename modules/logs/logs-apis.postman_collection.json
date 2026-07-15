@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "fdcbff98-e76c-46d3-a913-b5159ebedbb6",
+    "name": "logs-apis",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26640235",
+    "_collection_link": "https://go.postman.co/collection/26640235-fdcbff98-e76c-46d3-a913-b5159ebedbb6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get all logs by Script Id",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/logs/orgId/{{orgId}}?scriptId={{scriptId}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logs",
+            "orgId",
+            "{{orgId}}"
+          ],
+          "query": [
+            {
+              "key": "scriptId",
+              "value": "{{scriptId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "process bulk logs",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/logs/projectid/{{project_id}}/scriptid/{{scriptId}}/run-logs?filter=%7B%7D",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logs",
+            "projectid",
+            "{{project_id}}",
+            "scriptid",
+            "{{scriptId}}",
+            "run-logs"
+          ],
+          "query": [
+            {
+              "key": "filter",
+              "value": "%7B%7D"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get logs by flow hit id",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/logs/scriptid/{{scriptId}}/singlelog/{{flowHitId}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logs",
+            "scriptid",
+            "{{scriptId}}",
+            "singlelog",
+            "{{flowHitId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get recent log",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "proxy_auth_token",
+            "value": "{{proxy_auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/logs/scriptid/{{scriptId}}/recent",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logs",
+            "scriptid",
+            "{{scriptId}}",
+            "recent"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -170,7 +170,7 @@
               }
             ],
             "url": {
-              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/{{project_id}}/status?status={{projectstatus}}",
+              "raw": "{{BASE_URL}}/orgs/{{org_id}}/projects/proj7NjOkoL8/status?status={{projectstatus}}",
               "host": [
                 "{{BASE_URL}}"
               ],

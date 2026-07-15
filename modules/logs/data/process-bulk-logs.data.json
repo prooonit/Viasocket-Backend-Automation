@@ -1,0 +1,14 @@
+[
+  {
+    "case": "valid_single_log_replay_via_flowHitId_filter",
+    "scriptId": "scriMH6A9vgN",
+    "filter": "%7B%22flowHitId%22%3A%22flhMH6A9vgN-c74ae6e0aa8b49e692679698dedf7feb%22%7D",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_scriptId_too_long_should_fail",
+    "scriptId": "abcdefghijklmnopqrst",
+    "filter": "%7B%7D",
+    "expectedStatus": 400
+  }
+]

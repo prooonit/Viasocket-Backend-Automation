@@ -1,0 +1,12 @@
+[
+  {
+    "case": "valid_get_recent_log",
+    "scriptId": "scriMH6A9vgN",
+    "expectedStatus": 200
+  },
+  {
+    "case": "invalid_scriptId_too_long_should_fail",
+    "scriptId": "abcdefghijklmnopqrst",
+    "expectedStatus": 400
+  }
+]
