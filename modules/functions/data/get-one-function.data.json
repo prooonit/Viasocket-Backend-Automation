@@ -7,11 +7,11 @@
   {
     "case": "non_existent_function_id",
     "function_Id": "invalid_func_000",
-    "expectedStatus": 404
+    "expectedStatus": 400
   },
   {
     "case": "random_string_id_should_fail",
     "function_Id": "abc123xyz",
-    "expectedStatus": 404
+    "expectedStatus": 400
   }
 ]

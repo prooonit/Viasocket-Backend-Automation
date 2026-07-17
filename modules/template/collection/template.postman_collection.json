@@ -46,7 +46,7 @@
               }
             ],
             "url": {
-              "raw": "{{BASE_URL}}/templates/get-all-templates",
+              "raw": "{{BASE_URL}}/templates/org_id/get-all-templates",
               "host": [
                 "{{BASE_URL}}"
               ],

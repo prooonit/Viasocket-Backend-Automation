@@ -59,7 +59,18 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
 }
 
 Write-Host ""
+Write-Host "---- Generating consolidated HTML summary ----"
+if (Get-Command node -ErrorAction SilentlyContinue) {
+  $env:REPORTS_ROOT = Join-Path $ROOT "modules"
+  $env:OUT          = Join-Path $ROOT "summary-report.html"
+  node (Join-Path $NODE_DIR "generateSummary.js")
+} else {
+  Write-Host "Skip summary: node not on PATH"
+}
+
+Write-Host ""
 Write-Host "============================================"
 Write-Host " ALL MODULES COMPLETE"
-Write-Host " Reports -> modules/<module>/reports/"
+Write-Host " Per-module HTML -> modules/<module>/reports/"
+Write-Host " Consolidated     -> summary-report.html"
 Write-Host "============================================"
