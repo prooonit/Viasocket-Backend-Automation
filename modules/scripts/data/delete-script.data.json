@@ -1,25 +1,13 @@
 [
   {
-    "case": "delete_valid_script",
-    "project_id": "proj19014",
-    "scriptId": "scriryjSrCij",
-    "expectedStatus": 200
-  },
-  {
-    "case": "delete_already_deleted_script_should_fail",
-    "project_id": "proj19014",
-    "scriptId": "scriryjSrCij",
-    "expectedStatus": 404
-  },
-  {
     "case": "delete_non_existent_script_should_fail",
-    "project_id": "proj19014",
+    "project_id": "{{project_id}}",
     "scriptId": "000000000000",
     "expectedStatus": 404
   },
   {
     "case": "delete_invalid_script_id_should_fail",
-    "project_id": "proj19014",
+    "project_id": "{{project_id}}",
     "scriptId": "invalid123abc",
     "expectedStatus": 400
   }

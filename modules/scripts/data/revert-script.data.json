@@ -1,6 +1,8 @@
 [
   {
-    "case": "revert_script",
+    "case": "revert_script_valid",
+    "scriptId": "{{scriptId}}",
+    "project_id": "{{project_id}}",
     "expectedStatus": 201
   }
 ]
