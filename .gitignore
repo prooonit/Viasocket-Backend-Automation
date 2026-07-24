@@ -16,3 +16,6 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+summary-report.html
+publish/
