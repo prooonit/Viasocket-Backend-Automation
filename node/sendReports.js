@@ -6,6 +6,7 @@ const REPORTS_ROOT = process.env.REPORTS_ROOT
   ? path.resolve(process.env.REPORTS_ROOT)
   : path.join(__dirname, "../modules");
 const WEBHOOK_URL = "https://flow.sokt.io/func/scriDNWooIDY";
+const REPORT_URL = process.env.REPORT_URL || "https://viasocket-apis-automation-reports.netlify.app";
 
 function collectJsonFiles(dir) {
   let results = [];

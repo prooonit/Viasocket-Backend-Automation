@@ -77,30 +77,36 @@ if (-not (Test-Path (Join-Path $PUBLISH_DIR "index.html"))) {
 # ------------------------------------------------------------
 # Step 2: Deploy to Netlify (production)
 # ------------------------------------------------------------
-function Deploy-LatestReport {
-  Write-Host ""
-  Write-Host "---- Deploying latest report to Netlify ($PROD_URL) ----"
-  if (-not (Get-Command netlify -ErrorAction SilentlyContinue)) {
-    Write-Host "ERROR: netlify CLI not found. Install with: npm i -g netlify-cli" -ForegroundColor Red
-    return $false
-  }
+Write-Host ""
+Write-Host "---- Deploying latest report to Netlify ($PROD_URL) ----"
+$deployOk = $false
+if (-not (Get-Command netlify -ErrorAction SilentlyContinue)) {
+  Write-Host "ERROR: netlify CLI not found. Install with: npm i -g netlify-cli" -ForegroundColor Red
+} else {
   netlify deploy --prod --dir $PUBLISH_DIR
-  if ($LASTEXITCODE -ne 0) {
+  if ($LASTEXITCODE -eq 0) {
+    Write-Host "Deployment succeeded -> $PROD_URL" -ForegroundColor Green
+    $deployOk = $true
+  } else {
     Write-Host "ERROR: Netlify deployment failed (exit $LASTEXITCODE)." -ForegroundColor Red
-    return $false
   }
-  Write-Host "Deployment succeeded -> $PROD_URL" -ForegroundColor Green
-  return $true
 }
 
-$deployOk = Deploy-LatestReport
 if (-not $deployOk) {
-  Write-Host "Skipping webhook because deployment did not succeed." -ForegroundColor Red
+  Write-Host "Skipping webhooks because deployment did not succeed." -ForegroundColor Red
   exit 1
 }
 
 # ------------------------------------------------------------
-# Step 3: Send webhook with the permanent production URL
+# Step 3a: Notify deploy webhook (single hit with the prod URL)
+# ------------------------------------------------------------
+Write-Host ""
+Write-Host "---- Sending deploy notification ----"
+$env:REPORT_URL = $PROD_URL
+node (Join-Path $NODE_DIR "notifyDeployment.js")
+
+# ------------------------------------------------------------
+# Step 3b: Send per-report payloads to the reports webhook
 # ------------------------------------------------------------
 Write-Host ""
 Write-Host "---- Sending reports to webhook ----"
