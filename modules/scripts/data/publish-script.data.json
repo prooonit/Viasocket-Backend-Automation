@@ -1,8 +1,12 @@
 [
+
   {
-    "case": "publish_script_valid",
-    "scriptId": "{{scriptId}}",
-    "project_id": "{{project_id}}",
+
+    "case": "publish_script",
+
     "expectedStatus": 201
+
   }
+
 ]
+

@@ -270,6 +270,7 @@ const html = `<!doctype html>
 <footer>Report source: <code>${esc(ROOT)}</code> - Output: <code>${esc(OUT)}</code></footer>
 </body></html>`;
 
+fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, "utf8");
 console.log(`Summary report written -> ${OUT}`);
 console.log(`Modules: ${modNames.length}, Requests: ${grand.requestsTotal}, Assertions: ${grand.assertionsTotal - grand.assertionsFailed}/${grand.assertionsTotal}, Failed: ${grand.assertionsFailed}`);
