@@ -44,7 +44,8 @@ async function sendAllReports() {
       avgResponseTimeMs: timings.responseAverage,
       minResponseMs: timings.responseMin,
       maxResponseMs: timings.responseMax,
-      success: report.run.failures.length === 0
+      success: report.run.failures.length === 0,
+      reportUrl: REPORT_URL
     };
 
     try {

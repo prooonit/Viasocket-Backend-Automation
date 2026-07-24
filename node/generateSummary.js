@@ -272,5 +272,8 @@ const html = `<!doctype html>
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, "utf8");
+const INDEX_OUT = path.join(path.dirname(OUT), "index.html");
+fs.writeFileSync(INDEX_OUT, html, "utf8");
 console.log(`Summary report written -> ${OUT}`);
+console.log(`Index copy written    -> ${INDEX_OUT}`);
 console.log(`Modules: ${modNames.length}, Requests: ${grand.requestsTotal}, Assertions: ${grand.assertionsTotal - grand.assertionsFailed}/${grand.assertionsTotal}, Failed: ${grand.assertionsFailed}`);
