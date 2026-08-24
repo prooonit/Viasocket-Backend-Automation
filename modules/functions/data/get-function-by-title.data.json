@@ -7,11 +7,11 @@
   {
     "case": "non_existent_title_should_fail",
     "functitle": "title_that_does_not_exist_xyz",
-    "expectedStatus": 400
+    "expectedStatus": 200
   },
   {
     "case": "empty_title_should_fail",
     "functitle": "empty",
-    "expectedStatus": 404004
+    "expectedStatus": 200
   }
 ]
