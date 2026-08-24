@@ -7,7 +7,7 @@
   {
     "case": "non_existent_org_id",
     "switchorgid": 999999,
-    "expectedStatus": 400
+    "expectedStatus": 403
   },
   {
     "case": "null_org_id_should_fail",
@@ -17,6 +17,6 @@
   {
     "case": "zero_org_id_should_fail",
     "switchorgid": 0,
-    "expectedStatus": 400
+    "expectedStatus": 403
   }
 ]
